@@ -23,7 +23,7 @@ typedef union {
 	 * See i386 manual for more details.
 	 */
 
-	struct {struct {uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;};
+	struct {uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
 
 
