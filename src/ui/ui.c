@@ -66,7 +66,7 @@ static void cmd_r() {
 		while(1) {
 			printf("The program is already running. Restart the program? (y or n)");
 			fflush(stdout);
-			scanf("%c", &c);
+			scanf(" %c", &c);
 			switch(c) {
 				case 'y': goto restart_;
 				case 'n': return;
@@ -117,7 +117,24 @@ void main_loop() {
 			}
 				printf("%d\n",para);
 			cmd_si(para);
+		}
+		else if(strcmp(p, "info") == 0) {
+			p = strtok(NULL," ");
+			if (p == NULL)
+				printf("Invalid parameter!");
+			else {
+				if (strcmp(p, "r") == 0) {
+					printf("EAX      %p     %d/n",&cpu.eax,cpu.eax);
+					printf("ECX      %p     %d/n",&cpu.ecx,cpu.ecx);
+					printf("EDX      %p     %d/n",&cpu.edx,cpu.edx);
+					printf("EBX      %p     %d/n",&cpu.ebx,cpu.ebx);
+					printf("ESP      %p     %d/n",&cpu.esp,cpu.esp);
+					printf("EBP      %p     %d/n",&cpu.ebp,cpu.ebp);
+					printf("ESI      %p     %d/n",&cpu.esi,cpu.esi);
+					printf("EDI      %p     %d/n",&cpu.edi,cpu.edi);
+				}
 			}
+		}
 		/* TODO: Add more commands */
 
 		else { printf("Unknown command '%s'\n", p); }
