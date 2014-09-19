@@ -98,7 +98,7 @@ void main_loop() {
 	while(1) {
 		cmd = rl_gets();
 		char *p = strtok(cmd, " ");
-		volatile uint32_t para=0;
+		int para=0;
 		if(p == NULL) {continue; }
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
