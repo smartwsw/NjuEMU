@@ -132,7 +132,7 @@ void main_loop() {
 					printf("EBP      %p     %d\n",&cpu.ebp,cpu.ebp);
 					printf("ESI      %p     %d\n",&cpu.esi,cpu.esi);
 					printf("EDI      %p     %d\n",&cpu.edi,cpu.edi);
-					printf("EIP      %p     %d\n",&cpu.eip,cpu.eip);
+					printf("EIP      %p\n",&cpu.eip);
 				}
 			}
 		}
