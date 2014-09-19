@@ -73,24 +73,35 @@ static void cmd_r() {
 			}
 		}
 	}
-
 restart_:
 	restart();
 	nemu_state = STOP;
 	cmd_c();
 }
-
+static void cmd_si(int n)
+{
+	cpu_exec(n);
+}
 void main_loop() {
 	char *cmd;
 	while(1) {
 		cmd = rl_gets();
 		char *p = strtok(cmd, " ");
-
-		if(p == NULL) { continue; }
-
+		char *p_cutted;
+		volatile uint32_t para=0;
+		if(p == NULL) {
+			continue; 
+		}
+		else
+		{
+			p_cutted = p;
+			p_cutted = strtok(NULL,cmd);
+			para=atoi(p_cutted);
+		}
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
 		else if(strcmp(p, "q") == 0) { return; }
+		else if(strcmp(p, "si") == 0) { cmd_si(para);}
 
 		/* TODO: Add more commands */
 
