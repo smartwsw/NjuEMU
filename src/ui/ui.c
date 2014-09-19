@@ -87,16 +87,16 @@ void main_loop() {
 	while(1) {
 		cmd = rl_gets();
 		char *p = strtok(cmd, " ");
-		//char *p_cutted;
+		char *p_cutted;
 		volatile uint32_t para=0;
 		if(p == NULL) {
 			continue; 
 		}
 		else
 		{
-			//p_cutted = p;
-			//p_cutted = strtok(NULL,cmd);
-			//para=atoi(p_cutted);
+			p_cutted = p;
+			p_cutted = strtok(NULL,cmd);
+			para=atoi(p_cutted);
 		}
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
