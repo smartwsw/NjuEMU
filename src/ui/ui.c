@@ -81,9 +81,11 @@ restart_:
 static void cmd_si(volatile uint32_t n)
 {
 	if(nemu_state == END) {
-		cmd_r();
+		cpu_exec(1);
 	}
-	cpu_exec(n);
+	else {
+		cpu_exec(n);
+	}
 }
 void main_loop() {
 	char *cmd;
