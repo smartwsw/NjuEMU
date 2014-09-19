@@ -78,10 +78,10 @@ restart_:
 	nemu_state = STOP;
 	cmd_c();
 }
-//static void cmd_si(volatile uint32_t n)
-//{
-//	cpu_exec(n);
-//}
+static void cmd_si(volatile uint32_t n)
+{
+	cpu_exec(n);
+}
 void main_loop() {
 	char *cmd;
 	while(1) {
@@ -102,7 +102,7 @@ void main_loop() {
 					printf("Invalid parameter!");
 					continue;
 				}
-				cpu_exec(para);
+			cmd_si(para);
 			}
 		}
 		/* TODO: Add more commands */
