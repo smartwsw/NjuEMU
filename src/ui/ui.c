@@ -98,7 +98,7 @@ void main_loop() {
 	while(1) {
 		cmd = rl_gets();
 		char *p = strtok(cmd, " ");
-		int para=0;
+		volatile uint32_t para=0;
 		if(p == NULL) {continue; }
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
@@ -113,10 +113,10 @@ void main_loop() {
 					printf("Invalid parameter!");
 					continue;
 				}
+			}
 				printf("%d\n",para);
 			cmd_si(para);
 			}
-		}
 		/* TODO: Add more commands */
 
 		else { printf("Unknown command '%s'\n", p); }
