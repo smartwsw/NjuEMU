@@ -113,6 +113,7 @@ void main_loop() {
 					printf("Invalid parameter!");
 					continue;
 				}
+				printf("%d\n",para);
 			cmd_si(para);
 			}
 		}
