@@ -78,7 +78,7 @@ restart_:
 	nemu_state = STOP;
 	cmd_c();
 }
-static void cmd_si(int n)
+static void cmd_si(volatile uint32_t n)
 {
 	cpu_exec(n);
 }
