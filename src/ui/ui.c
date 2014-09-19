@@ -80,6 +80,9 @@ restart_:
 }
 static void cmd_si(volatile uint32_t n)
 {
+	if(nemu_state != END) {
+		cmd_r();
+	}
 	cpu_exec(n);
 }
 void main_loop() {
