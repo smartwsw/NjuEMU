@@ -95,7 +95,7 @@ void main_loop() {
 		else
 		{
 			p_cutted = p;
-			p_cutted = strtok(NULL,cmd);
+			p_cutted = strtok(NULL," ");
 			para=atoi(p_cutted);
 		}
 		if(strcmp(p, "c") == 0) { cmd_c(); }
