@@ -121,7 +121,7 @@ void main_loop() {
 		else if(strcmp(p, "info") == 0) {
 			p = strtok(NULL," ");
 			if (p == NULL)
-				printf("Invalid parameter!");
+				printf("Invalid parameter!\n");
 			else {
 				if (strcmp(p, "r") == 0) {
 					printf("EAX      %p     %d\n",&cpu.eax,cpu.eax);
@@ -140,7 +140,7 @@ void main_loop() {
 						//Wait to set function "info b" here in future.
 					}
 					else {
-						printf("Invalid parameter!");
+						printf("Invalid parameter!\n");
 					}
 				}
 			}
