@@ -87,22 +87,24 @@ void main_loop() {
 	while(1) {
 		cmd = rl_gets();
 		char *p = strtok(cmd, " ");
-		char *p_cutted;
 		volatile uint32_t para=0;
-		if(p == NULL) {
-			continue; 
-		}
-		else
-		{
-			p_cutted = p;
-			p_cutted = strtok(NULL," ");
-			para=atoi(p_cutted);
-		}
+		if(p == NULL) {continue; }
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
 		else if(strcmp(p, "q") == 0) { return; }
-		else if(strcmp(p, "si") == 0) { cmd_si(para);}
-
+		else if(strcmp(p, "si") == 0) { 
+			p = strtok(NULL," ");
+			if (p == NULL)
+				para=1;
+			else {
+				para = atoi(p);
+				if (para <= 0) {
+					printf("Invalid parameter!");
+					continue;
+				}
+			cmd_si(para);
+			}
+		}
 		/* TODO: Add more commands */
 
 		else { printf("Unknown command '%s'\n", p); }
