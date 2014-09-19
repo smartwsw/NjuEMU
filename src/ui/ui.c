@@ -134,6 +134,15 @@ void main_loop() {
 					printf("EDI      %p     %d\n",&cpu.edi,cpu.edi);
 					printf("EIP      %p\n",&cpu.eip);
 				}
+				else {
+					if (strcmp(p, "b") == 0) {
+						printf("This function is not available now. \n");
+						//Wait to set function "info b" here in future.
+					}
+					else {
+						printf("Invalid parameter!");
+					}
+				}
 			}
 		}
 		/* TODO: Add more commands */
