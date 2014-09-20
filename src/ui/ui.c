@@ -147,8 +147,9 @@ void main_loop() {
 		}
 		else if(strcmp(p, "x") ==0) {
 			p = strtok(NULL," ");
-			sscanf(p,"%d %x",&para,&addr);
-			//printf("%d %x\n",para,addr);
+			sscanf(p,"%d",&para);
+			printf("%d\n",para);
+			printf("%x\n",addr);
 		}
 		/* TODO: Add more commands */
 
