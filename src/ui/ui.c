@@ -106,7 +106,7 @@ static void cmd_x(uint32_t para,uint32_t addr)
 {
 	int i;
 	for (i=0;i<para;i++) {
-		print_bin_instr(addr,1);
+		print_bin_instr(addr,4);
 		printf("\n");
 		addr+=4;
 	}
