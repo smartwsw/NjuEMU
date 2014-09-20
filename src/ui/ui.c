@@ -132,7 +132,7 @@ void main_loop() {
 					continue;
 				}
 			}
-				printf("%d\n",para);
+//				printf("%d\n",para);
 			cmd_si(para);
 		}
 		else if(strcmp(p, "info") == 0) {
