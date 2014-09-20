@@ -108,6 +108,7 @@ static void cmd_x(uint32_t para,uint32_t addr)
 	for (i=0;i<para;i++) {
 		print_bin_instr(addr,1);
 		printf("\n");
+		addr+=4;
 	}
 }
 void main_loop() {
