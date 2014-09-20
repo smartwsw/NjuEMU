@@ -99,7 +99,7 @@ void main_loop() {
 	while(1) {
 		cmd = rl_gets();
 		char *p = strtok(cmd, " ");
-		volatile uint32_t para=0;//addr=0;
+		volatile uint32_t para=0,addr=0;
 		if(p == NULL) {continue; }
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
@@ -147,7 +147,7 @@ void main_loop() {
 		}
 		else if(strcmp(p, "x") ==0) {
 			p = strtok(NULL," ");
-			//sscanf(p,"%d %x",&para,&addr);
+			sscanf(p,"%d %x",&para,&addr);
 			//printf("%d %x\n",para,addr);
 		}
 		/* TODO: Add more commands */
