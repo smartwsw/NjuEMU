@@ -107,6 +107,7 @@ static void cmd_x(uint32_t para,uint32_t addr)
 	int i;
 	for (i=0;i<para;i++) {
 		print_bin_instr(addr,1);
+		printf("\n");
 	}
 }
 void main_loop() {
@@ -166,10 +167,8 @@ void main_loop() {
 				printf("Invalid parameter!\n");
 			else {
 				sscanf(p,"%d",&para);
-				printf("%d\n",para);
 				p = strtok(NULL," ");
 				sscanf(p,"%x",&addr);
-				printf("%x\n",addr);
 				cmd_x(para,addr);
 			}
 		}
