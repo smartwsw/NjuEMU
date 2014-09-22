@@ -94,6 +94,17 @@ static void cmd_si(volatile uint32_t n)
 		return;
 	}
 }
+static void cmd_info_r() {
+					printf("EAX      %p     %d\n",&cpu.eax,cpu.eax);
+					printf("ECX      %p     %d\n",&cpu.ecx,cpu.ecx);
+					printf("EDX      %p     %d\n",&cpu.edx,cpu.edx);
+					printf("EBX      %p     %d\n",&cpu.ebx,cpu.ebx);
+					printf("ESP      %p     %d\n",&cpu.esp,cpu.esp);
+					printf("EBP      %p     %d\n",&cpu.ebp,cpu.ebp);
+					printf("ESI      %p     %d\n",&cpu.esi,cpu.esi);
+					printf("EDI      %p     %d\n",&cpu.edi,cpu.edi);
+					printf("EIP      %p\n",&cpu.eip);
+}
 static void print_bin_instr(swaddr_t eip, int len) {
 	    int i;
 	    printf("%8x:   ", eip);
@@ -141,15 +152,7 @@ void main_loop() {
 				printf("Invalid parameter!\n");
 			else {
 				if (strcmp(p, "r") == 0) {
-					printf("EAX      %p     %d\n",&cpu.eax,cpu.eax);
-					printf("ECX      %p     %d\n",&cpu.ecx,cpu.ecx);
-					printf("EDX      %p     %d\n",&cpu.edx,cpu.edx);
-					printf("EBX      %p     %d\n",&cpu.ebx,cpu.ebx);
-					printf("ESP      %p     %d\n",&cpu.esp,cpu.esp);
-					printf("EBP      %p     %d\n",&cpu.ebp,cpu.ebp);
-					printf("ESI      %p     %d\n",&cpu.esi,cpu.esi);
-					printf("EDI      %p     %d\n",&cpu.edi,cpu.edi);
-					printf("EIP      %p\n",&cpu.eip);
+					cmd_info_r();
 				}
 				else {
 					if (strcmp(p, "b") == 0) {
