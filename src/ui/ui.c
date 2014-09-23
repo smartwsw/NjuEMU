@@ -184,8 +184,7 @@ void main_loop() {
 			}
 		}
 		else if(strcmp(p, "b") == 0) {
-			p = strtok("NULL"," ");
-			printf("test\n");
+			p = strtok(NULL," ");
 			if (p == NULL)
 				printf("Invalid parameter!\n");
 			else {
