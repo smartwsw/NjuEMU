@@ -122,6 +122,13 @@ static void cmd_x(uint32_t para,uint32_t addr)
 		addr+=4;
 	}
 }
+static void cmd_info_b() {
+	printf("This function is not available now. \n");
+	//Wait to set function "info b" here in future.
+}
+static void cmd_b(int addr) {
+	printf("b test\n");
+}
 void main_loop() {
 	char *cmd;
 	while(1) {
@@ -132,7 +139,7 @@ void main_loop() {
 		if(strcmp(p, "c") == 0) { cmd_c(); }
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
 		else if(strcmp(p, "q") == 0) { return; }
-		else if(strcmp(p, "si") == 0) { 
+		else if(strcmp(p, "si") == 0) {							
 			p = strtok(NULL," ");
 			if (p == NULL)
 				para=1;
@@ -143,21 +150,19 @@ void main_loop() {
 					continue;
 				}
 			}
-//				printf("%d\n",para);
 			cmd_si(para);
-		}
-		else if(strcmp(p, "info") == 0) {
+		}														       
+		else if(strcmp(p, "info") == 0) {							
 			p = strtok(NULL," ");
 			if (p == NULL)
 				printf("Invalid parameter!\n");
 			else {
 				if (strcmp(p, "r") == 0) {
-					cmd_info_r();
+					cmd_info_r();	
 				}
 				else {
 					if (strcmp(p, "b") == 0) {
-						printf("This function is not available now. \n");
-						//Wait to set function "info b" here in future.
+						cmd_info_b();
 					}
 					else {
 						printf("Invalid parameter!\n");
@@ -172,8 +177,19 @@ void main_loop() {
 			else {
 				sscanf(p,"%d",&para);
 				p = strtok(NULL," ");
+				if (p == NULL) 
+					printf("Invalid parameter!\n");
 				sscanf(p,"%x",&addr);
 				cmd_x(para,addr);
+			}
+		}
+		else if(strcmp(p, "b") == 0) {
+			p = strtok("NULL"," ");
+			if (p == NULL)
+				printf("Invalid parameter!\n");
+			else {
+				sscanf(p,"%x",&addr);
+				cmd_b(para);
 			}
 		}
 		/* TODO: Add more commands */

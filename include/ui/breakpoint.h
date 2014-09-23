@@ -8,7 +8,7 @@
 typedef struct breakpoint {
 	int NO;
 	struct breakpoint *next;
-
+	bool if_used;
 	/* TODO: Add more members if necessary */
 
 
