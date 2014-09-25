@@ -179,8 +179,10 @@ void main_loop() {
 				p = strtok(NULL," ");
 				if (p == NULL) 
 					printf("Invalid parameter!\n");
-				sscanf(p,"%x",&addr);
-				cmd_x(para,addr);
+				else { 
+					sscanf(p,"%x",&addr);
+					cmd_x(para,addr);
+				}
 			}
 		}
 		else if(strcmp(p, "b") == 0) {
