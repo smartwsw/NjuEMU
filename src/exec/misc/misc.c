@@ -22,9 +22,9 @@ make_helper(int3) {
 		printf("breakpoint at 0x%x\n",cpu.eip);
 		nemu_state=INT;
 	}
-//	printf("test0\n");
-//	printf("test1\n");
-//	int temp=find(cpu.eip);
+	printf("test0\n");
+	printf("test1\n");
+	find(cpu.eip);
 //	printf("find success\n");
 //	swaddr_write(cpu.eip,1,temp);
 	return 1;
