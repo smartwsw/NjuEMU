@@ -17,4 +17,5 @@ typedef struct breakpoint {
 
 BP* new_bp();
 int find();
+void load_bps();
 #endif

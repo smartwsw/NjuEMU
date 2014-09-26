@@ -128,7 +128,7 @@ static void cmd_b(int addr) {
 	BP *new=new_bp();
 	new->origin=temp;
 	new->addr=addr;
-	printf("Breakpoint %d at 0x%8x.\n",new->NO,addr);
+	printf("Breakpoint %d at 0x%x.\n",new->NO,addr);
 	swaddr_write(addr,1,0xcc);
 }
 void main_loop() {

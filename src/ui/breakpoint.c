@@ -59,4 +59,12 @@ int find(int addr) {
 	}
 	return temp->origin;
 }
+void load_bps() {
+	BP *tmp=head;
+	while(tmp!=NULL) {
+		swaddr_write(tmp->addr,1,0xcc);
+		tmp=tmp->next;
+	}
+	return ;
+}
 /* TODO: Implement the function of breakpoint */
