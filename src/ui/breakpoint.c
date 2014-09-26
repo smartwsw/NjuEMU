@@ -80,7 +80,7 @@ void info_b() {
 	}
 }
 void delete_bp(int NO) {
-	NO++;
+	NO--;
 	if (NO<1&&NO>32) 
 		printf("Invalid breakpoint!\n");
 	else {
