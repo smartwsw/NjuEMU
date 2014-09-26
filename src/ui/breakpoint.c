@@ -49,6 +49,10 @@ void free_bp(BP *bp) {
 	if (tmp==NULL)
 		return;
 	BP *tmp_n=tmp->next;
+	if (tmp_n==NULL) {
+		head=NULL;
+		return ;
+	}
 	while(tmp_n!=NULL) {
 		if (tmp_n->NO==bp->NO)
 			break;
@@ -108,7 +112,7 @@ void delete_bp(int NO) {
 			}
 			if (NO==0) {
 				swaddr_write(tmp->addr,1,tmp->origin);
-				//free_bp(tmp);
+				free_bp(tmp);
 				return ;
 			}
 
