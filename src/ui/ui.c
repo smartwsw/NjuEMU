@@ -8,7 +8,7 @@
 #include <readline/history.h>
 
 int nemu_state = END;
-
+bool stop_by_bp=false;
 void cpu_exec(uint32_t);
 void restart();
 
