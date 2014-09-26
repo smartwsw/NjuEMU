@@ -16,4 +16,5 @@ typedef struct breakpoint {
 } BP;
 
 BP* new_bp();
+BP* find();
 #endif

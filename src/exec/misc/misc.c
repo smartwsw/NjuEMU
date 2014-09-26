@@ -1,7 +1,7 @@
 #include "exec/helper.h"
 
 #include "ui/ui.h"
-
+#include "ui/breakpoint.h"
 #include "nemu.h"
 
 make_helper(inv) {
@@ -20,6 +20,8 @@ make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
 	nemu_state=INT;
 	cpu.eip--;
+	BP *bp=find(cpu.eip);
+	swaddr_write(cpu.eip,1,bp->origin);
 	return 1;
 }
 
