@@ -41,7 +41,12 @@ int find(int addr) {
 			break;
 		temp=temp->next;
 	}
-	printf("%x\n",temp->addr);
+	if (temp==NULL) {
+		printf("failed\n");
+		return 0;
+	}
+	else
+		printf("%x\n",temp->addr);
 	return temp->origin;
 }
 /* TODO: Implement the function of breakpoint */
