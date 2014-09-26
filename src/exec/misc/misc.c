@@ -20,7 +20,6 @@ make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
 	nemu_state=INT;
 	printf("test0\n");
-	cpu.eip--;
 	printf("test1\n");
 	int temp=find(cpu.eip);
 	printf("find success\n");
