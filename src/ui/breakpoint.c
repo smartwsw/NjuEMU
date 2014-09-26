@@ -89,15 +89,16 @@ void delete_bp(int NO) {
 			return;
 		}
 		else {
-			while(tmp!=NULL) {
+			while(tmp->next!=NULL) {
 				if (tmp->NO==NO)
 					break;
 				tmp=tmp->next;
 			}
-			if (tmp==NULL) {
+			if (tmp->next==NULL) {
 				printf("No breakpoints here!\n");
 				return; }
-			free_bp(tmp);
+			free_bp(tmp->next);
+			tmp->next=NULL;
 		}
 		return ;
 	}
