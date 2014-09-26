@@ -41,20 +41,24 @@ void cpu_exec(volatile uint32_t n) {
 	volatile uint32_t n_temp = n;
 
 	setjmp(jbuf);
+	int len;
 	for(; n > 0; n --) {
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
 
 		cpu.eip += instr_len;
 
+		len=instr_len;
 		if(n_temp != -1 || (enable_debug && !quiet)) {
 			print_bin_instr(eip_temp, instr_len);
 			puts(assembly);
 		}
 
 		if(nemu_state == STOP) { 
-			if (stop_by_bp==true)
+			if (stop_by_bp==true) {
 				printf("%x\n",cpu.eip);
+				swaddr_write(cpu.eip-len,1,0xcc);
+			}
 			return; }
 		if(nemu_state == INT) {
 			printf("\n\nUser interrupt\n");
