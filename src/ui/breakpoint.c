@@ -103,25 +103,15 @@ void delete_bp(int NO) {
 			printf("No breakpoints now!\n");
 			return;
 		}
-		else {
-			while(tmp->next!=NULL) {
-				if (tmp->NO==NO)
-					break;
-				tmp=tmp->next;
+		int i=1;
+		for (;i<NO;i++) {
+			tmp=tmp->next;
+			if(tmp==NULL) {
+				printf("No breakpoint here!\n");
+				return;
 			}
-			if (NO==1) {
-				swaddr_write(tmp->addr,1,tmp->origin);
-				free_bp(tmp);
-				return ;
-			}
-
-			if (tmp==NULL) {
-				printf("No breakpoints here!\n");
-				return; }
-			swaddr_write(tmp->next->addr,1,tmp->next->origin);
-			free_bp(tmp->next);
-			tmp->next=NULL;
 		}
+		free_bp(tmp);
 		return ;
 	}
 }
