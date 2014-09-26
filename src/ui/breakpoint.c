@@ -98,6 +98,7 @@ void delete_bp(int NO) {
 			if (tmp->next==NULL) {
 				printf("No breakpoints here!\n");
 				return; }
+			swaddr_write(tmp->next->addr,1,tmp->next->origin);
 			free_bp(tmp->next);
 			tmp->next=NULL;
 		}
