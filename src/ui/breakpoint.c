@@ -95,6 +95,12 @@ void delete_bp(int NO) {
 					break;
 				tmp=tmp->next;
 			}
+			if (NO==1) {
+				swaddr_write(tmp->addr,1,tmp->origin);
+				free_bp(tmp);
+				return ;
+			}
+
 			if (tmp->next==NULL) {
 				printf("No breakpoints here!\n");
 				return; }
