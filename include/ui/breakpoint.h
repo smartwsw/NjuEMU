@@ -9,6 +9,7 @@ typedef struct breakpoint {
 	struct breakpoint *next;
 	bool if_used;
 	int origin;
+	int addr;
 	/* TODO: Add more members if necessary */
 
 
