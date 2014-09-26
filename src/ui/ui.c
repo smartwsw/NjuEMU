@@ -1,5 +1,5 @@
 #include "ui/ui.h"
-
+#include "ui/breakpoint.h"
 #include "nemu.h"
 
 #include <signal.h>
@@ -128,6 +128,11 @@ static void cmd_info_b() {
 }
 static void cmd_b(int addr) {
 	printf("b test\n");
+	int temp;
+	temp=swaddr_read(addr,1);
+	BP *new=new_bp();
+	new->origin=temp;
+	swaddr_write(addr,1,0xCC);
 }
 void main_loop() {
 	char *cmd;
