@@ -95,7 +95,7 @@ void delete_bp(int NO) {
 					break;
 				tmp=tmp->next;
 			}
-			if (NO==1) {
+			if (NO==2) {
 				swaddr_write(tmp->addr,1,tmp->origin);
 				free_bp(tmp);
 				return ;
