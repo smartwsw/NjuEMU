@@ -202,7 +202,7 @@ void main_loop() {
 				printf("Invalid parameter!\n");
 			else {
 				sscanf(p,"%x",&addr);
-				cmd_b(para);
+				cmd_b(addr);
 			}
 		}
 		/* TODO: Add more commands */
