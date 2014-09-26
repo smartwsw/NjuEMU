@@ -48,9 +48,6 @@ void free_bp(BP *bp) {
 int find(int addr) {
 	BP *temp=head;
 	assert(temp!=NULL);
-	printf("%x\n",addr);
-	printf("%x\n",temp->addr);
-	printf("%d\n",temp->NO);
 	while (temp!=NULL) {
 		if (temp->addr==addr)
 			break;
@@ -60,8 +57,6 @@ int find(int addr) {
 		printf("failed\n");
 		return 0;
 	}
-	else
-		printf("%x\n",temp->addr);
 	return temp->origin;
 }
 /* TODO: Implement the function of breakpoint */
