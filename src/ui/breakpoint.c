@@ -71,9 +71,11 @@ void info_b() {
 		printf("No breakpoints now!\n");
 		return;
 	}
+	int count=1;
 	BP *tmp=head;
 	while(tmp!=NULL) {
-		printf("Breakpoint %d at 0x%x.\n",tmp->NO,tmp->addr);
+		printf("Breakpoint %d at 0x%x.\n",count,tmp->addr);
+		count++;
 		tmp=tmp->next;
 	}
 }
