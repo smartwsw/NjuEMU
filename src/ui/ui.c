@@ -132,6 +132,7 @@ static void cmd_b(int addr) {
 	temp=swaddr_read(addr,1);
 	BP *new=new_bp();
 	new->origin=temp;
+	printf("%x %x\n",temp,new->origin);
 	swaddr_write(addr,1,0xCC);
 }
 void main_loop() {
