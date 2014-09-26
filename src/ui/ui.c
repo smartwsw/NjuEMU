@@ -123,13 +123,12 @@ static void cmd_info_b() {
 	//Wait to set function "info b" here in future.
 }
 static void cmd_b(int addr) {
-	printf("b test\n");
 	int temp;
 	temp=swaddr_read(addr,1);
 	BP *new=new_bp();
 	new->origin=temp;
 	new->addr=addr;
-	printf("%x %x\n",temp,new->origin);
+	printf("Breakpoint %d at 0x%8x.\n",new->NO,addr);
 	swaddr_write(addr,1,0xcc);
 }
 void main_loop() {
