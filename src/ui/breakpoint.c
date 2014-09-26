@@ -101,6 +101,7 @@ void delete_bp(int NO) {
 		tmp=tmp->next;
 		i++;
 		for (;i<NO;i++) {
+			tmp_l=tmp;
 			tmp=tmp->next;
 			if(tmp==NULL) {
 				printf("No breakpoint here!\n");
