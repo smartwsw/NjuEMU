@@ -42,6 +42,7 @@ void free_bp(BP *bp) {
 }
 int find(int addr) {
 	BP *temp=head;
+	assert(temp!=NULL);
 	printf("%x\n",addr);
 	printf("%x\n",temp->addr);
 	printf("%d\n",temp->NO);
