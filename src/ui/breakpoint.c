@@ -43,12 +43,13 @@ void free_bp(BP *bp) {
 int find(int addr) {
 	BP *temp=head;
 	printf("%x\n",addr);
+	printf("%x\n",temp->addr);
 	printf("%d\n",temp->NO);
-	while (temp!=NULL) {
-		if (temp->addr==addr)
-			break;
-		temp=temp->next;
-	}
+//	while (temp!=NULL) {
+//		if (temp->addr==addr)
+//			break;
+//		temp=temp->next;
+//	}
 	if (temp==NULL) {
 		printf("failed\n");
 		return 0;
