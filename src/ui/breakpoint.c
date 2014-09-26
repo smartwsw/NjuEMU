@@ -36,6 +36,7 @@ void free_bp(BP *bp) {
 int find(int addr) {
 	BP *temp=head;
 	printf("%x\n",addr);
+	printf("%d\n",temp->NO);
 	while (temp!=NULL) {
 		if (temp->addr==addr)
 			break;
