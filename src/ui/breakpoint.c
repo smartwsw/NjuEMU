@@ -9,7 +9,7 @@ static BP *head, *free_;
 
 static void add_to_tail(BP *bp) {
 	BP *tmp=head;
-	while (tmp!=NULL)
+	while (tmp->next!=NULL)
 		tmp=tmp->next;
 	tmp->next=bp;
 }
