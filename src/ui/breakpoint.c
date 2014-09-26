@@ -43,11 +43,11 @@ BP* new_bp() {
 }
 void free_bp(BP *bp) {
 	bp->if_used=false;
-	bp->next=bp_pool[bp->NO-1].next;
-	bp_pool[bp->NO-1].next=bp;
-	BP *tmp=head;
-	if (tmp==NULL)
-		return;
+	BP *tmp=free_;
+	while(tmp!=NULL)
+		tmp=tmp->next;
+	tmp->next=bp;
+	bp->next=NULL;
 
 }
 int find(int addr) {
@@ -93,6 +93,13 @@ void delete_bp(int NO) {
 			return;
 		}
 		int i=1;
+		if (NO==1) {
+			head=head->next;
+			return;
+		}
+		BP *tmp_l=tmp;
+		tmp=tmp->next;
+		i++;
 		for (;i<NO;i++) {
 			tmp=tmp->next;
 			if(tmp==NULL) {
@@ -102,6 +109,7 @@ void delete_bp(int NO) {
 		}
 		swaddr_write(tmp->addr,1,tmp->origin);
 		free_bp(tmp);
+		tmp_l->next=tmp_l->next->next;
 		return ;
 	}
 }
