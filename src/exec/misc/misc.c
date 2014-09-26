@@ -18,7 +18,7 @@ make_helper(inv) {
 
 make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
-	nemu_state=STOP;
+	nemu_state=INT;
 	cpu.eip--;
 	return 1;
 }
