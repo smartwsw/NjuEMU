@@ -22,9 +22,9 @@ make_helper(int3) {
 	printf("test0\n");
 	cpu.eip--;
 	printf("test1\n");
-//	BP *bp=find(cpu.eip);
-//	printf("find success\n");
-//	swaddr_write(cpu.eip,1,bp->origin);
+	int temp=find(cpu.eip);
+	printf("find success\n");
+	swaddr_write(cpu.eip,1,temp);
 	return 1;
 }
 

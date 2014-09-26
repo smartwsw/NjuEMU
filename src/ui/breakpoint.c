@@ -33,14 +33,15 @@ void free_bp(BP *bp) {
 	bp->next=bp_pool[bp->NO-1].next;
 	bp_pool[bp->NO-1].next=bp;
 }
-BP* find(int addr) {
+int find(int addr) {
 	BP *temp=head;
 	printf("%x\n",addr);
 	while (temp!=NULL) {
 		if (temp->addr==addr)
 			break;
+		temp=temp->next;
 	}
 	printf("%x\n",temp->addr);
-	return temp;
+	return temp->origin;
 }
 /* TODO: Implement the function of breakpoint */
