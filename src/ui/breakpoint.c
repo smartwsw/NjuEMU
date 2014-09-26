@@ -7,6 +7,12 @@
 static BP bp_pool[NR_BP];
 static BP *head, *free_;
 
+static void add_to_tail(BP *bp) {
+	BP *tmp=head;
+	while (tmp!=NULL)
+		tmp=tmp->next;
+	tmp->next=bp;
+}
 void init_bp_pool() {
 	int i;
 	for(i = 0; i < NR_BP - 1; i ++) {
@@ -26,6 +32,7 @@ BP* new_bp() {
 	}
 	new=tmp->next;
 	tmp->next=tmp->next->next;
+	add_to_tail(new);
 	return new;
 }
 void free_bp(BP *bp) {
