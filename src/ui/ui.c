@@ -136,6 +136,9 @@ static void cmd_b(int addr) {
 	printf("Breakpoint %d at 0x%x.\n",new->NO,addr);
 	swaddr_write(addr,1,0xcc);
 }
+static void cmd_d(int para) {
+	delete_bp(para);
+}
 void main_loop() {
 	char *cmd;
 	while(1) {
@@ -199,6 +202,15 @@ void main_loop() {
 			else {
 				sscanf(p,"%x",&addr);
 				cmd_b(addr);
+			}
+		}
+		else if(strcmp(p, "d") == 0) {
+			p = strtok(NULL," ");
+			if (p == NULL)
+				printf("Invalid parameter!\n");
+			else {
+				sscanf(p,"%d",&para);
+				cmd_d(para);
 			}
 		}
 		/* TODO: Add more commands */

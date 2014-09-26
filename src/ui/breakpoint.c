@@ -79,4 +79,27 @@ void info_b() {
 		tmp=tmp->next;
 	}
 }
+void delete_bp(int NO) {
+	if (NO<1&&NO>32) 
+		printf("Invalid breakpoint!\n");
+	else {
+		BP *tmp=head;
+		if (tmp==NULL) {
+			printf("No breakpoints now!\n");
+			return;
+		}
+		else {
+			while(tmp!=NULL) {
+				if (tmp->NO==NO)
+					break;
+				tmp=tmp->next;
+			}
+			if (tmp==NULL) {
+				printf("No breakpoints here!\n");
+				return; }
+			free_bp(tmp);
+		}
+		return ;
+	}
+}
 /* TODO: Implement the function of breakpoint */

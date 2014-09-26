@@ -19,4 +19,5 @@ BP* new_bp();
 int find();
 void load_bps();
 void info_b();
+void delete_bp(int NO);
 #endif
