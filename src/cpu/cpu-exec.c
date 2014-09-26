@@ -58,6 +58,7 @@ void cpu_exec(volatile uint32_t n) {
 			if (stop_by_bp==true) {
 				printf("%x\n",cpu.eip);
 				swaddr_write(cpu.eip-len,1,0xcc);
+				stop_by_bp=false;
 			}
 			return; }
 		if(nemu_state == INT) {
