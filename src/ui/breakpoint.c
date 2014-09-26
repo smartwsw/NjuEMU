@@ -11,7 +11,7 @@ static void add_to_tail(BP *bp) {
 	BP *tmp=head;
 	while (tmp!=NULL)
 		tmp=tmp->next;
-	tmp=bp;
+	head=bp;
 }
 void init_bp_pool() {
 	int i;
