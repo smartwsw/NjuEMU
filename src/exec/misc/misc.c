@@ -18,8 +18,7 @@ make_helper(inv) {
 
 make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
-	assert(0);
-
+	nemu_state=STOP;
 	return 1;
 }
 
