@@ -9,9 +9,14 @@ static BP *head, *free_;
 
 static void add_to_tail(BP *bp) {
 	BP *tmp=head;
-	while (tmp!=NULL)
+	if (tmp==NULL) {
+		head=bp;
+		head->next=NULL;
+		return;
+	}
+	while (tmp->next!=NULL)
 		tmp=tmp->next;
-	head=bp;
+	tmp->next=bp;
 }
 void init_bp_pool() {
 	int i;
