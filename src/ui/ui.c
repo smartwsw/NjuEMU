@@ -133,7 +133,7 @@ static void cmd_b(int addr) {
 	BP *new=new_bp();
 	new->origin=temp;
 	new->addr=addr;
-	printf("Breakpoint %d at 0x%x.\n",new->NO,addr);
+	printf("Breakpoint set at 0x%x.\n",addr);
 	swaddr_write(addr,1,0xcc);
 }
 static void cmd_d(int para) {
