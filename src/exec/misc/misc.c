@@ -20,7 +20,7 @@ make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
 	if (nemu_state==RUNNING) {
 		printf("Hit breakpoint at 0x%x\n",cpu.eip);
-		nemu_state=INT;
+		nemu_state=STOP;
 	}
 	int temp=find(cpu.eip);
 	swaddr_write(cpu.eip,1,temp);
