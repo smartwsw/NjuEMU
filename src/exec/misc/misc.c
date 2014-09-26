@@ -20,10 +20,10 @@ make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
 	nemu_state=INT;
 	cpu.eip--;
-	printf("test1\n");
-	BP *bp=find(cpu.eip);
-	printf("find success\n");
-	swaddr_write(cpu.eip,1,bp->origin);
+//	printf("test1\n");
+//	BP *bp=find(cpu.eip);
+//	printf("find success\n");
+//	swaddr_write(cpu.eip,1,bp->origin);
 	return 1;
 }
 
