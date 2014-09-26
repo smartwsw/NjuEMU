@@ -19,12 +19,12 @@ make_helper(inv) {
 make_helper(int3) {
 	/* A breakpoint is hit! Do something here! */
 	if (nemu_state==RUNNING) {
-		printf("breakpoint at 0x%x\n",cpu.eip);
+		printf("Hit breakpoint at 0x%x\n",cpu.eip);
 		nemu_state=INT;
 	}
 	int temp=find(cpu.eip);
-	printf("find success\n");
 	swaddr_write(cpu.eip,1,temp);
+	cpu.eip--;
 	return 1;
 }
 

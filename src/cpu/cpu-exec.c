@@ -52,6 +52,7 @@ void cpu_exec(volatile uint32_t n) {
 			puts(assembly);
 		}
 
+		if(nemu_state == STOP) { return; }
 		if(nemu_state == INT) {
 			printf("\n\nUser interrupt\n");
 			return;
