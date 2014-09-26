@@ -120,9 +120,10 @@ static void cmd_x(uint32_t para,uint32_t addr)
 		printf("%8x:	",addr);
 		int j;
 		for (j=0;j<4;j++) {
-			printf("%02x", swaddr_read(addr+j,1));
-		addr+=4;
+			printf("%02x ", swaddr_read(addr+j,1));
 		}
+		printf("\n");
+		addr+=4;
 	}
 }
 static void cmd_info_b() {
