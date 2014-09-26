@@ -95,7 +95,6 @@ void info_b() {
 	}
 }
 void delete_bp(int NO) {
-	NO--;
 	if (NO<1&&NO>32) 
 		printf("Invalid breakpoint!\n");
 	else {
@@ -110,7 +109,7 @@ void delete_bp(int NO) {
 					break;
 				tmp=tmp->next;
 			}
-			if (NO==0) {
+			if (NO==1) {
 				swaddr_write(tmp->addr,1,tmp->origin);
 				free_bp(tmp);
 				return ;
