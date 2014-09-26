@@ -17,7 +17,7 @@ extern uint8_t loader [];
 extern uint32_t loader_len;
 
 extern int quiet;
-extern bool stop_by_bp;
+extern int stop_by_bp;
 void restart() {
 	/* Perform some initialization to restart a program */
 	load_prog();
@@ -54,12 +54,15 @@ void cpu_exec(volatile uint32_t n) {
 			puts(assembly);
 		}
 
-		if (stop_by_bp==true) {
+		if (stop_by_bp==2) {
 			printf("%x\n",cpu.eip);
 			swaddr_write(cpu.eip-len+1,1,0xcc);
-			stop_by_bp=false;
+			stop_by_bp=0;
 		}
-		if(nemu_state == STOP) {return; }
+		if(nemu_state == STOP) {
+			if (stop_by_bp==1)
+				stop_by_bp++;
+			return; }
 		if(nemu_state == INT) {
 			printf("\n\nUser interrupt\n");
 			return;

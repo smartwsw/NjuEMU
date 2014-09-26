@@ -4,7 +4,7 @@
 #include "ui/breakpoint.h"
 #include "nemu.h"
 
-extern bool stop_by_bp;
+extern int stop_by_bp;
 make_helper(inv) {
 	/* invalid opcode */
 
@@ -26,7 +26,7 @@ make_helper(int3) {
 	int temp=find(cpu.eip);
 	swaddr_write(cpu.eip,1,temp);
 	cpu.eip--;
-	stop_by_bp=true;
+	stop_by_bp=1;
 	return 1;
 }
 
