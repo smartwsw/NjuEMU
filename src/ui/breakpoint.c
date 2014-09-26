@@ -45,6 +45,17 @@ void free_bp(BP *bp) {
 	bp->if_used=false;
 	bp->next=bp_pool[bp->NO-1].next;
 	bp_pool[bp->NO-1].next=bp;
+	BP *tmp=head;
+	if (tmp==NULL)
+		return;
+	BP *tmp_n=tmp->next;
+	while(tmp_n!=NULL) {
+		if (tmp_n->NO==bp->NO)
+			break;
+		tmp=tmp->next;
+		tmp_n=tmp->next;
+	}
+	tmp->next=tmp->next->next;
 }
 int find(int addr) {
 	BP *temp=head;
