@@ -48,18 +48,7 @@ void free_bp(BP *bp) {
 	BP *tmp=head;
 	if (tmp==NULL)
 		return;
-	BP *tmp_n=tmp->next;
-	if (tmp_n==NULL) {
-		head=NULL;
-		return ;
-	}
-	while(tmp_n!=NULL) {
-		if (tmp_n->NO==bp->NO)
-			break;
-		tmp=tmp->next;
-		tmp_n=tmp->next;
-	}
-	tmp->next=tmp->next->next;
+
 }
 int find(int addr) {
 	BP *temp=head;
@@ -111,6 +100,7 @@ void delete_bp(int NO) {
 				return;
 			}
 		}
+		swaddr_write(tmp->addr,1,tmp->origin);
 		free_bp(tmp);
 		return ;
 	}
