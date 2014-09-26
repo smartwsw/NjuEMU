@@ -121,8 +121,7 @@ static void cmd_x(uint32_t para,uint32_t addr)
 	}
 }
 static void cmd_info_b() {
-	printf("This function is not available now. \n");
-	//Wait to set function "info b" here in future.
+	info_b();
 }
 static void cmd_b(int addr) {
 	if (nemu_state==END){

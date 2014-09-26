@@ -67,4 +67,15 @@ void load_bps() {
 	}
 	return ;
 }
+void info_b() {
+	if (head==NULL){
+		printf("No breakpoints now!\n");
+		return;
+	}
+	BP *tmp=head;
+	while(tmp!=NULL) {
+		printf("Breakpoint %d at 0x%x.\n",tmp->NO,tmp->addr);
+		tmp=tmp->next;
+	}
+}
 /* TODO: Implement the function of breakpoint */
