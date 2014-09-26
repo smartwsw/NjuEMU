@@ -105,21 +105,24 @@ static void cmd_info_r() {
 					printf("EDI      %p     %d\n",&cpu.edi,cpu.edi);
 					printf("EIP      %p\n",&cpu.eip);
 }
-static void print_bin_instr(swaddr_t eip, int len) {
-	    int i;
-	    printf("%8x:   ", eip);
-	    for(i = 0; i < len; i ++) {
-	        printf("%02x ", swaddr_read(eip + i, 1));	
-		}   
-		printf("%*.s", 50 - (12 + 3 * len), "");
-}
+//static void print_bin_instr(swaddr_t eip, int len) {
+//	    int i;
+//	    printf("%8x:   ", eip);
+//	    for(i = 0; i < len; i ++) {
+//	        printf("%02x ", swaddr_read(eip + i, 1));	
+//		}   
+//		printf("%*.s", 50 - (12 + 3 * len), "");
+//
 static void cmd_x(uint32_t para,uint32_t addr)
 {
 	int i;
 	for (i=0;i<para;i++) {
-		print_bin_instr(addr,4);
-		printf("\n");
+		printf("%8x:	",addr);
+		int j;
+		for (j=0;j<4;j++) {
+			printf("%02x", swaddr_read(addr+j,1));
 		addr+=4;
+		}
 	}
 }
 static void cmd_info_b() {
