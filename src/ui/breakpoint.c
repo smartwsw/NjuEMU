@@ -37,7 +37,7 @@ BP* new_bp() {
 		tmp=tmp->next;
 	}
 	new=tmp->next;
-	tmp->next=tmp->next->next;
+	new->if_used=true;
 	add_to_tail(new);
 	return new;
 }
