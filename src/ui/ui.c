@@ -91,6 +91,7 @@ static void cmd_si(volatile uint32_t n)
 	else {
 		restart();
 		load_bps();
+		nemu_state = STOP;
 		cpu_exec(n);
 		if (nemu_state != END) { nemu_state = STOP; }
 		return;
