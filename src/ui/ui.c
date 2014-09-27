@@ -83,7 +83,7 @@ restart_:
 static void cmd_si(volatile uint32_t n)
 {
 	printf("%d\n",n);
-	if(nemu_state == STOP) {
+	if(nemu_state != STOP) {
 		cpu_exec(n);
 		if (nemu_state != END) { nemu_state = STOP; }
 		return;
@@ -91,7 +91,7 @@ static void cmd_si(volatile uint32_t n)
 	else {
 		restart();
 		load_bps();
-		nemu_state = STOP;
+		nemu_state = RUNNING;
 		cpu_exec(n);
 		if (nemu_state != END) { nemu_state = STOP; }
 		return;
