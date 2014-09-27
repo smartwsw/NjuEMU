@@ -82,7 +82,6 @@ restart_:
 }
 static void cmd_si(volatile uint32_t n)
 {
-	printf("%d\n",n);
 	if (nemu_state == END){
 		restart();
 		load_bps();
