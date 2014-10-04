@@ -143,10 +143,11 @@ uint32_t expr(char *e, bool *success) {
 	int tmp=0;
 	for (;tmp<nr_token;tmp++) {
 		if (tokens[tmp].type==0)
-			printf("%s\n",tokens[tmp].str);
+			printf("%s",tokens[tmp].str);
 		else
-			printf("%c\n",tokens[tmp].type);
+			printf("%c",tokens[tmp].type);
 	}
+	printf("\n");
 	return 0;
 }
 
