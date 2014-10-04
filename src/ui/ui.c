@@ -218,7 +218,7 @@ void main_loop() {
 			}
 		}
 		else if(strcmp(p, "p") == 0) {
-			p = strtok(NULL," ");
+			p = strtok(NULL,"");
 			if (p == NULL)
 				printf("Invalid parameter!\n");
 			else 
