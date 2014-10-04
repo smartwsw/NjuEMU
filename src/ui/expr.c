@@ -140,7 +140,10 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Implement code to evaluate the expression. */
-	assert(0);
+	int tmp=0;
+	for (;tmp<nr_token;tmp++) {
+		printf("%c %s",tokens[tmp].type,tokens[tmp].str);
+	}
 	return 0;
 }
 
