@@ -11,7 +11,7 @@ int nemu_state = END;
 int stop_by_bp=0;
 void cpu_exec(uint32_t);
 void restart();
-
+uint32_t expr(char *e, bool *success);
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -139,6 +139,10 @@ static void cmd_b(int addr) {
 static void cmd_d(int para) {
 	delete_bp(para);
 }
+static void cmd_p(char *p) {
+	bool success;
+	expr(p,&success);
+}
 void main_loop() {
 	char *cmd;
 	while(1) {
@@ -212,6 +216,13 @@ void main_loop() {
 				sscanf(p,"%d",&para);
 				cmd_d(para);
 			}
+		}
+		else if(strcmp(p, "p") == 0) {
+			p = strtok(NULL," ");
+			if (p == NULL)
+				printf("Invalid parameter!\n");
+			else 
+				cmd_p(p);
 		}
 		/* TODO: Add more commands */
 
