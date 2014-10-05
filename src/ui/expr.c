@@ -294,7 +294,19 @@ uint32_t expr(char *e, bool *success) {
 		if (tokens[tmp].type==NUM||tokens[tmp].type==HEX||tokens[tmp].type==REG)
 			printf("%s",tokens[tmp].str);
 		else 
-			printf("%c",tokens[tmp].type);
+			switch (tokens[tmp].type) {
+				case SL: printf("<<"); break;
+				case SR: printf(">>"); break;
+				case LE: printf("<="); break;
+				case GE: printf(">="); break;
+				case EQ: printf("=="); break;
+				case NE: printf("!="); break;
+				case AND: printf("&&"); break;
+				case OR : printf("||"); break;
+				case NOT: printf("!"); break;
+				default:
+						  printf("%c",tokens[tmp].type);
+			}
 	}
 	printf(" = ");
 	int result=eval(0,nr_token-1,success);
