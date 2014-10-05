@@ -147,10 +147,10 @@ bool check_parentheses(int p,int q,bool* success) {
 		if (tokens[i].type==')') 
 			count--;
 		if (count<0)
-			*success=false;
+			flag = false;
 	}
-	if (count!=0) *success=false;
-	return flag&&(*success);
+	*success=flag;
+	return flag;
 }
 int dominant(int p,int q) {
 	int i,count=0,loc=-1;
