@@ -227,7 +227,13 @@ uint32_t expr(char *e, bool *success) {
 	}
 	printf("\n");
 	int result=eval(0,nr_token-1,success);
-	printf("%d\n",result);
-	return result;
+	if (success==false) {
+		printf("Calaulate failed!\n");
+		return -1;
+	}
+	else {
+		printf("%d\n",result);
+		return result;
+	}
 }
 
