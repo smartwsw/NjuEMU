@@ -197,7 +197,7 @@ uint32_t eval(int p,int q,bool *success) {
 		 */
 			return eval(p+1,q-1,success); 
 		}
-		else {
+		else if (*success==true) {
 		/* We should do more things here. */
 			int op=dominant(p,q);
 			int val1;
@@ -212,6 +212,8 @@ uint32_t eval(int p,int q,bool *success) {
 				default: *success=false; return 0;
 			}
 		}
+		else 
+			return 0;
 }
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
