@@ -150,6 +150,7 @@ bool check_parentheses(int p,int q,bool* success) {
 			flag = false;
 	}
 	*success=flag;
+	printf("%d\n",flag);
 	return flag;
 }
 int dominant(int p,int q) {
