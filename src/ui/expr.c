@@ -22,8 +22,8 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{"[0-9]+", NUM},
 	{"0[Xx][[:xdigit:]]+", HEX},
+	{"[0-9]+", NUM},
 	{"\\$[[:alpha:]]+", REG},
 	{"\\+", '+'},					// plus
 	{"-", '-'},
