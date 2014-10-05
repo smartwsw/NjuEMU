@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NUM, NOTYPE = 256, EQ
+	NOTYPE = 256,EQ,NE,LE,GE,AND,OR,NOT,SAL,SAR,NUM,HEX,REG,NEG,DEREF
 
 	/* TODO: Add more token types */
 
@@ -31,8 +31,36 @@ static struct rule {
 	{"\\)", ')'},
 	{" +",	NOTYPE},				// white space
 	{"==", EQ},						// equal
-};
 
+};
+int level(int type) {
+		int result = 100;
+		switch (type) {
+			case NEG: case '~': case NOT: case DEREF:								
+				result = 16; break;
+			case '*': case '/': case '%':
+				result = 14; break;
+			case '+': case '-':
+				result = 13; break;
+			case SAL: case SAR:
+				result = 12; break;
+			case '<': case LE: case '>': case GE:
+				result = 11; break;
+			case EQ: case NE:
+				result = 10; break;
+			case '&':
+				result = 9; break;
+			case '^':
+				result = 8; break;
+			case '|':
+				result = 7; break;
+			case AND:
+				result = 6; break;
+			case OR:
+				result = 5; break;
+		}
+		return result;
+}
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
 
 static regex_t re[NR_REGEX];
@@ -86,38 +114,16 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
-					case 0:
+					case NUM:
 						tokens[nr_token].type=0;
 						strncpy(tokens[nr_token].str,substr_start,substr_len);
 						nr_token++;
 						break;
-					case '+':
-						tokens[nr_token].type='+';
-						nr_token++;
-						break;
-					case '-':
-						tokens[nr_token].type='-';
-						nr_token++;
-						break;
-					case '*':
-						tokens[nr_token].type='*';
-						nr_token++;
-						break;
-					case '/':
-						tokens[nr_token].type='/';
-						nr_token++;
-						break;
-					case '(':
-						tokens[nr_token].type='(';
-						nr_token++;
-						break;
-					case ')':
-						tokens[nr_token].type=')';
-						nr_token++;
-						break;
 					case 256:
 						break;
-					default: assert(0);
+					default:
+						tokens[nr_token].type=rules[i].token_type;
+						nr_token++;
 				}
 
 				break;
@@ -132,7 +138,79 @@ static bool make_token(char *e) {
 
 	return true; 
 }
-
+bool check_parentheses(int p,int q) {
+	int i,count=0;
+	bool flag=(tokens[p].type == '(') && (tokens[q].type == ')');
+	for (i=p+1;i<q;i++) {
+		if (tokens[i].type=='(') 
+			count++;
+		if (tokens[i].type==')') 
+			count--;
+		if (count<0)
+			flag = false;
+	}
+	return flag;
+}
+int dominant(int p,int q) {
+	int i,count=0,loc=-1;
+	for (i=p;i<=q;i++) {
+		switch (tokens[i].type) {
+			case '(':
+				count++;
+				break;
+			case ')':
+				count--;
+				break;
+			case NUM:
+				break;
+			default :
+				if (count==0) {
+					if (loc<0) 
+						loc=i;
+					if (level(tokens[i].type) < level(tokens[loc].type))
+						loc=i;
+				}
+		}
+	}
+	return loc;
+}
+uint32_t eval(int p,int q,bool *success) {
+	    if(p > q) {
+		/* Bad expression */
+			*success=false;
+			return 0;
+		}
+		else if(p == q) { 
+		/* Single token.
+		* For now this token should be a number. 
+		* Return the value of the number.
+		*/ 
+			uint32_t value=0;
+			sscanf(tokens[p].str,"%d",&value);
+			return value;
+		}
+		else if(check_parentheses(p,q)==true) {
+		/* The expression is surrounded by a matched pair of parentheses. 
+		 * If that is the case, just throw away the parentheses.	 
+		 */
+			return eval(p+1,q-1,success); 
+		}
+		else {
+		/* We should do more things here. */
+			int op=dominant(p,q);
+			int val1;
+			if (op==p) val1=0;
+			else val1=eval(p,op-1,success);
+			int val2=eval(op+1,q,success);
+			switch (tokens[op].type) {
+				case '+': return val1+val2; 
+				case '-': return val1-val2;
+				case '*': return val1*val2;
+				case '/': return val1/val2;
+				default: *success=false; return 0;
+			}
+		}
+}
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
@@ -148,6 +226,7 @@ uint32_t expr(char *e, bool *success) {
 			printf("%c",tokens[tmp].type);
 	}
 	printf("\n");
-	return 0;
+	int result=eval(0,nr_token-1,success);
+	return result;
 }
 
