@@ -1,5 +1,5 @@
 #include "common.h"
-
+#include "nemu.h"
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256,EQ,NE,LE,GE,AND,OR,NOT,SAL,SAR,NUM,HEX,REG,NEG,DEREF
+	NOTYPE = 256,EQ,NE,LE,GE,AND,OR,NOT,SL,SR,NUM,HEX,REG,NEG,LEA
 
 	/* TODO: Add more token types */
 
@@ -40,8 +40,8 @@ static struct rule {
 	{"&&", AND},
 	{"\\|\\|", OR},
 	{"!", NOT},
-	{"<<", SAL},
-	{">>", SAR},
+	{"<<", SL},
+	{">>", SR},
 	{"\\|", '|'},
 	{"&", '&'},
 	{"\\^", '^'},
@@ -52,13 +52,13 @@ static struct rule {
 int level(int type) {
 		int result = 100;
 		switch (type) {
-			case NEG: case '~': case NOT: case DEREF:								
+			case NEG: case '~': case NOT: case LEA:								
 				result = 16; break;
 			case '*': case '/': case '%':
 				result = 14; break;
 			case '+': case '-':
 				result = 13; break;
-			case SAL: case SAR:
+			case SL: case SR:
 				result = 12; break;
 			case '<': case LE: case '>': case GE:
 				result = 11; break;
@@ -130,12 +130,12 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
-					case NUM:
-						tokens[nr_token].type=0;
+					case NUM: case HEX: case REG:
+						tokens[nr_token].type=rules[i].token_type;
 						strncpy(tokens[nr_token].str,substr_start,substr_len);
 						nr_token++;
 						break;
-					case 256:
+					case NOTYPE:
 						break;
 					default:
 						tokens[nr_token].type=rules[i].token_type;
@@ -186,7 +186,12 @@ int dominant(int p,int q) {
 					if (loc<0) 
 						loc=i;
 					if (level(tokens[i].type) < level(tokens[loc].type))
-						loc=i;
+						switch (tokens[i].type) {
+							case '~': case '!': case NEG: case LEA:
+								break;
+							default :
+								loc=i;
+						}
 				}
 		}
 	}
@@ -225,6 +230,24 @@ uint32_t eval(int p,int q,bool *success) {
 				case '-': return val1-val2;
 				case '*': return val1*val2;
 				case '/': return val1/val2;
+				case '%': return val1%val2;
+				case '<': return val1<val2;
+				case '>': return val1>val2;
+				case LE : return val1<=val2;
+				case GE : return val1>=val2;
+				case EQ : return val1==val2;
+				case NE : return val1!=val2;
+				case AND: return val1&&val2;
+				case OR : return val1||val2;
+				case NOT: return !val2;
+				case SL:  return val1<<val2;
+				case SR:  return val1>>val2;
+				case '&': return val1&val2;
+				case '|': return val1|val2;
+				case '^': return val1^val2;
+				case '~': return ~val2;
+				case NEG: return -val2;
+				case LEA: return swaddr_read(val2,4);
 				default: *success=false; return 0;
 			}
 		}
