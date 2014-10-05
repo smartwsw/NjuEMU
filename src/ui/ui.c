@@ -140,7 +140,7 @@ static void cmd_d(int para) {
 	delete_bp(para);
 }
 static void cmd_p(char *p) {
-	bool success;
+	bool success=true;
 	expr(p,&success);
 }
 void main_loop() {
