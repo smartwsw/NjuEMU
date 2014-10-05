@@ -310,6 +310,7 @@ uint32_t expr(char *e, bool *success) {
 				case AND: printf("&&"); break;
 				case OR : printf("||"); break;
 				case NOT: printf("!"); break;
+				case LEA: printf("*"); break;
 				default:
 						  printf("%c",tokens[tmp].type);
 			}
