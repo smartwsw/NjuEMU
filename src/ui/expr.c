@@ -292,7 +292,7 @@ uint32_t expr(char *e, bool *success) {
 		if (tokens[i].type=='*') {
 			if (tokens[i-1].type!=NUM||tokens[i-1].type!=HEX)
 				tokens[i].type=LEA;
-			printf("%c",tokens[i-1].type);
+			printf("%d",tokens[i-1].type);
 			printf("loc %d changed\n",i);
 		}
 	}
