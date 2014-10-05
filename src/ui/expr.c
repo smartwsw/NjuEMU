@@ -149,7 +149,6 @@ bool check_parentheses(int p,int q,bool* success) {
 		if (count<0)
 			flag = false;
 	}
-	*success=flag;
 	return flag;
 }
 int dominant(int p,int q) {
