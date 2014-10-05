@@ -229,7 +229,7 @@ uint32_t expr(char *e, bool *success) {
 		else
 			printf("%c",tokens[tmp].type);
 	}
-	printf("\n");
+	printf(" = ");
 	int result=eval(0,nr_token-1,success);
 	if (*success==false) {
 		printf("Calaulate failed!\n");
