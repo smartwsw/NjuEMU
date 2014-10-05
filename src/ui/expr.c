@@ -138,7 +138,7 @@ static bool make_token(char *e) {
 
 	return true; 
 }
-bool check_parentheses(int p,int q) {
+bool check_parentheses(int p,int q,bool* success) {
 	int i,count=0;
 	bool flag=(tokens[p].type == '(') && (tokens[q].type == ')');
 	for (i=p+1;i<q;i++) {
@@ -149,6 +149,7 @@ bool check_parentheses(int p,int q) {
 		if (count<0)
 			flag = false;
 	}
+	*success=flag;
 	return flag;
 }
 int dominant(int p,int q) {
@@ -189,7 +190,7 @@ uint32_t eval(int p,int q,bool *success) {
 			sscanf(tokens[p].str,"%d",&value);
 			return value;
 		}
-		else if(check_parentheses(p,q)==true) {
+		else if(check_parentheses(p,q,success)==true) {
 		/* The expression is surrounded by a matched pair of parentheses. 
 		 * If that is the case, just throw away the parentheses.	 
 		 */
