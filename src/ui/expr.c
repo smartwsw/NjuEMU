@@ -8,7 +8,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256,EQ,NE,LE,GE,AND,OR,NOT,SL,SR,NUM,HEX,REG,NEG,LEA
+	NOTYPE = 256,EQ,NE,LE,GE,AND,OR,NOT,SL,SR,NUM,HEX,REG,LEA
 
 	/* TODO: Add more token types */
 
@@ -53,7 +53,7 @@ static struct rule {
 int level(int type) {
 		int result = 100;
 		switch (type) {
-			case NEG: case '~': case NOT: case LEA:								
+			case '~': case NOT: case LEA:								
 				result = 16; break;
 			case '*': case '/': case '%':
 				result = 14; break;
@@ -178,7 +178,7 @@ int dominant(int p,int q) {
 						loc=i;
 					if (level(tokens[i].type) < level(tokens[loc].type))
 						switch (tokens[i].type) {
-							case '~': case '!': case NEG: case LEA:
+							case '~': case '!': case LEA:
 								break;
 							default :
 								loc=i;
@@ -274,7 +274,6 @@ uint32_t eval(int p,int q,bool *success) {
 				case '|': return val1|val2;
 				case '^': return val1^val2;
 				case '~': return ~val2;
-				case NEG: return -val2;
 				case LEA: return swaddr_read(val2,4);
 				default: *success=false; return 0;
 			}
