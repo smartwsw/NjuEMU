@@ -1,5 +1,6 @@
 #include "common.h"
 #include "nemu.h"
+#include "cpu/reg.h"
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -209,7 +210,44 @@ uint32_t eval(int p,int q,bool *success) {
 		* Return the value of the number.
 		*/ 
 			uint32_t value=0;
-			sscanf(tokens[p].str,"%d",&value);
+			int i;
+			bool flag=false;
+			switch (tokens[p].type) {
+				case NUM:
+					sscanf(tokens[p].str,"%d",&value);
+					break;
+				case HEX:
+					sscanf(tokens[p].str,"%x",&value);
+					break;
+				case REG:
+					for (i=R_EAX;i<=R_EDI;i++)
+						if (strcmp(regsl[i],tokens[p].str+1)==0) {
+							value=reg_l(i);
+							flag=true;
+							break;
+						}
+					for (i=R_AX;i<=R_DI;i++)
+						if (strcmp(regsw[i],tokens[p].str+1)==0) {
+							value=reg_w(i);
+							flag=true;
+							break;
+						}
+					for (i=R_AL;i<=R_BH;i++)
+						if (strcmp(regsb[i],tokens[p].str+1)==0) {
+							value=reg_b(i);
+							flag=true;
+							break;
+						}
+					if (strcmp("eip",tokens[p].str+1)==0) {
+						value=cpu.eip;
+						flag=true;
+					}
+					if (flag==false)
+						*success=false;
+					break;
+				default :
+					*success=false;
+			}
 			return value;
 		}
 		else if(check_parentheses(p,q,success)==true) {
