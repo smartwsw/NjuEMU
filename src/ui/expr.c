@@ -111,25 +111,18 @@ static bool make_token(char *e) {
 	int position = 0;
 	int i;
 	regmatch_t pmatch;
-	
 	nr_token = 0;
-
 	while(e[position] != '\0') {
 		/* Try all rules one by one. */
 		for(i = 0; i < NR_REGEX; i ++) {
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
-
 			 	//Log("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
-
 				position += substr_len;
-
-
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
-
 				switch(rules[i].token_type) {
 					case NUM: case HEX: case REG:
 						tokens[nr_token].type=rules[i].token_type;
@@ -142,17 +135,14 @@ static bool make_token(char *e) {
 						tokens[nr_token].type=rules[i].token_type;
 						nr_token++;
 				}
-
 				break;
 			}
 		}
-
 		if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
 	}
-
 	return true; 
 }
 bool check_parentheses(int p,int q,bool* success) {
@@ -301,9 +291,9 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Implement code to evaluate the expression. */
 	int tmp=0;
 	for (;tmp<nr_token;tmp++) {
-		if (tokens[tmp].type==0)
+		if (tokens[tmp].type==NUM||tokens[tmp].type==HEX||tokens[tmp].type==REG)
 			printf("%s",tokens[tmp].str);
-		else
+		else 
 			printf("%c",tokens[tmp].type);
 	}
 	printf(" = ");
