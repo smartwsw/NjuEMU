@@ -286,8 +286,8 @@ uint32_t eval(int p,int q,bool *success) {
 uint32_t expr(char *e, bool *success) {
 	int i;
 	for (i=0;i<32;i++) {
-		//strcpy(tokens[i].str,"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0");
-		printf("%s\n",tokens[i].str);
+		strcpy(tokens[i].str,"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0");
+		//printf("%s\n",tokens[i].str);
 	}
 	if(!make_token(e)) {
 		*success = false;
