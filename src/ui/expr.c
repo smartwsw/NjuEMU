@@ -290,7 +290,7 @@ uint32_t expr(char *e, bool *success) {
 	}
 	for (i=0;i<nr_token;i++) {
 		if (tokens[i].type=='*') {
-			if (tokens[i-1].type!=NUM&&tokens[i-1].type!=HEX)
+			if (tokens[i-1].type!=NUM&&tokens[i-1].type!=HEX&&tokens[i-1].type!=REG)
 				tokens[i].type=LEA;
 		}
 	}
