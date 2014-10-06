@@ -25,7 +25,7 @@ static struct rule {
 
 	{"0[Xx][[:xdigit:]]+", HEX},
 	{"[0-9]+", NUM},
-	{"\\$R_[[:alpha:]]+", REG},
+	{"\\$[[:alpha:]]+", REG},
 	{"\\+", '+'},					// plus
 	{"-", '-'},
 	{"\\*", '*'},
@@ -210,6 +210,7 @@ uint32_t eval(int p,int q,bool *success) {
 					sscanf(tokens[p].str,"%x",&value);
 					break;
 				case REG:
+					printf("%s\n",tokens[p].str+1);
 					for (i=R_EAX;i<=R_EDI;i++)
 						if (strcmp(regsl[i],tokens[p].str+1)==0) {
 							value=reg_l(i);
