@@ -127,6 +127,8 @@ static bool make_token(char *e) {
 					case NUM: case HEX: case REG:
 						tokens[nr_token].type=rules[i].token_type;
 						strncpy(tokens[nr_token].str,substr_start,substr_len);
+						substr_start+=substr_len;
+						substr_start="\0";
 						nr_token++;
 						break;
 					case NOTYPE:
@@ -210,7 +212,6 @@ uint32_t eval(int p,int q,bool *success) {
 					sscanf(tokens[p].str,"%x",&value);
 					break;
 				case REG:
-					printf("%s\n",tokens[p].str+1);
 					for (i=R_EAX;i<=R_EDI;i++)
 						if (strcmp(regsl[i],tokens[p].str+1)==0) {
 							value=reg_l(i);
