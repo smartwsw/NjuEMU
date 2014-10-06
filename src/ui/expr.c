@@ -284,12 +284,13 @@ uint32_t eval(int p,int q,bool *success) {
 			return 0;
 }
 uint32_t expr(char *e, bool *success) {
+	int i;
+	for (i=0;i<nr_token;i++)
+		strcpy(tokens[i].str,"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0");
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
-
-	int i;
 	for (i=0;i<nr_token;i++) {
 		if (tokens[i].type=='*') {
 			if (tokens[i-1].type!=NUM&&tokens[i-1].type!=HEX)
