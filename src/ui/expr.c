@@ -25,7 +25,7 @@ static struct rule {
 
 	{"0[Xx][[:xdigit:]]+", HEX},
 	{"[0-9]+", NUM},
-	{"\\$[[:alpha:]]+", REG},
+	{"\\$R_[[:alpha:]]+", REG},
 	{"\\+", '+'},					// plus
 	{"-", '-'},
 	{"\\*", '*'},
