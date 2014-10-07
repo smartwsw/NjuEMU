@@ -12,6 +12,7 @@ int stop_by_bp=0;
 void cpu_exec(uint32_t);
 void restart();
 uint32_t expr(char *e, bool *success);
+int cpytok(Token save[]);
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -143,6 +144,20 @@ static void cmd_p(char *p) {
 	bool success=true;
 	expr(p,&success);
 }
+static void cmd_w(char *p) {
+	if (nemu_state==END){
+		printf("No program running!\n");
+		return ;
+	}
+	BP *new=new_bp();
+	bool success=true;
+	expr(p,&success);
+	new->nr_tokens=cpytok(new->tokens);
+	int tmp;
+	for (tmp=0;tmp<new->nr_tokens;tmp++) {
+		printf("%c",new->tokens[tmp].type);
+	}
+}
 void main_loop() {
 	char *cmd;
 	while(1) {
@@ -223,6 +238,13 @@ void main_loop() {
 				printf("Invalid parameter!\n");
 			else 
 				cmd_p(p);
+		}
+		else if(strcmp(p, "w") == 0) {
+			p = strtok(NULL,"");
+			if (p == NULL)
+				printf("Invalid parameter!\n");
+			else 
+				cmd_w(p);
 		}
 		/* TODO: Add more commands */
 

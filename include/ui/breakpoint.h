@@ -2,14 +2,20 @@
 #define __UI_BREAKPOINT_H__
 
 #include "common.h"
-
+#include "nemu.h"
 #define INT3_CODE 0xcc
+typedef struct token {
+	int type;
+	char str[32];
+} Token;
 typedef struct breakpoint {
 	int NO;
 	struct breakpoint *next;
 	bool if_used;
 	int origin;
 	int addr;
+	Token tokens[32];
+	int nr_tokens;
 	/* TODO: Add more members if necessary */
 
 

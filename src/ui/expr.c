@@ -326,4 +326,13 @@ uint32_t expr(char *e, bool *success) {
 		return result;
 	}
 }
+int cpytok(Token save[]) {
+	int i;
+	for (i=0;i<nr_token;i++) {
+		save[i].type=tokens[i].type;
+		strcpy(save[i].str,tokens[i].str);
+	
+	}
+	return nr_token;
+}
 

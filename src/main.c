@@ -9,7 +9,6 @@ void init_bp_pool();
 void init_regex();
 void init_signal();
 void reg_test();
-
 int enable_debug = false;
 int quiet = false;
 

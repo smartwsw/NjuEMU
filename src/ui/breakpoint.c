@@ -6,7 +6,6 @@
 
 static BP bp_pool[NR_BP];
 static BP *head, *free_;
-
 static void add_to_tail(BP *bp) {
 	BP *tmp=head;
 	if (tmp==NULL) {
