@@ -151,7 +151,7 @@ static void cmd_w(char *p) {
 	}
 	BP *new=new_bp();
 	bool success=true;
-	expr(p,&success);
+	new->value=expr(p,&success);
 	new->nr_tokens=cpytok(new->tokens);
 	int tmp;
 	for (tmp=0;tmp<new->nr_tokens;tmp++) {
