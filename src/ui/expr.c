@@ -322,7 +322,7 @@ uint32_t expr(char *e, bool *success) {
 		return -1;
 	}
 	else {
-		printf("%d\n",result);
+		printf("%u\n",result);
 		return result;
 	}
 }
