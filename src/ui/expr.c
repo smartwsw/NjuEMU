@@ -316,7 +316,7 @@ uint32_t expr(char *e, bool *success) {
 			}
 	}
 	printf(" = ");
-	int result=eval(0,nr_token-1,success);
+	unsigned int result=eval(0,nr_token-1,success);
 	if (*success==false) {
 		printf("Calaulate failed!\n");
 		return -1;
