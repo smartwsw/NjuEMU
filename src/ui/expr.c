@@ -250,10 +250,10 @@ uint32_t eval(int p,int q,bool *success) {
 		else if (*success==true) {
 		/* We should do more things here. */
 			int op=dominant(p,q);
-			unsigned int val1;
+			uint32_t val1;
 			if (op==p) val1=0;
 			else val1=eval(p,op-1,success);
-			unsigned int val2=eval(op+1,q,success);
+			uint32_t val2=eval(op+1,q,success);
 			switch (tokens[op].type) {
 				case '+': return val1+val2; 
 				case '-': return val1-val2;
@@ -316,7 +316,7 @@ uint32_t expr(char *e, bool *success) {
 			}
 	}
 	printf(" = ");
-	unsigned int result=eval(0,nr_token-1,success);
+	uint32_t result=eval(0,nr_token-1,success);
 	if (*success==false) {
 		printf("Calaulate failed!\n");
 		return -1;
