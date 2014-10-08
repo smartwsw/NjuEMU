@@ -250,10 +250,10 @@ uint32_t eval(int p,int q,bool *success) {
 		else if (*success==true) {
 		/* We should do more things here. */
 			int op=dominant(p,q);
-			int val1;
+			unsigned int val1;
 			if (op==p) val1=0;
 			else val1=eval(p,op-1,success);
-			int val2=eval(op+1,q,success);
+			unsigned int val2=eval(op+1,q,success);
 			switch (tokens[op].type) {
 				case '+': return val1+val2; 
 				case '-': return val1-val2;
