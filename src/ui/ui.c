@@ -149,17 +149,19 @@ static void cmd_w(char *p) {
 		printf("No program running!\n");
 		return ;
 	}
-	BP *new=new_bp();
 	bool success=true;
-	new->value=expr(p,&success);
-	if (success==true)
+	int value=expr(p,&success);
+	if (success==true) {
+		BP *new=new_bp();
 		new->nr_tokens=cpytok(new->tokens);
-	else
-		return ;
-	int tmp;
-	for (tmp=0;tmp<new->nr_tokens;tmp++) {
-		printf("%c",new->tokens[tmp].type);
+		new->value=value;
+		int tmp;
+		for (tmp=0;tmp<new->nr_tokens;tmp++) {
+			printf("%c",new->tokens[tmp].type);
+		}
 	}
+	else 
+		return ;
 }
 void main_loop() {
 	char *cmd;
