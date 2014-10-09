@@ -133,7 +133,7 @@ bool if_wp_changed() {
 			tmp=tmp->next;
 		}
 	}
-	printf("Hit watchpoint!\n");
+	if(if_changed) printf("Hit watchpoint!\n");
 	return if_changed;
 }
 /* TODO: Implement the function of breakpoint */
