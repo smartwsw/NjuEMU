@@ -15,7 +15,7 @@ typedef struct breakpoint {
 	int origin;
 	int addr;
 	int type;
-	char tokens[32];
+	char tokens[100];
 	int value;
 	/* TODO: Add more members if necessary */
 
