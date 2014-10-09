@@ -13,6 +13,7 @@ void cpu_exec(uint32_t);
 void restart();
 uint32_t expr(char *e, bool *success);
 int cpytok(Token save[]);
+void print_token();
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -143,7 +144,9 @@ static void cmd_d(int para) {
 }
 static void cmd_p(char *p) {
 	bool success=true;
-	expr(p,&success);
+	int value=expr(p,&success);
+	print_token();
+	printf("%u/n",value);
 }
 static void cmd_w(char *p) {
 	if (nemu_state==END){
