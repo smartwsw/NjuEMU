@@ -154,7 +154,7 @@ static void cmd_w(char *p) {
 	int value=expr(p,&success);
 	if (success==true) {
 		BP *new=new_bp();
-		//strcpy(new->tokens,p);
+		new->tokens=p;
 		new->value=value;
 		new->type=2;
 	}
