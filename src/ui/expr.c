@@ -318,16 +318,12 @@ uint32_t expr(char *e, bool *success) {
 		}
 	}
 	/* TODO: Implement code to evaluate the expression. */
-	print_token();
 	uint32_t result=eval(0,nr_token-1,success);
 	if (*success==false) {
 		printf("Calaulate failed!\n");
 		return -1;
 	}
-	else {
-		printf("%u\n",result);
-		return result;
-	}
+	else { return result; }
 }
 
 int cpytok(Token save[]) {
