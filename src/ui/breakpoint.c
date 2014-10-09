@@ -128,6 +128,7 @@ bool if_wp_changed() {
 				if (value!=tmp->value) {
 					tmp->value=value;
 					if_changed=true;
+					printf("%s = %u",tmp->tokens,value);
 				}
 			}
 			tmp=tmp->next;
