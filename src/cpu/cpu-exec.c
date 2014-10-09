@@ -9,7 +9,7 @@
 int exec(swaddr_t);
 void load_prog();
 void init_dram();
-
+bool if_wp_changed();
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
 
@@ -54,6 +54,7 @@ void cpu_exec(volatile uint32_t n) {
 			puts(assembly);
 		}
 
+		if (if_wp_changed()==true) { return; }
 		if (stop_by_bp==2) {
 			swaddr_write(cpu.eip-len,1,0xcc);
 			stop_by_bp=0;
