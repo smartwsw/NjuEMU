@@ -78,7 +78,7 @@ void info_b() {
 				printf("Breakpoint %d at 0x%x.\n",count,tmp->addr);
 				break;
 			case 2:
-				printf("Watchpoint %d.\n",count);
+				printf("Watchpoint %d with current value %u.\n",count,tmp->value);
 				break;
 		}
 		count++;
