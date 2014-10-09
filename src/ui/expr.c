@@ -282,6 +282,29 @@ uint32_t eval(int p,int q,bool *success) {
 		else 
 			return 0;
 }
+void print_token() {
+	int tmp=0;
+		for (;tmp<nr_token;tmp++) {
+			if (tokens[tmp].type==NUM||tokens[tmp].type==HEX||tokens[tmp].type==REG)
+				printf("%s",tokens[tmp].str);
+			else 
+				switch (tokens[tmp].type) {
+					case SL: printf("<<"); break;
+					case SR: printf(">>"); break;
+					case LE: printf("<="); break;
+					case GE: printf(">="); break;
+					case EQ: printf("=="); break;
+					case NE: printf("!="); break;
+					case AND: printf("&&"); break;
+					case OR : printf("||"); break;
+					case NOT: printf("!"); break;
+					case LEA: printf("*"); break;
+					default:
+							  printf("%c",tokens[tmp].type);
+				}
+		}
+	printf(" = ");
+}
 uint32_t expr(char *e, bool *success) {
 	int i;
 	if(!make_token(e)) {
@@ -295,27 +318,7 @@ uint32_t expr(char *e, bool *success) {
 		}
 	}
 	/* TODO: Implement code to evaluate the expression. */
-	int tmp=0;
-	for (;tmp<nr_token;tmp++) {
-		if (tokens[tmp].type==NUM||tokens[tmp].type==HEX||tokens[tmp].type==REG)
-			printf("%s",tokens[tmp].str);
-		else 
-			switch (tokens[tmp].type) {
-				case SL: printf("<<"); break;
-				case SR: printf(">>"); break;
-				case LE: printf("<="); break;
-				case GE: printf(">="); break;
-				case EQ: printf("=="); break;
-				case NE: printf("!="); break;
-				case AND: printf("&&"); break;
-				case OR : printf("||"); break;
-				case NOT: printf("!"); break;
-				case LEA: printf("*"); break;
-				default:
-						  printf("%c",tokens[tmp].type);
-			}
-	}
-	printf(" = ");
+	print_token();
 	uint32_t result=eval(0,nr_token-1,success);
 	if (*success==false) {
 		printf("Calaulate failed!\n");
@@ -326,6 +329,7 @@ uint32_t expr(char *e, bool *success) {
 		return result;
 	}
 }
+
 int cpytok(Token save[]) {
 	int i;
 	for (i=0;i<nr_token;i++) {
