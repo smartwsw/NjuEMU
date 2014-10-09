@@ -155,11 +155,12 @@ static void cmd_w(char *p) {
 	}
 	bool success=true;
 	int value=expr(p,&success);
-	printf("%s\n",p);
 	if (success==true) {
+		printf("%s",p);
 		BP *new=new_bp();
 		strcpy(new->tokens,p);
 		new->value=value;
+		printf("%u\n",value);
 		new->type=2;
 	}
 	else 
