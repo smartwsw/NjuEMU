@@ -14,8 +14,8 @@ typedef struct breakpoint {
 	bool if_used;
 	int origin;
 	int addr;
-	Token tokens[32];
-	int nr_tokens;
+	int type;
+	char *tokens;
 	int value;
 	/* TODO: Add more members if necessary */
 

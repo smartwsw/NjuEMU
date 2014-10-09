@@ -3,7 +3,7 @@
 #include "nemu.h"
 
 #define NR_BP 32
-
+uint32_t expr(char *e, bool *success);
 static BP bp_pool[NR_BP];
 static BP *head, *free_;
 static void add_to_tail(BP *bp) {
@@ -67,13 +67,20 @@ void load_bps() {
 }
 void info_b() {
 	if (head==NULL){
-		printf("No breakpoints now!\n");
+		printf("No breakpoints or watchpoint now!\n");
 		return;
 	}
 	int count=1;
 	BP *tmp=head;
 	while(tmp!=NULL) {
-		printf("Breakpoint %d at 0x%x.\n",count,tmp->addr);
+		switch (tmp->type) {
+			case 1: 
+				printf("Breakpoint %d at 0x%x.\n",count,tmp->addr);
+				break;
+			case 2:
+				printf("Watchpoint %d.\n",count);
+				break;
+		}
 		count++;
 		tmp=tmp->next;
 	}
@@ -96,7 +103,7 @@ void delete_bp(int NO) {
 		tmp=tmp->next;
 		for (;i<NO;i++) {
 			if(tmp==NULL) {
-				printf("No breakpoint here!\n");
+				printf("No breakpoint or watchpoint here!\n");
 				return;
 			tmp_l=tmp;
 			tmp=tmp->next;
@@ -107,5 +114,25 @@ void delete_bp(int NO) {
 		tmp_l->next=tmp_l->next->next;
 		return ;
 	}
+}
+bool if_wp_changed() {
+	BP *tmp=head;
+	int value;
+	bool success=true,if_changed=false;
+	if (tmp==NULL)
+		return false;
+	else {
+		while (tmp!=NULL) {
+			if (head->type==2) {
+				value=expr(head->tokens,&success);
+				if (value!=head->value) {
+					head->value=value;
+					if_changed=true;
+				}
+			}
+			tmp=tmp->next;
+		}
+	}
+	return if_changed;
 }
 /* TODO: Implement the function of breakpoint */

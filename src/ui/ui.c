@@ -134,6 +134,7 @@ static void cmd_b(int addr) {
 	BP *new=new_bp();
 	new->origin=temp;
 	new->addr=addr;
+	new->type=1;
 	printf("Breakpoint set at 0x%x.\n",addr);
 	swaddr_write(addr,1,0xcc);
 }
@@ -153,12 +154,9 @@ static void cmd_w(char *p) {
 	int value=expr(p,&success);
 	if (success==true) {
 		BP *new=new_bp();
-		new->nr_tokens=cpytok(new->tokens);
+		strcpy(new->tokens,p);
 		new->value=value;
-		int tmp;
-		for (tmp=0;tmp<new->nr_tokens;tmp++) {
-			printf("%c",new->tokens[tmp].type);
-		}
+		new->type=2;
 	}
 	else 
 		return ;
