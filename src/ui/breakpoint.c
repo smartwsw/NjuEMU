@@ -124,9 +124,9 @@ bool if_wp_changed() {
 	else {
 		while (tmp!=NULL) {
 			if (head->type==2) {
-				value=expr(head->tokens,&success);
-				if (value!=head->value) {
-					head->value=value;
+				value=expr(tmp->tokens,&success);
+				if (value!=tmp->value) {
+					tmp->value=value;
 					if_changed=true;
 				}
 			}
