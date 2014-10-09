@@ -152,6 +152,7 @@ static void cmd_w(char *p) {
 	}
 	bool success=true;
 	int value=expr(p,&success);
+	printf("%s\n",p);
 	if (success==true) {
 		BP *new=new_bp();
 		new->tokens=p;
