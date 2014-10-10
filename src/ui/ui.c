@@ -225,13 +225,8 @@ void main_loop() {
 		}
 		else if(strcmp(p, "b") == 0) {
 			p = strtok(NULL," *");
-			printf("%s\n",p);
 			if (p == NULL)
 				printf("Invalid parameter!\n");
-			else if (strcmp(p,"all")==0) {
-				printf("All breakpoints and watchpoints deleted!\n");
-				//init_bp_pool();
-			}
 			else {
 				sscanf(p,"%x",&addr);
 				cmd_b(addr);
@@ -241,6 +236,10 @@ void main_loop() {
 			p = strtok(NULL," ");
 			if (p == NULL)
 				printf("Invalid parameter!\n");
+			else if (strcmp(p,"all")==0) {
+				printf("All breakpoints and watchpoints deleted!\n");
+				//init_bp_pool();
+			}
 			else {
 				sscanf(p,"%d",&para);
 				cmd_d(para);
