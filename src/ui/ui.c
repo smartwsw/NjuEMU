@@ -229,7 +229,7 @@ void main_loop() {
 				printf("Invalid parameter!\n");
 			else if (strcmp(p,"all")==0) {
 				printf("All breakpoints and watchpoints deleted!\n");
-				init_bp_pool();
+				//init_bp_pool();
 			}
 			else {
 				sscanf(p,"%x",&addr);
