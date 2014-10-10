@@ -11,6 +11,7 @@ int nemu_state = END;
 int stop_by_bp=0;
 void cpu_exec(uint32_t);
 void restart();
+void init_bp_pool();
 uint32_t expr(char *e, bool *success);
 int cpytok(Token save[]);
 void print_token();
@@ -99,15 +100,15 @@ static void cmd_si(volatile uint32_t n)
 	}
 }
 static void cmd_info_r() {
-					printf("EAX      %p     %d\n",&cpu.eax,cpu.eax);
-					printf("ECX      %p     %d\n",&cpu.ecx,cpu.ecx);
-					printf("EDX      %p     %d\n",&cpu.edx,cpu.edx);
-					printf("EBX      %p     %d\n",&cpu.ebx,cpu.ebx);
-					printf("ESP      %p     %d\n",&cpu.esp,cpu.esp);
-					printf("EBP      %p     %d\n",&cpu.ebp,cpu.ebp);
-					printf("ESI      %p     %d\n",&cpu.esi,cpu.esi);
-					printf("EDI      %p     %d\n",&cpu.edi,cpu.edi);
-					printf("EIP      %p\n",&cpu.eip);
+	printf("EAX      %p     %d\n",&cpu.eax,cpu.eax);
+	printf("ECX      %p     %d\n",&cpu.ecx,cpu.ecx);
+	printf("EDX      %p     %d\n",&cpu.edx,cpu.edx);
+	printf("EBX      %p     %d\n",&cpu.ebx,cpu.ebx);
+	printf("ESP      %p     %d\n",&cpu.esp,cpu.esp);
+	printf("EBP      %p     %d\n",&cpu.ebp,cpu.ebp);
+	printf("ESI      %p     %d\n",&cpu.esi,cpu.esi);
+	printf("EDI      %p     %d\n",&cpu.edi,cpu.edi);
+	printf("EIP      %p\n",&cpu.eip);
 }
 static void cmd_x(uint32_t para,uint32_t addr)
 {
@@ -226,6 +227,10 @@ void main_loop() {
 			p = strtok(NULL," *");
 			if (p == NULL)
 				printf("Invalid parameter!\n");
+			else if (strcmp(p,"all")==0) {
+				printf("All breakpoints and watchpoints deleted!\n");
+				init_bp_pool();
+			}
 			else {
 				sscanf(p,"%x",&addr);
 				cmd_b(addr);
