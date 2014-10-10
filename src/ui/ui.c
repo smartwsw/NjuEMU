@@ -225,6 +225,7 @@ void main_loop() {
 		}
 		else if(strcmp(p, "b") == 0) {
 			p = strtok(NULL," *");
+			printf("%s\n",p);
 			if (p == NULL)
 				printf("Invalid parameter!\n");
 			else if (strcmp(p,"all")==0) {
