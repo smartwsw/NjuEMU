@@ -146,8 +146,10 @@ static void cmd_d(int para) {
 static void cmd_p(char *p) {
 	bool success=true;
 	int value=expr(p,&success);
-	print_token();
-	printf("%u\n",value);
+	if (success==true) {
+		print_token();
+		printf("%u\n",value);
+	}
 }
 static void cmd_w(char *p) {
 	if (nemu_state==END){
