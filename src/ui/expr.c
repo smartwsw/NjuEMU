@@ -212,24 +212,24 @@ uint32_t eval(int p,int q,bool *success) {
 					break;
 				case REG:
 					for (i=R_EAX;i<=R_EDI;i++)
-						if (strcmp(regsl[i],tokens[p].str+1)==0) {
+						if (strcasecmp(regsl[i],tokens[p].str+1)==0) {
 							value=reg_l(i);
 							flag=true;
 							break;
 						}
 					for (i=R_AX;i<=R_DI;i++)
-						if (strcmp(regsw[i],tokens[p].str+1)==0) {
+						if (strcasecmp(regsw[i],tokens[p].str+1)==0) {
 							value=reg_w(i);
 							flag=true;
 							break;
 						}
 					for (i=R_AL;i<=R_BH;i++)
-						if (strcmp(regsb[i],tokens[p].str+1)==0) {
+						if (strcasecmp(regsb[i],tokens[p].str+1)==0) {
 							value=reg_b(i);
 							flag=true;
 							break;
 						}
-					if (strcmp("eip",tokens[p].str+1)==0) {
+					if (strcasecmp("eip",tokens[p].str+1)==0) {
 						value=cpu.eip;
 						flag=true;
 					}
