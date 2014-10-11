@@ -228,6 +228,7 @@ void main_loop() {
 			if (p == NULL)
 				printf("Invalid parameter!\n");
 			else {
+				printf("%s",p);
 				sscanf(p,"%x",&addr);
 				cmd_b(addr);
 			}
