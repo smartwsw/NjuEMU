@@ -226,17 +226,17 @@ void main_loop() {
 			}
 		}
 		else if(strcmp(p, "b") == 0) {
-			p = strtok(NULL," *");
+			p = strtok(NULL,"");
 			if (p == NULL)
 				printf("Invalid parameter!\n");
-			else {
+			else if (p[0]=='*') {
 				bool success=true;
-				addr=expr(p,&success);
+				addr=expr(p+1,&success);
 				if (success)
 					cmd_b(addr);
-				else 
-					printf("Breakpoint set failed!\n");
 			}
+			else 
+				printf("Breakpoint set failed!\n");
 		}
 		else if(strcmp(p, "d") == 0) {
 			p = strtok(NULL," ");
