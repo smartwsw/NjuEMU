@@ -228,9 +228,12 @@ void main_loop() {
 			if (p == NULL)
 				printf("Invalid parameter!\n");
 			else {
-				printf("%s",p);
-				sscanf(p,"%x",&addr);
-				cmd_b(addr);
+				bool success=true;
+				addr=expr(p,&success);
+				if (success)
+					cmd_b(addr);
+				else 
+					printf("Breakpoint set failed!\n");
 			}
 		}
 		else if(strcmp(p, "d") == 0) {
