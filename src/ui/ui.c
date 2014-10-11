@@ -216,12 +216,15 @@ void main_loop() {
 				printf("Invalid parameter!\n");
 			else {
 				sscanf(p,"%d",&para);
-				p = strtok(NULL," ");
+				p = strtok(NULL,"");
 				if (p == NULL) 
 					printf("Invalid parameter!\n");
 				else { 
-					sscanf(p,"%x",&addr);
-					cmd_x(para,addr);
+					bool success=true;
+					addr=expr(p,&success);
+					if (success) 
+						cmd_x(para,addr);
+					else return ;
 				}
 			}
 		}
