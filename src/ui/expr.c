@@ -261,7 +261,7 @@ uint32_t eval(int p,int q,bool *success) {
 				case '/': if (val2!=0) 
 							  return val1/val2;
 						  else {
-							  success=false;
+							  *success=false;
 							  return 0; 
 						  }
 				case '%': return val1%val2;
