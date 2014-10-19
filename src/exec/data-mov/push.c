@@ -12,8 +12,13 @@ make_helper(push_r_l) {
 	return 1;
 }
 make_helper(push_r_w) {
-	assert(0);
-	return 0;
+	int reg_code = instr_fetch(eip,1) & 0x7;
+	int value = reg_w(reg_code);
+	cpu.esp = cpu.esp - 0x2;
+	swaddr_write(cpu.esp,2,value);
+	
+	print_asm("push %%%s", regsw[reg_code]);
+	return 1;
 }
 
 
