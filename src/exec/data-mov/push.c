@@ -2,6 +2,6 @@
 make_helper(push_r_l) {
 	int opcode=swaddr_read(eip,1);
 	int reg_type=opcode&7;
-	printf("%d",reg_type);
+	printf("%d\n",reg_l(reg_type));
 	return 1;
 }
