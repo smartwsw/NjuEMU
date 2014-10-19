@@ -100,15 +100,15 @@ static void cmd_si(volatile uint32_t n)
 	}
 }
 static void cmd_info_r() {
-	printf("EAX      %p     %d\n",&cpu.eax,cpu.eax);
-	printf("ECX      %p     %d\n",&cpu.ecx,cpu.ecx);
-	printf("EDX      %p     %d\n",&cpu.edx,cpu.edx);
-	printf("EBX      %p     %d\n",&cpu.ebx,cpu.ebx);
-	printf("ESP      %p     %d\n",&cpu.esp,cpu.esp);
-	printf("EBP      %p     %d\n",&cpu.ebp,cpu.ebp);
-	printf("ESI      %p     %d\n",&cpu.esi,cpu.esi);
-	printf("EDI      %p     %d\n",&cpu.edi,cpu.edi);
-	printf("EIP      %p\n",&cpu.eip);
+	printf("EAX      %d\n",cpu.eax);
+	printf("ECX      %d\n",cpu.ecx);
+	printf("EDX      %d\n",cpu.edx);
+	printf("EBX      %d\n",cpu.ebx);
+	printf("ESP      %d\n",cpu.esp);
+	printf("EBP      %d\n",cpu.ebp);
+	printf("ESI      %d\n",cpu.esi);
+	printf("EDI      %d\n",cpu.edi);
+	printf("EIP      %d\n",cpu.eip);
 }
 static void cmd_x(uint32_t para,uint32_t addr)
 {
