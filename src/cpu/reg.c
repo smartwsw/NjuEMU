@@ -8,7 +8,6 @@ CPU_state cpu;
 const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
-
 void reg_test() {
 	srand(time(0));
 	uint32_t sample[8];
@@ -36,4 +35,5 @@ void reg_test() {
 	assert(sample[R_EBP] == cpu.ebp);
 	assert(sample[R_ESI] == cpu.esi);
 	assert(sample[R_EDI] == cpu.edi);
+	cpu.EFLAGS = 0x2;
 }
