@@ -18,7 +18,7 @@ make_helper(test_rm_r_l) {
 			if (((result >> i) & 0x1) == 1)
 				parity = ~parity;
 		cpu.PF = parity;
-		return 1;
+		return 2;
 	}
 	else 
 		assert (0);
@@ -40,7 +40,7 @@ make_helper(test_rm_r_w) {
 			if (((result >> i) & 0x1) == 1)
 				parity = ~parity;
 		cpu.PF = parity;
-		return 1;
+		return 2;
 	}
 	else 
 		assert (0);
