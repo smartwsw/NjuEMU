@@ -16,7 +16,7 @@ make_helper(cmp_rm_imm_l) {
 		cpu.SF = (result >> 31) & 0x1;
 		cpu.OF = 0;
 
-		print_asm("cmp $0x%x,%%%s",imm,regsl[reg_code]);
+		print_asm("cmp  $0x%x,%%%s",imm,regsl[reg_code]);
 		return 3;
 	}
 	else 
