@@ -109,6 +109,23 @@ static void cmd_info_r() {
 	printf("ESI      0x%x	%d\n",cpu.esi,cpu.esi);
 	printf("EDI      0x%x	%d\n",cpu.edi,cpu.edi);
 	printf("EIP      0x%x	%d\n",cpu.eip,cpu.eip);
+	printf("EFLAGS	 0x%x	[ ",cpu.EFLAGS);
+	int eflags = cpu.EFLAGS;
+	if ((eflags & 0x1) == 1)
+		printf("CF ");
+	if (((eflags >> 2) & 0x1) == 1)
+		printf("PF ");
+	if (((eflags >> 6) & 0x1) == 1)
+		printf("ZF ");
+	if (((eflags >> 7) & 0x1) == 1)
+		printf("SF ");
+	if (((eflags >> 9) & 0x1) == 1)
+		printf("IF ");
+	if (((eflags >> 10) & 0x1) == 1)
+		printf("DF ");
+	if (((eflags >> 11) & 0x1) == 1)
+		printf("OF ");
+	printf("]\n");
 }
 static void cmd_x(uint32_t para,uint32_t addr)
 {
