@@ -27,7 +27,7 @@ typedef union {
 		swaddr_t eip;
 		union {
 			uint32_t EFLAGS;
-			struct {uint32_t CF:1,NAN1:1,PF:1,NAN2:1,AF:1,NAN3:1,ZF:1,SF:1,TF:1,IF:1,DF:1,OF:1,IOPL:2,NT:1,NAN4:1,RF:1,VM:1,NAN5:17;};
+			struct {uint32_t CF:1,NAN1:1,PF:1,NAN2:1,AF:1,NAN3:1,ZF:1,SF:1,TF:1,IF:1,DF:1,OF:1,IOPL:2,NT:1,NAN4:1,RF:1,VM:1,NAN5:15;};
 		};
 	};
 } CPU_state;
