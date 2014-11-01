@@ -25,6 +25,8 @@ void restart() {
 
 	cpu.eip = LOADER_START;
 	cpu.esp = 0x8000000;
+	cpu.EFLAGS = 0x2;
+	cpu.ebp = 0x0;
 
 	init_dram();
 }
