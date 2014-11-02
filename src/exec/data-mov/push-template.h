@@ -27,4 +27,11 @@ make_helper(concat(push_m_, SUFFIX)) {
 				 assert(0);
 	}
 }
+make_helper(concat(push_i_,SUFFIX)) {
+	int imm = instr_fetch(eip + 1, DATA_BYTE);
+	cpu.esp -= DATA_BYTE;
+	swaddr_write(cpu.esp, DATA_BYTE, imm);
+	print_asm("push"str(SUFFIX)"\t\t%d", imm);
+	return DATA_BYTE + 1;
+}
 #include "exec/template-end.h"
