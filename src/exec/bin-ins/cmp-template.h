@@ -85,13 +85,23 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 	if(m.mod == 3) {
 		int reg = REG(m.reg);
 		int r_m = REG(m.R_M);
-		if (opcode == 0x38 || opcode == 0x39) {
+		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
 			result = r_m - reg;
-			print_asm("cmp"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(reg),REG_NAME(r_m));
+			if (opcode == 0x28 || opcode == 0x29) {
+				REG(m.R_M) = result;
+				print_asm("sub"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.reg),REG_NAME(m.R_M));
+			}
+			else
+				print_asm("cmp"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.reg),REG_NAME(m.R_M));
 		}
 		else {
-			result = reg- r_m;
-			print_asm("cmp"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(r_m),REG_NAME(reg));
+			result = reg - r_m;
+			if (opcode == 0x2A || opcode == 0x2B) {
+				REG(m.reg) = result;
+				print_asm("sub"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.R_M),REG_NAME(m.reg));
+			}
+			else 
+				print_asm("cmp"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.R_M),REG_NAME(m.reg));
 		}
 		len = 2;
 	}
@@ -100,13 +110,22 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		len += read_ModR_M(eip + 1, &addr);
 		int val = swaddr_read(addr, DATA_BYTE);
 		int reg = REG(m.reg);
-		if (opcode == 0x38 || opcode == 0x39) {
+		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
 			result = val - reg;
-			print_asm("cmp"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(reg),addr);
+			if (opcode == 0x28 || opcode == 0x29) {
+				swaddr_write(addr, DATA_BYTE, result);
+				print_asm("sub"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
+			}
+			print_asm("cmp"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
 		}
 		else {
 			result = reg - val;
-			print_asm("cmp"str(SUFFIX)"\t\t0x%x,%%%s",addr,REG_NAME(reg));
+			if (opcode == 0x2a || opcode == 0x2b) {
+				REG(m.reg) = result;
+				print_asm("sub"str(SUFFIX)"\t\t0x%x,%%%s",addr,REG_NAME(m.reg));
+			}
+			else 
+				print_asm("cmp"str(SUFFIX)"\t\t0x%x,%%%s",addr,REG_NAME(m.reg));
 		}
 	}
 	cpu.AF = 0;
