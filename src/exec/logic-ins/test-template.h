@@ -11,7 +11,7 @@ make_helper(concat(test_rm_r_, SUFFIX)) {
 		int left = REG(m.reg);
 		result = left & right;
 		len++;
-		print_asm("test\t%%%s,%%%s", REG_NAME(m.reg) , REG_NAME(m.R_M));
+		print_asm("test"str(SUFFIX)"\t%%%s,%%%s", REG_NAME(m.reg) , REG_NAME(m.R_M));
 	}
 	else {
 		swaddr_t addr;
@@ -19,7 +19,7 @@ make_helper(concat(test_rm_r_, SUFFIX)) {
 		int left = REG(m.reg);
 		int right = swaddr_read(addr, 4);
 		result = right & left;
-		print_asm("test\t%%%s,0x%x", REG_NAME(m.reg) , addr);
+		print_asm("test"str(SUFFIX)"\t%%%s,0x%x", REG_NAME(m.reg) , addr);
 	}
 	cpu.OF = 0;
 	cpu.CF = 0;
@@ -46,7 +46,7 @@ make_helper(concat(test_rm_i_, SUFFIX)) {
 				imm = instr_fetch(eip + 1, DATA_BYTE);
 				result = reg & imm;
 				len += 1 + DATA_BYTE;
-				print_asm("test\t%%%s,%d", REG_NAME(m.R_M) , imm);
+				print_asm("test"str(SUFFIX)"\t%%%s,%d", REG_NAME(m.R_M) , imm);
 			}
 			else {
 				swaddr_t addr;
@@ -55,7 +55,7 @@ make_helper(concat(test_rm_i_, SUFFIX)) {
 				imm = instr_fetch(eip + 1, 4);
 				len += DATA_BYTE;
 				result = right & imm; 
-				print_asm("test\t%d,0x%x", imm  , addr);
+				print_asm("test"str(SUFFIX)"\t0x%x,%d", addr  , imm);
 			}
 			cpu.OF = 0;
 			cpu.CF = 0;
@@ -72,6 +72,23 @@ make_helper(concat(test_rm_i_, SUFFIX)) {
 			assert(0);
 
 	}
+}
+make_helper(concat(test_a_i_, SUFFIX)) {
+	int result;
+	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
+	result = imm & REG(0);
+	cpu.OF = 0;
+	cpu.CF = 0;
+	cpu.SF = (result >> 31) & 0x1;
+	cpu.ZF = !!result;
+	bool parity = 1;
+	int i;
+	for (i = 0;i < 8;i++) 
+		if (((result >> i) & 0x1) == 1)
+			parity = ~parity;
+	cpu.PF = parity;
+	print_asm("test"str(SUFFIX)"\t%%%s,%d", REG_NAME(0), imm);
+	return DATA_BYTE + 1;
 }
 #include "exec/template-end.h"
 
