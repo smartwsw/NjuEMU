@@ -51,8 +51,8 @@ make_helper(concat(test_rm_i_, SUFFIX)) {
 			else {
 				swaddr_t addr;
 				len += read_ModR_M(eip + 1, &addr);
-				int right = swaddr_read(addr, 4);
-				imm = instr_fetch(eip + 1, 4);
+				int right = swaddr_read(addr, DATA_BYTE);
+				imm = instr_fetch(eip + 1, DATA_BYTE);
 				len += DATA_BYTE;
 				result = right & imm; 
 				print_asm("test"str(SUFFIX)"\t0x%x,%d", addr  , imm);
