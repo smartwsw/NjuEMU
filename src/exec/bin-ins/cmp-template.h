@@ -37,6 +37,12 @@ make_helper(concat(cmp_rm_i_, SUFFIX)) {
 					 cpu.ZF = !!result;
 					 cpu.SF = (result >> 31) & 0x1;
 					 cpu.OF = 0;
+					 bool parity = 1;
+					 int i;
+					 for (i = 0;i < 8;i++) 
+						 if (((result >> i) & 0x1) == 1)
+							 parity = ~parity;
+					 cpu.PF = parity;
 				 }
 				 return len;
 		default :
@@ -53,5 +59,48 @@ make_helper(concat(cmp_a_i_,SUFFIX)) {
 	print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(0));
 	return DATA_BYTE + 1;
 }
-			
+make_helper(concat(cmp_rm_r_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	int result, len = 1, opcode = instr_fetch(eip, 1);
+	if(m.mod == 3) {
+		int reg = REG(m.reg);
+		int r_m = REG(m.R_M);
+		if (opcode == 0x38 || opcode == 0x39) {
+			result = r_m - reg;
+			print_asm("cmp"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(reg),REG_NAME(r_m));
+		}
+		else {
+			result = reg- r_m;
+			print_asm("cmp"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(r_m),REG_NAME(reg));
+		}
+		len = 2;
+	}
+	else {
+		swaddr_t addr;
+		len += read_ModR_M(eip + 1, &addr);
+		int val = swaddr_read(addr, DATA_BYTE);
+		int reg = REG(m.reg);
+		if (opcode == 0x38 || opcode == 0x39) {
+			result = val - reg;
+			print_asm("cmp"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(reg),addr);
+		}
+		else {
+			result = reg - val;
+			print_asm("cmp"str(SUFFIX)"\t\t0x%x,%%%s",addr,REG_NAME(reg));
+		}
+	}
+	cpu.AF = 0;
+	cpu.ZF = !!result;
+	cpu.SF = (result >> 31) & 0x1;
+	cpu.OF = 0;
+	bool parity = 1;
+	int i;
+	for (i = 0;i < 8;i++) 
+		if (((result >> i) & 0x1) == 1)
+			parity = ~parity;
+	cpu.PF = parity;
+	return len;
+}
+
 #include "exec/template-end.h"
