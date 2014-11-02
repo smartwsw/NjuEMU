@@ -10,7 +10,7 @@ make_helper(concat(cmp_rm_i_, SUFFIX)) {
 	switch (m.opcode) {
 		case 7 : {
 					 int imm;
-					 if (opcode == 83) {
+					 if (opcode == 0x83) {
 						 imm = instr_fetch(eip + 2,1);
 						 imm = (imm << 24) >> 24;
 						 len += 2;
