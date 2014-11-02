@@ -11,7 +11,7 @@ make_helper(concat(test_rm_r_, SUFFIX)) {
 		int left = REG(m.reg);
 		result = left & right;
 		len++;
-		print_asm("test %%%s,%%%s", REG_NAME(m.reg) , REG_NAME(m.R_M));
+		print_asm("test\t%%%s,%%%s", REG_NAME(m.reg) , REG_NAME(m.R_M));
 	}
 	else {
 		swaddr_t addr;
@@ -19,7 +19,7 @@ make_helper(concat(test_rm_r_, SUFFIX)) {
 		int left = REG(m.reg);
 		int right = swaddr_read(addr, 4);
 		result = right & left;
-		print_asm("test %%%s,0x%x", REG_NAME(m.reg) , addr);
+		print_asm("test\t%%%s,0x%x", REG_NAME(m.reg) , addr);
 	}
 	cpu.OF = 0;
 	cpu.CF = 0;
@@ -46,7 +46,7 @@ make_helper(concat(test_rm_i_, SUFFIX)) {
 				imm = instr_fetch(eip + 1, DATA_BYTE);
 				result = reg & imm;
 				len += 1 + DATA_BYTE;
-				print_asm("test %%%s,%d", REG_NAME(m.R_M) , imm);
+				print_asm("test\t%%%s,%d", REG_NAME(m.R_M) , imm);
 			}
 			else {
 				swaddr_t addr;
@@ -55,7 +55,7 @@ make_helper(concat(test_rm_i_, SUFFIX)) {
 				imm = instr_fetch(eip + 1, 4);
 				len += DATA_BYTE;
 				result = right & imm; 
-				print_asm("test %d,0x%x", imm  , addr);
+				print_asm("test\t%d,0x%x", imm  , addr);
 			}
 			cpu.OF = 0;
 			cpu.CF = 0;
