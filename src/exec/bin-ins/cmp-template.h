@@ -4,18 +4,26 @@
 
 make_helper(concat(cmp_rm_i_, SUFFIX)) {
 	ModR_M m;
+	int opcode = instr_fetch(eip, 1);
 	m.val = instr_fetch(eip + 1,1);
 	int len = 1, result;
 	switch (m.opcode) {
 		case 7 : {
-					 int imm = instr_fetch(eip + 2,1);
-					 imm = (imm << 24) >> 24;
+					 int imm;
+					 if (opcode == 83) {
+						 imm = instr_fetch(eip + 2,1);
+						 imm = (imm << 24) >> 24;
+						 len += 2;
+					 }
+					 else {
+						 imm = instr_fetch(eip + 2, DATA_BYTE);
+						 len += DATA_BYTE + 1;
+					 }
 					 if (m.mod == 3) {
 						 int reg_value = REG(m.reg);
 						 if (reg_value < imm) 
 							 cpu.CF = 1;
 						 result = reg_value - imm;
-						 len += 2;
 						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
 					 }
 					 else {
