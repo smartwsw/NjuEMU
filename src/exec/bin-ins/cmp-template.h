@@ -35,28 +35,32 @@ make_helper(concat(cmp_rm_i_, SUFFIX)) {
 						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
 					 else
 						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,0x%x",imm, addr);
+					 break;
 				 }
 		case 5 : {
 					 if (m.mod == 3) {
 						 REG(m.reg) = result;
-						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
+						 print_asm("sub"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
 					 }
 					 else {
 						 swaddr_write(addr, DATA_BYTE, result);
-						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,0x%x",imm, addr);
+						 print_asm("sub"str(SUFFIX)"\t\t$0x%x,0x%x",imm, addr);
 					 }
+					 break;
 				 }
-				 cpu.AF = 0;
-				 cpu.ZF = !!result;
-				 cpu.SF = (result >> 31) & 0x1;
-				 cpu.OF = 0;
-				 bool parity = 1;
-				 int i;
-				 for (i = 0;i < 8;i++) 
-					 if (((result >> i) & 0x1) == 1)
-						 parity = ~parity;
-				 cpu.PF = parity;
+		default :
+				 assert(0);
 	}
+	cpu.AF = 0;
+	cpu.ZF = !!result;
+	cpu.SF = (result >> 31) & 0x1;
+	cpu.OF = 0;
+	bool parity = 1;
+	int i;
+	for (i = 0;i < 8;i++) 
+		if (((result >> i) & 0x1) == 1)
+			parity = ~parity;
+	cpu.PF = parity;
 	return len;
 }
 make_helper(concat(cmp_i_a_,SUFFIX)) {
@@ -66,9 +70,12 @@ make_helper(concat(cmp_i_a_,SUFFIX)) {
 	cpu.ZF = !!result;
 	cpu.SF = (result >> 31) & 0x1;
 	cpu.OF = 0;
-	if(instr_fetch(eip, 1) == 0x2c || instr_fetch(eip, 1) == 0x2d)
+	if(instr_fetch(eip, 1) == 0x2c || instr_fetch(eip, 1) == 0x2d) {
 		REG(0) = result;
-	print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(0));
+		print_asm("sub"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(0));
+	}
+	else 
+		print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(0));
 	return DATA_BYTE + 1;
 }
 make_helper(concat(cmp_rm_r_, SUFFIX)) {
