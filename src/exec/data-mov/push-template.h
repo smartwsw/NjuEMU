@@ -7,7 +7,7 @@ make_helper(concat(push_r_, SUFFIX)) {
 	int value = REG(reg_code);
 	cpu.esp = cpu.esp - DATA_BYTE;
 	swaddr_write(cpu.esp,DATA_BYTE,value);
-	print_asm("push"str(SUFFIX)"\t%%%s", REG_NAME(reg_code));
+	print_asm("push"str(SUFFIX)"\t\t%%%s", REG_NAME(reg_code));
 	return 1;
 }
 make_helper(concat(push_m_, SUFFIX)) {
@@ -20,7 +20,7 @@ make_helper(concat(push_m_, SUFFIX)) {
 					 cpu.esp -= DATA_BYTE;
 					 int val = swaddr_read(addr, DATA_BYTE);
 					 swaddr_write(cpu.esp, DATA_BYTE, val);
-					 print_asm("push"str(SUFFIX)"\t0x%x", addr);
+					 print_asm("push"str(SUFFIX)"\t\t0x%x", addr);
 					 return len + 1;
 				 }
 		default :
