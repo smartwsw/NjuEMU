@@ -15,8 +15,8 @@ extern char suffix;
 make_helper(cmp_rm_i_v) {
 	    return (suffix == 'l' ? cmp_rm_i_l(eip) : cmp_rm_i_w(eip));
 }
-make_helper(cmp_a_i_v) {
-	    return (suffix == 'l' ? cmp_a_i_l(eip) : cmp_a_i_w(eip));
+make_helper(cmp_i_a_v) {
+	    return (suffix == 'l' ? cmp_i_a_l(eip) : cmp_i_a_w(eip));
 }
 make_helper(cmp_rm_r_v) {
 	    return (suffix == 'l' ? cmp_rm_r_l(eip) : cmp_rm_r_w(eip));

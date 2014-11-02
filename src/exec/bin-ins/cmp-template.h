@@ -59,13 +59,15 @@ make_helper(concat(cmp_rm_i_, SUFFIX)) {
 	}
 	return len;
 }
-make_helper(concat(cmp_a_i_,SUFFIX)) {
+make_helper(concat(cmp_i_a_,SUFFIX)) {
 	int imm = instr_fetch(eip + 1, DATA_BYTE);
 	int result = REG(0) - imm;
 	cpu.AF = 0;
 	cpu.ZF = !!result;
 	cpu.SF = (result >> 31) & 0x1;
 	cpu.OF = 0;
+	if(instr_fetch(eip, 1) == 0x2c || instr_fetch(eip, 1) == 0x2d)
+		REG(0) = result;
 	print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(0));
 	return DATA_BYTE + 1;
 }
