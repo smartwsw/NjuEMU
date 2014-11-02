@@ -11,7 +11,7 @@ helper_fun opcode_table [256] = {
 /* 0x00 */	inv, inv, inv, inv, 
 /* 0x04 */	inv, inv, inv, inv, 
 /* 0x08 */	inv, inv, inv, inv, 
-/* 0x0c */	inv, inv, inv, inv, 
+/* 0x0c */	inv, inv, inv, esc_code, 
 /* 0x10 */	inv, inv, inv, inv, 
 /* 0x14 */	inv, inv, inv, inv, 
 /* 0x18 */	inv, inv, inv, inv, 
