@@ -1,9 +1,16 @@
 #include "exec/helper.h"
-#include "cpu/modrm.h"
+#define DATA_BYTE 1
+#define CC e
+#define COND cpu.ZF
+#include "jcc-template.h"
+#undef COND
+#undef CC
 
-make_helper(je_b) {
-	int value = instr_fetch(eip+1,1);
-	cpu.eip += value;
-	print_asm("je\t\t%x",cpu.eip + 2);
-	return 2;
-}
+
+
+
+
+
+
+
+
