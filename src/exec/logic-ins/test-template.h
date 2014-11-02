@@ -24,7 +24,7 @@ make_helper(concat(test_rm_r_, SUFFIX)) {
 	cpu.OF = 0;
 	cpu.CF = 0;
 	cpu.SF = (result >> 31) & 0x1;
-	cpu.ZF = !!result;
+	cpu.ZF = !result;
 	bool parity = 1;
 	int i;
 	for (i = 0;i < 8;i++) 
@@ -60,7 +60,7 @@ make_helper(concat(test_rm_i_, SUFFIX)) {
 			cpu.OF = 0;
 			cpu.CF = 0;
 			cpu.SF = (result >> 31) & 0x1;
-			cpu.ZF = !!result;
+			cpu.ZF = !result;
 			bool parity = 1;
 			int i;
 			for (i = 0;i < 8;i++) 
@@ -80,7 +80,7 @@ make_helper(concat(test_a_i_, SUFFIX)) {
 	cpu.OF = 0;
 	cpu.CF = 0;
 	cpu.SF = (result >> 31) & 0x1;
-	cpu.ZF = !!result;
+	cpu.ZF = !result;
 	bool parity = 1;
 	int i;
 	for (i = 0;i < 8;i++) 
