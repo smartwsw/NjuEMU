@@ -12,7 +12,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	if (opcode == 0x83) {
 		imm = instr_fetch(eip + 2,1);
 		imm = (imm << 24) >> 24; 
-		len += 2;
+		len += 1;
 	}   
 	else {
 		imm = instr_fetch(eip + 2, DATA_BYTE);
@@ -21,7 +21,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	if (m.mod == 3) 
 		value = REG(m.R_M);
 	else {
-		len = read_ModR_M(eip + 1, &addr);
+		len += read_ModR_M(eip + 1, &addr);
 		value = swaddr_read(addr, 1); 
 	}   
 	switch (m.opcode) {
