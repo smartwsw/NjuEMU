@@ -3,7 +3,7 @@
 make_helper(concat(concat(concat(j, CC), _), SUFFIX)) {
 	DATA_TYPE_S val = instr_fetch(eip + 1, DATA_BYTE);
 	swaddr_t addr = cpu.eip;
-	addr += val;
+	addr += (int32_t) val;
 #if DATA_BYTE == 2
 	addr &= 0xffff;
 #endif
