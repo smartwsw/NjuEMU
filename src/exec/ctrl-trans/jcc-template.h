@@ -4,11 +4,12 @@ make_helper(concat(concat(concat(j, CC), _), SUFFIX)) {
 	DATA_TYPE_S val = instr_fetch(eip + 1, DATA_BYTE);
 	swaddr_t addr = cpu.eip;
 	addr += (int32_t) val;
-#if DATA_BYTE == 2
-	addr &= 0xffff;
-#endif
-	if (COND) 
+	if (COND) {
 		cpu.eip = addr;
+#if DATA_BYTE == 2
+		cpu.eip &= 0xffff;
+#endif 
+	}
 #if DATA_BYTE == 1
 	print_asm("j"str(CC)"\t\t%x", addr + DATA_BYTE + 1);
 #else 
