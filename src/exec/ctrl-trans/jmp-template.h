@@ -3,7 +3,7 @@
 #include "cpu/modrm.h"
 
 make_helper(concat(jmp_rel_, SUFFIX)) {
-	int32_t addr = instr_fetch(eip + 1, DATA_BYTE);
+	DATA_TYPE_S addr = instr_fetch(eip + 1, DATA_BYTE);
 #if DATA_BYTE == 2
 	addr &= 0xffff;
 #endif
