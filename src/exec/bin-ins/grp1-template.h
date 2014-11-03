@@ -21,7 +21,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	if (m.mod == 3) 
 		value = REG(m.R_M);
 	else {
-		len += read_ModR_M(eip + 1, &addr);
+		len = read_ModR_M(eip + 1, &addr);
 		value = swaddr_read(addr, 1); 
 	}   
 	switch (m.opcode) {
