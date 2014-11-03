@@ -14,3 +14,4 @@
 #include "bin-ins/cmp.h"
 #include "bin-ins/grp1.h"
 #include "bin-ins/add.h"
+#include "flag-ctrl/cld.h"
