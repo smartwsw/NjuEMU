@@ -8,3 +8,4 @@
 #include "ctrl-trans/jcc.h"
 #include "bin-ins/cmp.h"
 #include "bin-ins/grp1.h"
+#include "bin-ins/add.h"

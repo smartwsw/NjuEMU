@@ -5,7 +5,7 @@ make_helper(concat(cmp_i_a_,SUFFIX)) {
 	int imm = instr_fetch(eip + 1, DATA_BYTE);
 	int result = REG(0) - imm;
 	cpu.AF = 0;
-	cpu.ZF = !!result;
+	cpu.ZF = !result;
 	cpu.SF = (result >> 31) & 0x1;
 	cpu.OF = 0;
 	if(instr_fetch(eip, 1) == 0x2c || instr_fetch(eip, 1) == 0x2d) {
@@ -54,7 +54,8 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 				swaddr_write(addr, DATA_BYTE, result);
 				print_asm("sub"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
 			}
-			print_asm("cmp"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
+			else 
+				print_asm("cmp"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
 		}
 		else {
 			result = reg - val;
@@ -67,7 +68,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		}
 	}
 	cpu.AF = 0;
-	cpu.ZF = !!result;
+	cpu.ZF = !result;
 	cpu.SF = (result >> 31) & 0x1;
 	cpu.OF = 0;
 	bool parity = 1;

@@ -8,12 +8,12 @@ typedef int (*helper_fun)(swaddr_t);
 /* TODO: Add more instructions!!! */
 
 helper_fun opcode_table [256] = {
-/* 0x00 */	inv, inv, inv, inv, 
+/* 0x00 */	add_rm_r_b, add_rm_r_v, add_rm_r_b, add_rm_r_v, 
 /* 0x04 */	inv, inv, inv, inv, 
 /* 0x08 */	inv, inv, inv, inv, 
 /* 0x0c */	inv, inv, inv, esc_code, 
-/* 0x10 */	inv, inv, inv, inv, 
-/* 0x14 */	inv, inv, inv, inv, 
+/* 0x10 */	add_rm_r_b, add_rm_r_v, add_rm_r_b, add_rm_r_v, 
+/* 0x14 */	add_i_a_b, add_i_a_v, inv, inv, 
 /* 0x18 */	inv, inv, inv, inv, 
 /* 0x1c */	inv, inv, inv, inv, 
 /* 0x20 */	inv, inv, inv, inv, 
