@@ -8,6 +8,7 @@
 #include "ctrl-trans/jcc.h"
 #include "ctrl-trans/call.h"
 #include "ctrl-trans/jmp.h"
+#include "ctrl-trans/ret.h"
 #include "bin-ins/cmp.h"
 #include "bin-ins/grp1.h"
 #include "bin-ins/add.h"
