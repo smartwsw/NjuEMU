@@ -4,6 +4,7 @@
 
 #include "data-mov/push.h"
 #include "misc/misc.h"
+#include "misc/lea.h"
 #include "logic-ins/test.h"
 #include "logic-ins/setcc.h"
 #include "ctrl-trans/jcc.h"
