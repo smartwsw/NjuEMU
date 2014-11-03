@@ -12,7 +12,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	if (opcode == 0x83) {
 		imm = instr_fetch(eip + 2,1);
 		imm = (imm << 24) >> 24; 
-		len += 1;
+		len += DATA_BYTE;
 	}   
 	else {
 		imm = instr_fetch(eip + 2, DATA_BYTE);
