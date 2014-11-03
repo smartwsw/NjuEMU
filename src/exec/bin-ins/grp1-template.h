@@ -19,7 +19,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 		len += DATA_BYTE + 1;
 	}   
 	if (m.mod == 3) 
-		value = REG(m.reg);
+		value = REG(m.R_M);
 	else {
 		len += read_ModR_M(eip + 1, &addr);
 		value = swaddr_read(addr, 1); 
@@ -30,7 +30,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 					 if (value < imm)
 						 cpu.CF = 1;
 					 if (m.mod == 3)
-						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
+						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.R_M));
 					 else
 						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,0x%x",imm, addr);
 					 break;
@@ -40,8 +40,8 @@ make_helper(concat(grp1_, SUFFIX)) {
 					 if (value < imm)
 						 cpu.CF = 1;
 					 if (m.mod == 3) {
-						 REG(m.reg) = result;
-						 print_asm("sub"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
+						 REG(m.R_M) = result;
+						 print_asm("sub"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.R_M));
 					 }
 					 else {
 						 swaddr_write(addr, DATA_BYTE, result);
