@@ -6,6 +6,7 @@
 #include "misc/misc.h"
 #include "logic-ins/test.h"
 #include "ctrl-trans/jcc.h"
+#include "ctrl-trans/jmp.h"
 #include "bin-ins/cmp.h"
 #include "bin-ins/grp1.h"
 #include "bin-ins/add.h"
