@@ -80,6 +80,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 		default :
 				assert(0);
 	}
+	printf("\n%d\n",result);
 	cpu.ZF = !result;
 	cpu.SF = (result >> 31) & 0x1;
 	cpu.OF = 0;
