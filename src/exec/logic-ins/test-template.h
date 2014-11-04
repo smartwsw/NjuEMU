@@ -34,45 +34,6 @@ make_helper(concat(test_rm_r_, SUFFIX)) {
 	return len;
 }
 
-make_helper(concat(test_rm_i_, SUFFIX)) {
-	ModR_M m;
-	m.val = instr_fetch(eip+1,1);
-	int result, len = 1;
-	DATA_TYPE imm;
-	switch (m.opcode) {
-		case 0 : 
-			if (m.mod == 3) {
-				int reg = REG(m.R_M);
-				imm = instr_fetch(eip + 1, DATA_BYTE);
-				result = reg & imm;
-				len += 1 + DATA_BYTE;
-				print_asm("test"str(SUFFIX)"\t\t%%%s,%d", REG_NAME(m.R_M) , imm);
-			}
-			else {
-				swaddr_t addr;
-				len += read_ModR_M(eip + 1, &addr);
-				int right = swaddr_read(addr, DATA_BYTE);
-				imm = instr_fetch(eip + 1, DATA_BYTE);
-				len += DATA_BYTE;
-				result = right & imm; 
-				print_asm("test"str(SUFFIX)"\t\t0x%x,%d", addr  , imm);
-			}
-			cpu.OF = 0;
-			cpu.CF = 0;
-			cpu.SF = (result >> 31) & 0x1;
-			cpu.ZF = !result;
-			bool parity = 1;
-			int i;
-			for (i = 0;i < 8;i++) 
-				if (((result >> i) & 0x1) == 1)
-					parity = ~parity;
-			cpu.PF = parity;
-			return len;
-		default :
-			assert(0);
-
-	}
-}
 make_helper(concat(test_a_i_, SUFFIX)) {
 	int result;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
