@@ -8,6 +8,7 @@
 #include "logic-ins/test.h"
 #include "logic-ins/setcc.h"
 #include "logic-ins/and.h"
+#include "logic-ins/or.h"
 #include "ctrl-trans/jcc.h"
 #include "ctrl-trans/call.h"
 #include "ctrl-trans/jmp.h"
