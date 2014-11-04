@@ -24,7 +24,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 		imm = instr_fetch(eip + len + 1, DATA_BYTE);
 		len += DATA_BYTE + 1;
 	}   
-
+	printf("%d",value);
 	switch (m.opcode) {
 		case 7 : { 
 					 result = value - imm;
