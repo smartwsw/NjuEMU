@@ -25,16 +25,6 @@ make_helper(concat(grp3_, SUFFIX)) {
 						 result = right & imm; 
 						 print_asm("test"str(SUFFIX)"\t\t%s,%d", ModR_M_asm , imm);
 					 }   
-					 cpu.OF = 0;
-					 cpu.CF = 0;
-					 cpu.SF = (result >> 31) & 0x1;
-					 cpu.ZF = !result;
-					 bool parity = 1;
-					 int i;
-					 for (i = 0;i < 8;i++) 
-						 if (((result >> i) & 0x1) == 1)
-							 parity = ~parity;
-					 cpu.PF = parity;
 					 return len;
 				 }
 		case 2: {
@@ -51,9 +41,20 @@ make_helper(concat(grp3_, SUFFIX)) {
 						print_asm("not"str(SUFFIX)"\t\t%s", ModR_M_asm);
 					}
 				}
+
 		default :
 				assert(0);
 
-	}   
+	}
+	cpu.OF = 0;
+	cpu.CF = 0;
+	cpu.SF = (result >> 31) & 0x1;
+	cpu.ZF = !result;
+	bool parity = 1;
+	int i;
+	for (i = 0;i < 8;i++) 
+		if (((result >> i) & 0x1) == 1)
+			parity = ~parity;
+	cpu.PF = parity;   
 }
 #include "exec/template-end.h"

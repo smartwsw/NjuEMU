@@ -35,6 +35,20 @@ make_helper(concat(grp1_, SUFFIX)) {
 						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
 					 break;
 				 }   
+		case 6 : { 
+					 cpu.CF = 0;
+					 result = value ^ imm;
+					 if (m.mod == 3) {
+						 REG(m.R_M) = result;
+						 print_asm("xor"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.R_M));
+					 }
+					 else {
+						 swaddr_write(addr, DATA_BYTE, result);
+						 print_asm("xor"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
+					 }
+					 break;
+				 }
+
 		case 5 : { 
 					 result = value - imm;
 					 if (value < imm)
