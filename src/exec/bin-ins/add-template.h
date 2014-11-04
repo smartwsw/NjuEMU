@@ -60,20 +60,20 @@ make_helper(concat(add_rm_r_, SUFFIX)) {
 			result = val + reg;
 			if (opcode == 0x11 || opcode == 0x10) {
 				result += cpu.CF;
-				print_asm("adc"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
+				print_asm("adc"str(SUFFIX)"\t\t%%%s,%s",REG_NAME(m.reg),ModR_M_asm);
 			}
 			else 
-				print_asm("add"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
+				print_asm("add"str(SUFFIX)"\t\t%%%s,%s",REG_NAME(m.reg),ModR_M_asm);
 			swaddr_write(addr, DATA_BYTE, result);
 		}
 		else {
 			result = reg + val;
 			if (opcode == 0x10 || opcode == 0x11) {
 				result += cpu.CF;
-				print_asm("adc"str(SUFFIX)"\t\t0x%x,%%%s",addr,REG_NAME(m.reg));
+				print_asm("adc"str(SUFFIX)"\t\t%s,%%%s",ModR_M_asm,REG_NAME(m.reg));
 			}
 			else 
-				print_asm("add"str(SUFFIX)"\t\t0x%x,%%%s",addr,REG_NAME(m.reg));
+				print_asm("add"str(SUFFIX)"\t\t%s,%%%s",ModR_M_asm,REG_NAME(m.reg));
 			REG(m.reg) = result;
 		}
 	}

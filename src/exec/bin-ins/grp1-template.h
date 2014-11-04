@@ -32,7 +32,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 					 if (m.mod == 3)
 						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.R_M));
 					 else
-						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,0x%x",imm, addr);
+						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
 					 break;
 				 }   
 		case 5 : { 
@@ -45,7 +45,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 					 }
 					 else {
 						 swaddr_write(addr, DATA_BYTE, result);
-						 print_asm("sub"str(SUFFIX)"\t\t$0x%x,0x%x",imm, addr);
+						 print_asm("sub"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
 					 }
 					 break;
 				 }
@@ -58,7 +58,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 					}
 					else {
 						swaddr_write(addr, DATA_BYTE, result);
-						print_asm("add"str(SUFFIX)"\t\t$0x%x,0x%x",imm, addr);
+						print_asm("add"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
 					}
 					break;
 				}
@@ -71,7 +71,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 					}
 					else {
 						swaddr_write(addr, DATA_BYTE, result);
-						print_asm("add"str(SUFFIX)"\t\t$0x%x,0x%x",imm, addr);
+						print_asm("add"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
 					}
 					break;
 				}
