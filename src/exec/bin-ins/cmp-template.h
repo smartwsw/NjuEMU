@@ -2,7 +2,7 @@
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
 make_helper(concat(cmp_i_a_,SUFFIX)) {
-	int imm = instr_fetch(eip + 1, DATA_BYTE);
+	int imm = instr_fetch(eip + 2, DATA_BYTE);
 	int result = REG(0) - imm;
 	cpu.AF = 0;
 	cpu.ZF = !result;
