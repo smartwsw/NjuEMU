@@ -10,20 +10,21 @@ make_helper(concat(grp1_, SUFFIX)) {
 	DATA_TYPE_S imm;
 	int value;
 	swaddr_t addr;
-	if (opcode == 0x83) {
-		imm = instr_fetch(eip + 2,1);
-		len += 2;
-	}   
-	else {
-		imm = instr_fetch(eip + 2, DATA_BYTE);
-		len += DATA_BYTE + 1;
-	}   
 	if (m.mod == 3) 
 		value = REG(m.R_M);
 	else {
 		len += read_ModR_M(eip + 1, &addr) - 1;
 		value = swaddr_read(addr, 1); 
 	}   
+	if (opcode == 0x83) {
+		imm = instr_fetch(eip + len,1);
+		len += 2;
+	}   
+	else {
+		imm = instr_fetch(eip + len, DATA_BYTE);
+		len += DATA_BYTE + 1;
+	}   
+
 	switch (m.opcode) {
 		case 7 : { 
 					 result = value - imm;
