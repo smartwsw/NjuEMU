@@ -57,7 +57,7 @@ make_helper(concat(add_rm_r_, SUFFIX)) {
 		int val = swaddr_read(addr, DATA_BYTE);
 		int reg = REG(m.reg);
 		if (opcode == 0x01 || opcode == 0x00 || opcode == 0x10 || opcode == 0x11) {
-			result = val - reg;
+			result = val + reg;
 			if (opcode == 0x11 || opcode == 0x10) {
 				result += cpu.CF;
 				print_asm("adc"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
