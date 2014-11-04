@@ -10,8 +10,10 @@ make_helper(concat(grp1_, SUFFIX)) {
 	DATA_TYPE_S imm;
 	int value;
 	swaddr_t addr;
-	if (m.mod == 3) 
+	if (m.mod == 3) {
+		len++;
 		value = REG(m.R_M);
+	}
 	else {
 		len += read_ModR_M(eip + 1, &addr) - 1;
 		value = swaddr_read(addr, 1); 
