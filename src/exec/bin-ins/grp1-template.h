@@ -14,7 +14,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 		value = REG(m.R_M);
 	else {
 		len += read_ModR_M(eip + 1, &addr) - 1;
-		value = swaddr_read(addr, 1); 
+		value = swaddr_read(addr, DATA_BYTE); 
 	}   
 	if (opcode == 0x83) {
 		imm = instr_fetch(eip + len + 1, 1);
