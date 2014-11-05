@@ -7,7 +7,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	int opcode = instr_fetch(eip, 1); 
 	m.val = instr_fetch(eip + 1,1);
 	int len = 1, result;
-	int32_t imm;
+	DATA_TYPE_S imm;
 	int value;
 	swaddr_t addr;
 	if (m.mod == 3) 
