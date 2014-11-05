@@ -48,6 +48,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		len += read_ModR_M(eip + 1, &addr);
 		int val = swaddr_read(addr, DATA_BYTE);
 		int reg = REG(m.reg);
+		cpu.OF = (reg < val) ? 1 : 0;
 		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
 			result = reg - val;
 			if (opcode == 0x28 || opcode == 0x29) {
