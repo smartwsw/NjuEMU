@@ -50,7 +50,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		int reg = REG(m.reg);
 		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
 			result = val - reg;
-			cpu.OF = (val < reg) ? 1 : 0;
+			cpu.OF = (MSB(val) != MSB(reg)) && (MSB(reg) == MSB(result));
 			if (opcode == 0x28 || opcode == 0x29) {
 				swaddr_write(addr, DATA_BYTE, result);
 				print_asm("sub"str(SUFFIX)"\t\t%%%s,%s",REG_NAME(m.reg), ModR_M_asm);
@@ -60,7 +60,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		}
 		else {
 			result = reg - val;
-			cpu.OF = (reg < val) ? 1 : 0;
+			cpu.OF = (MSB(val) != MSB(reg)) && (MSB(val) == MSB(result));
 			if (opcode == 0x2a || opcode == 0x2b) {
 				REG(m.reg) = result;
 				print_asm("sub"str(SUFFIX)"\t\t%s,%%%s", ModR_M_asm,REG_NAME(m.reg));
