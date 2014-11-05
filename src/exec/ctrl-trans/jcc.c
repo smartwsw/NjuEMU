@@ -2,7 +2,7 @@
 #define DATA_BYTE 1
 
 #define CC a
-#define COND !(!cpu.CF && !cpu.ZF)
+#define COND (!cpu.CF && !cpu.ZF)
 #include "jcc-template.h"
 #undef COND
 #undef CC
