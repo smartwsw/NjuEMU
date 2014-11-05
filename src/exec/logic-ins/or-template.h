@@ -27,11 +27,11 @@ make_helper(concat(or_rm_r_, SUFFIX)) {
 		result = r_m | reg;
 		if (opcode == 0x08 || opcode == 0x09) {
 			print_asm("or"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.reg),REG_NAME(m.R_M));
-			REG(m.R_M) = result;
+			REG(m.reg) = result;
 		}
 		else {
 			print_asm("or"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.R_M),REG_NAME(m.reg));
-			REG(m.reg) = result;
+			REG(m.R_M) = result;
 		}
 		len = 2;
 	}

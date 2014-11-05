@@ -25,7 +25,7 @@ make_helper(concat(xor_rm_r_, SUFFIX)) {
 		int reg = REG(m.reg);
 		int r_m = REG(m.R_M);
 		result = r_m ^ reg;
-		if (opcode == 0x31 || opcode == 0x31) {
+		if (opcode == 0x30 || opcode == 0x31) {
 			print_asm("xor"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.reg),REG_NAME(m.R_M));
 			REG(m.R_M) = result;
 		}
