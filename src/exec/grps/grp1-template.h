@@ -8,7 +8,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1,1);
 	int len = 1, result;
 	DATA_TYPE imm;
-	int value;
+	DATA_TYPE value;
 	swaddr_t addr;
 	if (m.mod == 3) 
 		value = REG(m.R_M);
