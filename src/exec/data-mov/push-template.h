@@ -39,6 +39,22 @@ make_helper(concat(push_m_, SUFFIX)) {
 						return len;
 					}
 				}
+		case 0: {
+					if(m.mod == 3) {
+						REG(m.R_M)++;
+						print_asm("inc\t\t%%%s", REG_NAME(m.R_M));
+						return 2;
+					}
+					else {
+						swaddr_t addr;
+						int len = read_ModR_M(eip + 1, &addr);
+						DATA_TYPE_S tmp = MEM_R(addr);
+						tmp++;
+						MEM_W(addr, tmp);
+						print_asm("inc\t\t%s", ModR_M_asm);
+						return len + 1;
+					}
+				}
 		default :
 				 assert(0);
 	}

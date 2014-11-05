@@ -18,6 +18,7 @@
 #include "ctrl-trans/jmp.h"
 #include "ctrl-trans/ret.h"
 #include "bin-ins/cmp.h"
+#include "bin-ins/inc.h"
 #include "bin-ins/add.h"
 #include "grps/grp1.h"
 #include "grps/grp3.h"

@@ -27,7 +27,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	}   
 	switch (m.opcode) {
 		case 7 : { 
-//					 printf("%x %x %d\n", value, imm, value < imm);
+					 //					 printf("%x %x %d\n", value, imm, value < imm);
 					 result = value - imm;
 					 cpu.CF = (value < imm) ? 1 : 0;
 					 if (m.mod == 3)
@@ -77,6 +77,21 @@ make_helper(concat(grp1_, SUFFIX)) {
 					}
 					break;
 				}
+		case 3: { 
+					imm += cpu.CF;
+					result = value - imm;
+					if (value < imm)
+						cpu.CF = 1;
+					if (m.mod == 3) {
+						REG(m.R_M) = result;
+						print_asm("sub"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.R_M));
+					}
+					else {
+						swaddr_write(addr, DATA_BYTE, result);
+						print_asm("sub"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
+					}
+					break;
+				}
 		case 0: {
 					result = value + imm;
 					cpu.CF = ((value >> 31) & 0x1) && ((imm >> 31) & 0x1); 
@@ -95,11 +110,11 @@ make_helper(concat(grp1_, SUFFIX)) {
 					cpu.CF = ((value >> 31) & 0x1) && ((imm >> 31) & 0x1); 
 					if (m.mod == 3) {
 						REG(m.reg) = result;
-						print_asm("add"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
+						print_asm("adc"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
 					}
 					else {
 						swaddr_write(addr, DATA_BYTE, result);
-						print_asm("add"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
+						print_asm("adc"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
 					}
 					break;
 				}
