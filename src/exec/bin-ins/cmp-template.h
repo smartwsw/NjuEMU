@@ -49,7 +49,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		int val = swaddr_read(addr, DATA_BYTE);
 		int reg = REG(m.reg);
 		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
-			result = val - reg;
+			result = reg - val;
 			if (opcode == 0x28 || opcode == 0x29) {
 				swaddr_write(addr, DATA_BYTE, result);
 				print_asm("sub"str(SUFFIX)"\t\t%%%s,%s",REG_NAME(m.reg), ModR_M_asm);
