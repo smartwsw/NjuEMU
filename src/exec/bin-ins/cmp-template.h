@@ -48,9 +48,9 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		len += read_ModR_M(eip + 1, &addr);
 		int val = swaddr_read(addr, DATA_BYTE);
 		int reg = REG(m.reg);
-		cpu.OF = (reg < val) ? 1 : 0;
 		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
-			result = reg - val;
+			result = val - reg;
+			cpu.OF = (val < reg) ? 1 : 0;
 			if (opcode == 0x28 || opcode == 0x29) {
 				swaddr_write(addr, DATA_BYTE, result);
 				print_asm("sub"str(SUFFIX)"\t\t%%%s,%s",REG_NAME(m.reg), ModR_M_asm);
@@ -60,6 +60,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		}
 		else {
 			result = reg - val;
+			cpu.OF = (reg < val) ? 1 : 0;
 			if (opcode == 0x2a || opcode == 0x2b) {
 				REG(m.reg) = result;
 				print_asm("sub"str(SUFFIX)"\t\t%s,%%%s", ModR_M_asm,REG_NAME(m.reg));
@@ -68,7 +69,6 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 				print_asm("cmp"str(SUFFIX)"\t\t%s,%%%s", ModR_M_asm,REG_NAME(m.reg));
 		}
 	}
-	cpu.AF = 0;
 	cpu.ZF = !result;
 	cpu.SF = (result >> 31) & 0x1;
 	bool parity = 1;
