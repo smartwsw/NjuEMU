@@ -64,7 +64,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 					 break;
 				 }
 		case 4: {
-					result = value & imm;
+					result = value & (int32_t)imm;
 					cpu.CF = 0;
 					if (m.mod == 3) {
 						REG(m.R_M) = result;
