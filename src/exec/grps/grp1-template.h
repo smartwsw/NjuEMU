@@ -27,7 +27,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	}   
 	switch (m.opcode) {
 		case 7 : { 
-					 printf("%x %x %d\n", value, imm, value < imm);
+//					 printf("%x %x %d\n", value, imm, value < imm);
 					 result = value - imm;
 					 cpu.CF = (value < imm) ? 1 : 0;
 					 if (m.mod == 3)
