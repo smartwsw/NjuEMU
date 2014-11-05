@@ -22,3 +22,5 @@
 #include "grps/grp1.h"
 #include "grps/grp3.h"
 #include "flag-ctrl/cld.h"
+#include "string/movs.h"
+#include "string/rep.h"
