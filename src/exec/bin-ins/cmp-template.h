@@ -71,7 +71,6 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 	cpu.AF = 0;
 	cpu.ZF = !result;
 	cpu.SF = (result >> 31) & 0x1;
-	cpu.OF = 0;
 	bool parity = 1;
 	int i;
 	for (i = 0;i < 8;i++) 
