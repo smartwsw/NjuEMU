@@ -81,7 +81,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 					result = value + imm;
 					cpu.CF = ((value >> 31) & 0x1) && ((imm >> 31) & 0x1); 
 					if (m.mod == 3) {
-						REG(m.reg) = result;
+						REG(m.R_M) = result;
 						print_asm("add"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.reg));
 					}
 					else {
