@@ -25,6 +25,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		int r_m = REG(m.R_M);
 		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
 			result = r_m - reg;
+			cpu.OF = (MSB(r_m) != MSB(reg)) && (MSB(reg) == MSB(result));
 			if (opcode == 0x28 || opcode == 0x29) {
 				REG(m.R_M) = result;
 				print_asm("sub"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.reg),REG_NAME(m.R_M));
@@ -34,6 +35,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		}
 		else {
 			result = reg - r_m;
+			cpu.OF = (MSB(r_m) != MSB(reg)) && (MSB(r_m) == MSB(result));
 			if (opcode == 0x2A || opcode == 0x2B) {
 				REG(m.reg) = result;
 				print_asm("sub"str(SUFFIX)"\t\t%%%s,%%%s",REG_NAME(m.R_M),REG_NAME(m.reg));
