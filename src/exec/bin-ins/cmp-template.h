@@ -25,6 +25,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		int r_m = REG(m.R_M);
 		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
 			result = r_m - reg;
+			cpu.CF = (r_m < reg);
 			cpu.OF = (MSB(r_m) != MSB(reg)) && (MSB(reg) == MSB(result));
 			if (opcode == 0x28 || opcode == 0x29) {
 				REG(m.R_M) = result;
@@ -35,6 +36,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		}
 		else {
 			result = reg - r_m;
+			cpu.CF = (reg < r_m);
 			cpu.OF = (MSB(r_m) != MSB(reg)) && (MSB(r_m) == MSB(result));
 			if (opcode == 0x2A || opcode == 0x2B) {
 				REG(m.reg) = result;
@@ -53,6 +55,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		if (opcode == 0x38 || opcode == 0x39 || opcode == 0x28 || opcode == 0x29) {
 			result = val - reg;
 			cpu.OF = (MSB(val) != MSB(reg)) && (MSB(reg) == MSB(result));
+			cpu.CF = (val < reg);
 			if (opcode == 0x28 || opcode == 0x29) {
 				swaddr_write(addr, DATA_BYTE, result);
 				print_asm("sub"str(SUFFIX)"\t\t%%%s,%s",REG_NAME(m.reg), ModR_M_asm);
@@ -62,6 +65,7 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 		}
 		else {
 			result = reg - val;
+			cpu.CF = (reg < val);
 			cpu.OF = (MSB(val) != MSB(reg)) && (MSB(val) == MSB(result));
 			if (opcode == 0x2a || opcode == 0x2b) {
 				REG(m.reg) = result;
