@@ -3,6 +3,7 @@
 #include "data-mov/mov.h"
 
 #include "data-mov/push.h"
+#include "data-mov/pop.h"
 #include "misc/misc.h"
 #include "misc/lea.h"
 #include "logic-ins/test.h"
