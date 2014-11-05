@@ -186,7 +186,7 @@ make_helper(concat(shift_rm_i_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result = 0;
 	uint8_t imm;
-	int len = 1;
+	int len = 2;
 	switch (m.opcode) {
 		case 4: {
 					if (m.mod == 3) {
