@@ -52,19 +52,19 @@ make_helper(concat(cmp_rm_r_, SUFFIX)) {
 			result = val - reg;
 			if (opcode == 0x28 || opcode == 0x29) {
 				swaddr_write(addr, DATA_BYTE, result);
-				print_asm("sub"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
+				print_asm("sub"str(SUFFIX)"\t\t%%%s,%s",REG_NAME(m.reg), ModR_M_asm);
 			}
 			else 
-				print_asm("cmp"str(SUFFIX)"\t\t%%%s,0x%x",REG_NAME(m.reg),addr);
+				print_asm("cmp"str(SUFFIX)"\t\t%%%s,%s",REG_NAME(m.reg), ModR_M_asm);
 		}
 		else {
 			result = reg - val;
 			if (opcode == 0x2a || opcode == 0x2b) {
 				REG(m.reg) = result;
-				print_asm("sub"str(SUFFIX)"\t\t0x%x,%%%s",addr,REG_NAME(m.reg));
+				print_asm("sub"str(SUFFIX)"\t\t%s,%%%s", ModR_M_asm,REG_NAME(m.reg));
 			}
 			else 
-				print_asm("cmp"str(SUFFIX)"\t\t0x%x,%%%s",addr,REG_NAME(m.reg));
+				print_asm("cmp"str(SUFFIX)"\t\t%s,%%%s", ModR_M_asm,REG_NAME(m.reg));
 		}
 	}
 	cpu.AF = 0;
