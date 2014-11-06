@@ -18,7 +18,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	}   
 	if (opcode == 0x83) {
 		imm = instr_fetch(eip + len + 1, 1);
-	//	imm = (imm << 24) >>24;
+		imm = (imm << 24) >>24;
 		len += 2;
 	}   
 	else {
