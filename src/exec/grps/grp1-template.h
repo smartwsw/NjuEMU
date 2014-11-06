@@ -30,8 +30,8 @@ make_helper(concat(grp1_, SUFFIX)) {
 	}   
 	switch (m.opcode) {
 		case 7 : { 
-					 //					 printf("%x %x %d\n", value, imm, value < imm);
-					 result = (uint32_t)value - (uint32_t)imm;
+					 printf("%x %x %d\n", value, imm, value < imm);
+					 result = value - imm;
 					 cpu.CF = (value < imm) ? 1 : 0;
 					 if (m.mod == 3)
 						 print_asm("cmp"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.R_M));
