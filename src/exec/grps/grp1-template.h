@@ -7,8 +7,8 @@ make_helper(concat(grp1_, SUFFIX)) {
 	int opcode = instr_fetch(eip, 1); 
 	m.val = instr_fetch(eip + 1,1);
 	int len = 1, result;
-	uint32_t imm;
-	uint32_t value;
+	int32_t imm;
+	int32_t value;
 	swaddr_t addr;
 	if (m.mod == 3) 
 		value = REG(m.R_M);
@@ -18,7 +18,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	}   
 	if (opcode == 0x83) {
 		imm = instr_fetch(eip + len + 1, 1);
-		imm = (imm << 24) >>24;
+	//	imm = (imm << 24) >>24;
 		len += 2;
 	}   
 	else {
