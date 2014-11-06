@@ -6,7 +6,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	ModR_M m;
 	int opcode = instr_fetch(eip, 1); 
 	m.val = instr_fetch(eip + 1,1);
-	DATA_TYPE len = 1, result;
+	uint32_t len = 1, result;
 	DATA_TYPE imm;
 	DATA_TYPE value;
 	swaddr_t addr;
@@ -30,7 +30,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 	}   
 	switch (m.opcode) {
 		case 7 : { 
-					 printf("%x %x %d\n", value, imm, value < imm);
+					 //printf("%x %x %d\n", value, imm, value < imm);
 					 result = value - imm;
 					 cpu.CF = (result > value) ? 1 : 0;
 					 if (m.mod == 3)
@@ -53,7 +53,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 					 break;
 				 }
 
-		case 5 : { 
+		case 5 : {
 					 result = value - imm;
 					 if (value < imm)
 						 cpu.CF = 1;
