@@ -67,7 +67,7 @@ make_helper(concat(shift_rm_1_, SUFFIX)) {
 					}
 				}
 		default :
-				printf("Invalid shift (eip = 0x%x)\n", cpu.eip);
+				printf("Invalid shift %x (eip = 0x%x)\n", m.opcode, cpu.eip);
 				assert(0);
 	}
 	cpu.SF = (result >> 31) & 0x1;
@@ -168,7 +168,7 @@ make_helper(concat(shift_rm_c_, SUFFIX)) {
 				}
 
 		default :
-				printf("Invalid shift (eip = 0x%x)\n", cpu.eip);
+				printf("Invalid shift %x  (eip = 0x%x)\n", m.opcode, cpu.eip);
 				assert(0);
 	}
 	cpu.SF = (result >> 31) & 0x1;
@@ -276,7 +276,7 @@ make_helper(concat(shift_rm_i_, SUFFIX)) {
 				}
 
 		default :
-				printf("Invalid shift (eip = 0x%x)\n", cpu.eip);
+				printf("Invalid shift %x (eip = 0x%x)\n", m.opcode, cpu.eip);
 				assert(0);
 	}
 	cpu.SF = (result >> 31) & 0x1;
