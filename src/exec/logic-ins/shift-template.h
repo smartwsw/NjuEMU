@@ -7,7 +7,6 @@ make_helper(concat(shift_rm_1_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result = 0;
 	int len = 1;
-	printf("%x/n", m.opcode);
 	switch (m.opcode) {
 		case 4: {
 					if (m.mod == 3) {
@@ -46,6 +45,7 @@ make_helper(concat(shift_rm_1_, SUFFIX)) {
 						swaddr_write(addr, DATA_BYTE, result);
 						print_asm("shr"str(SUFFIX)"\t\t$0x1,%s", ModR_M_asm);
 					}
+					break;
 				}
 		case 7: {
 					if (m.mod == 3) {
@@ -66,6 +66,7 @@ make_helper(concat(shift_rm_1_, SUFFIX)) {
 						swaddr_write(addr, DATA_BYTE, result);
 						print_asm("sar"str(SUFFIX)"\t\t$0x1,%s", ModR_M_asm);
 					}
+					break;
 				}
 		default :
 				printf("Invalid shift %x (eip = 0x%x)\n", m.opcode, cpu.eip);
@@ -86,7 +87,6 @@ make_helper(concat(shift_rm_c_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result = 0;
 	int len = 1;
-	printf("%x/n", m.opcode);
 	switch (m.opcode) {
 		case 4: {
 					if (m.mod == 3) {
@@ -139,6 +139,7 @@ make_helper(concat(shift_rm_c_, SUFFIX)) {
 						swaddr_write(addr, DATA_BYTE, result);
 						print_asm("shr"str(SUFFIX)"\t\t%%cl,%s", ModR_M_asm);
 					}
+					break;
 				}
 		case 7: {
 					if (m.mod == 3) {
@@ -167,6 +168,7 @@ make_helper(concat(shift_rm_c_, SUFFIX)) {
 						swaddr_write(addr, DATA_BYTE, result);
 						print_asm("sar"str(SUFFIX)"\t\t%%cl,%s", ModR_M_asm);
 					}
+					break;
 				}
 
 		default :
@@ -189,7 +191,6 @@ make_helper(concat(shift_rm_i_, SUFFIX)) {
 	DATA_TYPE result = 0;
 	uint8_t imm;
 	int len = 2;
-	printf("%x/n", m.opcode);
 	switch (m.opcode) {
 		case 4: {
 					if (m.mod == 3) {
@@ -246,6 +247,7 @@ make_helper(concat(shift_rm_i_, SUFFIX)) {
 						swaddr_write(addr, DATA_BYTE, result);
 						print_asm("shr"str(SUFFIX)"\t\t$0x%x,%s", imm, ModR_M_asm);
 					}
+					break;
 				}
 		case 7: {
 					if (m.mod == 3) {
@@ -276,6 +278,7 @@ make_helper(concat(shift_rm_i_, SUFFIX)) {
 						swaddr_write(addr, DATA_BYTE, result);
 						print_asm("sar"str(SUFFIX)"\t\t$0x%x,%s", imm, ModR_M_asm);
 					}
+					break;
 				}
 
 		default :
