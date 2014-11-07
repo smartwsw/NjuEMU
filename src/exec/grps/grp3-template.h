@@ -2,6 +2,8 @@
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
 
+extern char suffix;
+
 make_helper(concat(grp3_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip+1,1);
@@ -65,11 +67,11 @@ make_helper(concat(grp3_, SUFFIX)) {
 					return len;
 				}
 		case 4: {
-					uint64_t rst;
+					uint64_t result;
 					if(m.mod == 3) {
-						rst = (uint64_t)REG(0) * (uint64_t)REG(m.R_M);
-						REG(0) = rst;
-						cpu.CF = !!(rst & 0xffffffff00000000);
+						result = (uint64_t)REG(0) * (uint64_t)REG(m.R_M);
+						REG(0) = result;
+						cpu.CF = !!(result & 0xffffffff00000000);
 						cpu.OF = cpu.CF;
 						print_asm("mul\t\t%%%s", REG_NAME(m.R_M));
 						return len + 1;
@@ -77,20 +79,20 @@ make_helper(concat(grp3_, SUFFIX)) {
 					else {
 						swaddr_t addr;
 						len += read_ModR_M(eip + 1, &addr);
-						rst = (uint64_t)REG(0) * (uint64_t)MEM_R(addr);
-						REG(0) = rst;
-						cpu.CF = !!(rst & 0xffffffff00000000);
+						result = (uint64_t)REG(0) * (uint64_t)MEM_R(addr);
+						REG(0) = result;
+						cpu.CF = !!(result & 0xffffffff00000000);
 						cpu.OF = cpu.CF;
 						print_asm("mul\t\t%s", ModR_M_asm);
 						return len;
 					}
 				}
 		case 5: {
-					int64_t rst;
+					int64_t result;
 					if(m.mod == 3) {
-						rst = (int64_t)(DATA_TYPE_S)REG(0) * (int64_t)(DATA_TYPE_S)REG(m.R_M);
-						REG(0) = rst;
-						cpu.CF = !!(rst & 0xffffffff00000000);
+						result = (int64_t)(DATA_TYPE_S)REG(0) * (int64_t)(DATA_TYPE_S)REG(m.R_M);
+						REG(0) = result;
+						cpu.CF = !!(result & 0xffffffff00000000);
 						cpu.OF = cpu.CF;
 						print_asm("imul\t\t%%%s", REG_NAME(m.R_M));
 						return len + 1;
@@ -98,14 +100,83 @@ make_helper(concat(grp3_, SUFFIX)) {
 					else {
 						swaddr_t addr;
 						len += read_ModR_M(eip + 1, &addr);
-						rst = (int64_t)(DATA_TYPE_S)REG(0) * (int64_t)(DATA_TYPE_S)MEM_R(addr);
-						REG(0) = rst;
-						cpu.CF = !!(rst & 0xffffffff00000000);
+						result = (int64_t)(DATA_TYPE_S)REG(0) * (int64_t)(DATA_TYPE_S)MEM_R(addr);
+						REG(0) = result;
+						cpu.CF = !!(result & 0xffffffff00000000);
 						cpu.OF = cpu.CF;
 						print_asm("imul\t\t%s", ModR_M_asm);
 						return len;
 					}
 				}
+		case 6: {
+					DATA_TYPE result;
+					DATA_TYPE rem;
+					if (m.mod == 3) {
+						result = REG(0) / REG(m.R_M);
+						rem = REG(0) % REG(m.R_M);
+						if (suffix == 'b') {
+							reg_b(R_AL) = result;
+							reg_b(R_AH) = rem;
+						}
+						else {
+							REG(R_EAX) = result;
+							REG(R_EDX) = rem;
+						}
+						print_asm("div\t\t%%%s", REG_NAME(m.R_M));
+						return len + 1;
+					}
+					else {
+						swaddr_t addr;
+						len += read_ModR_M(eip + 1, &addr);
+						result = REG(0) / MEM_R(addr);
+						rem = REG(0) % MEM_R(addr);
+						if (suffix == 'b') {
+							reg_b(R_AL) = result;
+							reg_b(R_AH) = rem;
+						}
+						else {
+							REG(R_EAX) = result;
+							REG(R_EDX) = rem;
+						}
+						print_asm("div\t\t%s", ModR_M_asm);
+						return len;
+					}
+				}
+		case 7: {
+					DATA_TYPE_S result;
+					DATA_TYPE_S rem;
+					if (m.mod == 3) {
+						result = (DATA_TYPE_S)REG(0) / (DATA_TYPE_S)REG(m.R_M);
+						rem = (DATA_TYPE_S)REG(0) % (DATA_TYPE_S)REG(m.R_M);
+						if (suffix == 'b') {
+							reg_b(R_AL) = result;
+							reg_b(R_AH) = rem;
+						}
+						else {
+							REG(R_EAX) = result;
+							REG(R_EDX) = rem;
+						}
+						print_asm("idiv\t\t%%%s", REG_NAME(m.R_M));
+						return len + 1;
+					}
+					else {
+						swaddr_t addr;
+						len += read_ModR_M(eip + 1, &addr);
+						result = (DATA_TYPE_S)REG(0) / (DATA_TYPE_S)MEM_R(addr);
+						rem = (DATA_TYPE_S)REG(0) % (DATA_TYPE_S)MEM_R(addr);
+						if (suffix == 'b') {
+							reg_b(R_AL) = result;
+							reg_b(R_AH) = rem;
+						}
+						else {
+							REG(R_EAX) = result;
+							REG(R_EDX) = rem;
+						}
+						print_asm("idiv\t\t%s", ModR_M_asm);
+						return len;
+					}
+				}
+
 
 		default :
 				assert(0);
