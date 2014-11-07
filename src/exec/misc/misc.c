@@ -73,10 +73,10 @@ make_helper(esc_code) {
 		case 0x9e:	len = setle(eip + 1);		break;
 		case 0x9f:	len = setg(eip + 1);		break;
 //		case 0xaf:	len = imul_r_rm_v(eip + 1);	break;
-//		case 0xbe:	len = movsx_v(eip + 1);		break;
-//		case 0xbf:	len = movsx_w2l(eip + 1);	break;
-//		case 0xb6:	len = movzx_v(eip + 1);		break;
-//		case 0xb7:	len = movzx_w2l(eip + 1);	break;
+		case 0xbe:	len = movx_v(eip + 1);		break;
+		case 0xbf:	len = movx_w_l(eip + 1);	break;
+		case 0xb6:	len = movx_v(eip + 1);		break;
+		case 0xb7:	len = movx_w_l(eip + 1);	break;
 		default:	len = inv(eip);				break;
 	}
 	return 1 + len;

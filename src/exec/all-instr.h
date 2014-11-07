@@ -5,6 +5,7 @@
 #include "data-mov/push.h"
 #include "data-mov/pop.h"
 #include "data-mov/xchg.h"
+#include "data-mov/movx.h"
 #include "misc/misc.h"
 #include "misc/lea.h"
 #include "logic-ins/test.h"
