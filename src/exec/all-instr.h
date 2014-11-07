@@ -21,6 +21,7 @@
 #include "bin-ins/cmp.h"
 #include "bin-ins/inc.h"
 #include "bin-ins/add.h"
+#include "bin-ins/imul.h"
 #include "grps/grp1.h"
 #include "grps/grp3.h"
 #include "flag-ctrl/cld.h"
