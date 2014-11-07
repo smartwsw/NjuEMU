@@ -86,6 +86,7 @@ make_helper(concat(shift_rm_c_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	DATA_TYPE result = 0;
 	int len = 1;
+	printf("%x/n", m.opcode);
 	switch (m.opcode) {
 		case 4: {
 					if (m.mod == 3) {
@@ -188,6 +189,7 @@ make_helper(concat(shift_rm_i_, SUFFIX)) {
 	DATA_TYPE result = 0;
 	uint8_t imm;
 	int len = 2;
+	printf("%x/n", m.opcode);
 	switch (m.opcode) {
 		case 4: {
 					if (m.mod == 3) {
