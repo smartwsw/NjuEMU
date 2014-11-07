@@ -6,9 +6,9 @@ make_helper(concat(grp3_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip+1,1);
 	int result, len = 1;
-	DATA_TYPE_S imm;
 	switch (m.opcode) {
 		case 0 : {
+					 DATA_TYPE imm;
 					 cpu.OF = 0;
 					 cpu.SF = 0;
 					 if (m.mod == 3) {
@@ -106,6 +106,7 @@ make_helper(concat(grp3_, SUFFIX)) {
 						return len;
 					}
 				}
+
 		default :
 				assert(0);
 
@@ -116,7 +117,7 @@ make_helper(concat(grp3_, SUFFIX)) {
 	int i;
 	for (i = 0;i < 8;i++) 
 		if (((result >> i) & 0x1) == 1)
-			parity = ~parity;
-	cpu.PF = parity;   
-}
+						parity = ~parity;
+				cpu.PF = parity;   
+	}
 #include "exec/template-end.h"
