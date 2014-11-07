@@ -107,7 +107,13 @@ make_helper(concat(grp3_, SUFFIX)) {
 						swaddr_t addr;
 						len += read_ModR_M(eip + 1, &addr);
 						result = (int64_t)(DATA_TYPE_S)REG(0) * (int64_t)(DATA_TYPE_S)MEM_R(addr);
-						REG(0) = result;
+						if (suffix == 'b') {
+							reg_w(R_AX) = result;
+						}
+						else {
+							REG(R_EAX) = result;
+							REG(R_EDX) = result >> (DATA_BYTE << 3);
+						}
 						cpu.CF = !!(result & 0xffffffff00000000);
 						cpu.OF = cpu.CF;
 						print_asm("imul\t\t%s", ModR_M_asm);
