@@ -21,7 +21,7 @@ make_helper(concat(pop_m_, SUFFIX)) {
 }
 make_helper(concat(pop_r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip + 1, 1) & 0x7;
-	concat(reg_, SUFFIX)(reg_code) = swaddr_read(reg_l(R_ESP), DATA_BYTE);
+	reg_l(reg_code) = swaddr_read(reg_l(R_ESP), DATA_BYTE);
 	reg_l(R_ESP) += DATA_BYTE;
 	print_asm("pop"str(SUFFIX)"\t\t%%%s", concat(regs, SUFFIX)[reg_code]);
 	return 1;
