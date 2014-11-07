@@ -91,7 +91,13 @@ make_helper(concat(grp3_, SUFFIX)) {
 					int64_t result;
 					if(m.mod == 3) {
 						result = (int64_t)(DATA_TYPE_S)REG(0) * (int64_t)(DATA_TYPE_S)REG(m.R_M);
-						REG(0) = result;
+						if (suffix == 'b') {
+							reg_w(R_AX) = result;
+						}
+						else {
+							REG(R_EAX) = result;
+							REG(R_EDX) = result >> (DATA_BYTE << 3);
+						}
 						cpu.CF = !!(result & 0xffffffff00000000);
 						cpu.OF = cpu.CF;
 						print_asm("imul\t\t%%%s", REG_NAME(m.R_M));
