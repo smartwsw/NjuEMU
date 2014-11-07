@@ -70,7 +70,13 @@ make_helper(concat(grp3_, SUFFIX)) {
 					uint64_t result;
 					if(m.mod == 3) {
 						result = (uint64_t)REG(0) * (uint64_t)REG(m.R_M);
-						REG(0) = result;
+						if (suffix == 'b') {
+							reg_w(R_AX) = result;
+						}
+						else {
+							REG(R_EAX) = result;
+							REG(R_EDX) = result >> (DATA_BYTE << 3);
+						}
 						cpu.CF = !!(result & 0xffffffff00000000);
 						cpu.OF = cpu.CF;
 						print_asm("mul\t\t%%%s", REG_NAME(m.R_M));
@@ -80,7 +86,13 @@ make_helper(concat(grp3_, SUFFIX)) {
 						swaddr_t addr;
 						len += read_ModR_M(eip + 1, &addr);
 						result = (uint64_t)REG(0) * (uint64_t)MEM_R(addr);
-						REG(0) = result;
+						if (suffix == 'b') {
+							reg_w(R_AX) = result;
+						}
+						else {
+							REG(R_EAX) = result;
+							REG(R_EDX) = result >> (DATA_BYTE << 3);
+						}
 						cpu.CF = !!(result & 0xffffffff00000000);
 						cpu.OF = cpu.CF;
 						print_asm("mul\t\t%s", ModR_M_asm);
