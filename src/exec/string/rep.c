@@ -7,9 +7,9 @@ extern int exec(swaddr_t);
 make_helper(rep) {
 	int len = 0;
 	while (reg_l(R_ECX) > 0) {
-		printf("test\n");
+		printf("test0\n");
 		len = exec(eip + 1);
-		printf("test\n");
+		printf("test1\n");
 		reg_l(R_ECX)--;
 	}
 	printf("%x\n", cpu.eip);
