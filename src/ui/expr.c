@@ -213,14 +213,15 @@ uint32_t eval(int p,int q,bool *success) {
 				case HEX:
 					sscanf(tokens[p].str,"%x",&value);
 					break;
-				case SYM: 
-					printf("%s\n", tokens[p].str);
-					swaddr_t addr = find_sym(tokens[p].str);
-					if(addr != 0)
-						return addr;
-					else 
-						*success = false;
-					break;
+				case SYM: {
+							  swaddr_t addr;
+							  addr = find_sym(tokens[p].str);
+							  if(addr != 0)
+								  return addr;
+							  else 
+								  *success = false;
+							  break;
+						  }
 				case REG:
 					for (i=R_EAX;i<=R_EDI;i++)
 						if (strcasecmp(regsl[i],tokens[p].str+1)==0) {
