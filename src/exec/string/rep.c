@@ -10,7 +10,7 @@ make_helper(rep) {
 		len = exec(eip + 1);
 		reg_l(R_ECX)--;
 	}
-	switch (swaddr_read(eip + 1, 1)) {
+	switch (swaddr_read(cpu.eip + 1, 1)) {
 		case 0xa4:
 			print_asm("rep movsb");
 			break;
