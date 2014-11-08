@@ -125,7 +125,7 @@ static bool make_token(char *e) {
 				 * Add codes to perform some actions with this token.
 				 */
 				switch(rules[i].token_type) {
-					case NUM: case HEX: case REG:
+					case NUM: case HEX: case REG: case SYM:
 						tokens[nr_token].type=rules[i].token_type;
 						strncpy(tokens[nr_token].str,substr_start,substr_len);
 						strncpy(tokens[nr_token].str+substr_len,"\0",1);
