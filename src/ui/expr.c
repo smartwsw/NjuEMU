@@ -8,7 +8,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256,EQ,NE,LE,GE,AND,OR,NOT,SL,SR,NUM,HEX,REG,LEA
+	NOTYPE = 256,EQ,NE,LE,GE,AND,OR,NOT,SL,SR,NUM,HEX,REG,LEA,SYM
 
 	/* TODO: Add more token types */
 
@@ -26,6 +26,7 @@ static struct rule {
 	{"0[Xx][[:xdigit:]]+", HEX},
 	{"[0-9]+", NUM},
 	{"\\$[[:alpha:]]+", REG},
+	{"[[:alpha:][:digit:]]+", SYM},
 	{"\\+", '+'},					// plus
 	{"-", '-'},
 	{"\\*", '*'},
@@ -209,6 +210,9 @@ uint32_t eval(int p,int q,bool *success) {
 					break;
 				case HEX:
 					sscanf(tokens[p].str,"%x",&value);
+					break;
+				case SYM: 
+					printf("%s\n", tokens[p].str);
 					break;
 				case REG:
 					for (i=R_EAX;i<=R_EDI;i++)
