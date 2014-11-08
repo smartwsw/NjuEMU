@@ -12,7 +12,7 @@
 #define HIT_BAD_TRAP \
 	asm volatile(".byte 0x82" : : "a" (1))
 
-#define memu_assert(cond) \
+#define nemu_assert(cond) \
 	do { \
 		if( !(cond) ) HIT_BAD_TRAP; \
 	} while(0)
@@ -27,7 +27,7 @@
 	movl $1, %eax; \
 .byte 0x82
 
-#define memu_assert(reg, val) \
+#define nemu_assert(reg, val) \
 	cmp $val, %reg; \
 je concat(label,__LINE__); HIT_BAD_TRAP; concat(label,__LINE__):
 
