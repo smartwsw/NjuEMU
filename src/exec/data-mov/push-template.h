@@ -39,6 +39,28 @@ make_helper(concat(push_m_, SUFFIX)) {
 						return len;
 					}
 				}
+		case 2: {
+					int len = 1;
+					reg_l(R_ESP) -= DATA_BYTE;
+					MEM_W(reg_w(R_ESP), cpu.eip);
+					if(m.mod == 3) {
+						if (suffix == 'w') 
+							cpu.eip = (REG(m.R_M) & 0xffff) - 2;
+						else
+							cpu.eip = REG(m.R_M) - 2;
+						print_asm("call\t\t%%%s", REG_NAME(m.R_M));
+					}
+					else {
+						swaddr_t addr;
+						int len = read_ModR_M(eip + 1, &addr);
+						if (suffix == 'w')
+							cpu.eip = (MEM_R(addr) & 0xffff) - len - 1;
+						else 
+							cpu.eip = MEM_R(addr) - len - 1;
+						print_asm("call\t\t%s", ModR_M_asm);
+					}
+					return len + 1;
+				}
 		case 0: {
 					if(m.mod == 3) {
 						REG(m.R_M)++;
