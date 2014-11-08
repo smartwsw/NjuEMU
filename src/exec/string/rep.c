@@ -7,12 +7,9 @@ extern int exec(swaddr_t);
 make_helper(rep) {
 	int len = 0;
 	while (reg_l(R_ECX) > 0) {
-		printf("test0   %x\n", eip);
 		len = exec(eip + 1);
-		printf("test1\n");
 		reg_l(R_ECX)--;
 	}
-	printf("%x\n", cpu.eip);
 	switch (swaddr_read(cpu.eip + 1, 1)) {
 		case 0xa4:
 			print_asm("rep movsb");
