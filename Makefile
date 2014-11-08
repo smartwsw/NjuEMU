@@ -34,7 +34,7 @@ $(TEST_FILE_LIST):
 #	xxd -i loader > src/elf/loader.c
 #	rm loader
 
-LOADER_DIR = loader
+LOADER_DIR = myloader
 loader:
 	cd $(LOADER_DIR) && make
 	objcopy -S -O binary $(LOADER_DIR)/loader loader
