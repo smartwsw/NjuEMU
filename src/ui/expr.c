@@ -217,7 +217,7 @@ uint32_t eval(int p,int q,bool *success) {
 					printf("%s\n", tokens[p].str);
 					swaddr_t addr = find_sym(tokens[p].str);
 					if(addr != 0)
-						value = (uint32_t)addr;
+						return addr;
 					else 
 						*success = false;
 					break;
@@ -314,7 +314,7 @@ void print_token() {
 					case AND: printf("&&"); break;
 					case OR : printf("||"); break;
 					case NOT: printf("!"); break;
-					case LEA: printf("**"); break;
+					case LEA: printf("*"); break;
 					default:
 							  printf("%c",tokens[tmp].type);
 				}
