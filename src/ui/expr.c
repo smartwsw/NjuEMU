@@ -7,6 +7,8 @@
 #include <sys/types.h>
 #include <regex.h>
 
+extern swaddr_t find_sym(char*);
+
 enum {
 	NOTYPE = 256,EQ,NE,LE,GE,AND,OR,NOT,SL,SR,NUM,HEX,REG,LEA,SYM
 
@@ -213,6 +215,11 @@ uint32_t eval(int p,int q,bool *success) {
 					break;
 				case SYM: 
 					printf("%s\n", tokens[p].str);
+					swaddr_t addr = find_sym(tokens[p].str);
+					if(addr != 0)
+						return addr;
+					else 
+						*success = false;
 					break;
 				case REG:
 					for (i=R_EAX;i<=R_EDI;i++)
