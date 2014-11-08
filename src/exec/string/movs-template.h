@@ -8,8 +8,8 @@ make_helper(concat(movs_, SUFFIX)) {
 		reg_l(R_ESI) -= DATA_BYTE;
 	}
 	else {
-		reg_l(R_EDI) -= DATA_BYTE;
-		reg_l(R_ESI) -= DATA_BYTE;
+		reg_l(R_EDI) += DATA_BYTE;
+		reg_l(R_ESI) += DATA_BYTE;
 	}
 	print_asm("movs"str(SUFFIX));
 	return 1;
