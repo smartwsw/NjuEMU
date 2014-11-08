@@ -314,7 +314,7 @@ void print_token() {
 					case AND: printf("&&"); break;
 					case OR : printf("||"); break;
 					case NOT: printf("!"); break;
-					case LEA: printf("*"); break;
+					case LEA: printf("**"); break;
 					default:
 							  printf("%c",tokens[tmp].type);
 				}
