@@ -52,7 +52,7 @@ make_helper(concat(push_m_, SUFFIX)) {
 					}
 					else {
 						swaddr_t addr;
-						int len = read_ModR_M(eip + 1, &addr);
+						len = read_ModR_M(eip + 1, &addr);
 						if (suffix == 'w')
 							cpu.eip = (MEM_R(addr) & 0xffff) - len - 1;
 						else 
