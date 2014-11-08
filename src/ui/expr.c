@@ -301,7 +301,7 @@ uint32_t eval(int p,int q,bool *success) {
 void print_token() {
 	int tmp=0;
 		for (;tmp<nr_token;tmp++) {
-			if (tokens[tmp].type==NUM||tokens[tmp].type==HEX||tokens[tmp].type==REG)
+			if (tokens[tmp].type==NUM||tokens[tmp].type==HEX||tokens[tmp].type==REG||tokens[tmp].type==SYM)
 				printf("%s",tokens[tmp].str);
 			else 
 				switch (tokens[tmp].type) {
