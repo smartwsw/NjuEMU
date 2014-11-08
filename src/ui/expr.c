@@ -217,7 +217,7 @@ uint32_t eval(int p,int q,bool *success) {
 					printf("%s\n", tokens[p].str);
 					swaddr_t addr = find_sym(tokens[p].str);
 					if(addr != 0)
-						return addr;
+						value = (uint32_t)addr;
 					else 
 						*success = false;
 					break;
