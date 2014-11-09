@@ -12,16 +12,16 @@ void loader() {
 			void* dst;
 			const void* src;
 			dst = (void*)ph[i].p_vaddr;
-			src = (void*)ph[i].p_offset;
+			src = (void*)elf + ph[i].p_offset;
 			for (j = 0; j < ph[i].p_filesz; j++) {
 				*(char*)dst = *(char*)src;
 				dst = (char*)dst + 1;
 				src = (char*)src + 1;
 			}
-//			for (j=0; j < ph[i].p_memsz - ph[i].p_filesz; j++) {
-//				*(char*)dst = 0;
-//				dst = (char*)dst + 1;
-//			}
+			for (j=0; j < ph[i].p_memsz - ph[i].p_filesz; j++) {
+				*(char*)dst = 0;
+				dst = (char*)dst + 1;
+			}
 			count++;
 		}
 	}
