@@ -17,10 +17,10 @@ void loader() {
 				dst = (char*)dst + 1;
 				src = (char*)src + 1;
 			}
-			for (j=0; j < ph[i].p_memsz - ph[i].p_filesz; j++) {
-				*(char*)dst = 0;
-				dst = (char*)dst + 1;
-			}
+//			for (j=0; j < ph[i].p_memsz - ph[i].p_filesz; j++) {
+//				*(char*)dst = 0;
+//				dst = (char*)dst + 1;
+//			}
 		}
 	}
 
