@@ -15,7 +15,7 @@ void loader() {
 			src = (void*)ph[i].p_offset;
 			for (j = 0; j < ph[i].p_filesz; j++) {
 				if (count == 1)
-					nemu_assert(src == (void *)0x140);
+					nemu_assert(ph[i].p_offset == 0x140);
 				*(char*)dst = *(char*)src;
 				dst = (char*)dst + 1;
 				src = (char*)src + 1;
