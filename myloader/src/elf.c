@@ -14,8 +14,8 @@ void memset(void *dest, int value, int size) {
 void loader() {
 	Elf32_Ehdr *elf = (void *)0;
 	Elf32_Phdr *ph = (void *)elf->e_phoff;
-	int i = elf->e_phnum;
-	for(; i > 0; i --) {
+	int i = 0;
+	for(; i < elf->e_phnum; i ++) {
 		if (ph[i].p_type == PT_LOAD) {
 			int j;
 			void* dst;
