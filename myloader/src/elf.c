@@ -31,7 +31,7 @@ void loader() {
 				*(char*)dst = 0;
 				dst = (char*)dst + 1;
 			}
-			int tmp = ph[i].p_filesz % 4;
+			int tmp = ph[i].p_memsz % 4;
 			if (!tmp)
 				continue;
 			else {
