@@ -6,6 +6,7 @@ void loader() {
 	Elf32_Phdr *ph = (void *)elf->e_phoff;
 	nemu_assert(elf->e_phentsize == sizeof(Elf32_Phdr));
 	int i = 0;
+	int count = 0;
 	for(; i < elf->e_phnum; i ++) {
 		if (ph[i].p_type == PT_LOAD) {
 			int j;
@@ -22,9 +23,10 @@ void loader() {
 				*(char*)dst = 0;
 				dst = (char*)dst + 1;
 			}
+			count++;
 		}
 	}
-
+	nemu_assert(count == 2);
 	((void(*)(void)) elf->e_entry)();
 
 	HIT_GOOD_TRAP;
