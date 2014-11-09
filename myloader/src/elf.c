@@ -7,7 +7,7 @@ void loader() {
 	nemu_assert(elf->e_phentsize == sizeof(Elf32_Phdr));
 	int i = 0;
 	int count = 0;
-	for(; i < elf->e_phnum; i ++) {
+	for(; i < elf->e_phnum; i++) {
 		if (ph[i].p_type == PT_LOAD) {
 			int j;
 			void* dst;
@@ -15,11 +15,15 @@ void loader() {
 			dst = (void*)ph[i].p_vaddr;
 			src = (void*)(elf + ph[i].p_offset);
 			for (j = 0; j < ph[i].p_filesz; j++) {
+				if (count == 1)
+					nemu_assert(0);
 				*(char*)dst = *(char*)src;
 				dst = (char*)dst + 1;
 				src = (char*)src + 1;
 			}
 			for (j=0; j < ph[i].p_memsz - ph[i].p_filesz; j++) {
+				if (count == 1)
+					nemu_assert(0);
 				*(char*)dst = 0;
 				dst = (char*)dst + 1;
 			}
