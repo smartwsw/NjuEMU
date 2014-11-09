@@ -4,6 +4,7 @@
 void loader() {
 	Elf32_Ehdr *elf = (void *)0;
 	Elf32_Phdr *ph = (void *)elf->e_phoff;
+	nemu_assert(elf->e_phentsize == sizeof(Elf32_Phdr));
 	int i = 0;
 	for(; i < elf->e_phnum; i ++) {
 		if (ph[i].p_type == PT_LOAD) {
