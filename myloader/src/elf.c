@@ -13,9 +13,10 @@ void loader() {
 			const void* src;
 			dst = (void*)ph[i].p_vaddr;
 			src = (void*)ph[i].p_offset;
+					nemu_assert(src == (void *)ph[i].p_offset);
 			for (j = 0; j < ph[i].p_filesz; j++) {
 				if (count == 1)
-					nemu_assert(src == (void *)ph[i].p_offset);
+					//nemu_assert(src == (void *)ph[i].p_offset);
 				*(char*)dst = *(char*)src;
 				dst = (char*)dst + 1;
 				src = (char*)src + 1;
