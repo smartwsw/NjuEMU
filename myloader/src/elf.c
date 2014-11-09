@@ -15,7 +15,7 @@ void loader() {
 	Elf32_Ehdr *elf = (void *)0;
 	Elf32_Phdr *ph = (void *)elf->e_phoff;
 	int i = elf->e_phnum;
-	for(; i > 0; i ++) {
+	for(; i > 0; i --) {
 		if (ph[i].p_type == PT_LOAD) {
 			int j;
 			void* dst;
