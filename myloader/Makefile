@@ -3,7 +3,7 @@ CFLAGS = -m32 -O2 -Wall -Werror -fno-builtin -I./include
 ASFLAGS = -m32
 
 CSRC = $(shell find src/ -name "*.c") 
-
+SSRC = $(shell find src/ -name "*.S")
 OBJS = $(CSRC:.c=.o)  
 
 loader: $(OBJS) src/start.o  
