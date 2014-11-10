@@ -58,10 +58,6 @@ void cpu_exec(volatile uint32_t n) {
 		cpu.eip += instr_len;
 
 		len=instr_len;
-		if(n_temp != -1 || (enable_debug && !quiet)) {
-			print_bin_instr(eip_temp, instr_len);
-			puts(assembly);
-		}
 
 		if (if_wp_changed()==true) { return; }
 		if (stop_by_bp==2) {
@@ -72,6 +68,10 @@ void cpu_exec(volatile uint32_t n) {
 			if (stop_by_bp==1)
 				stop_by_bp++;
 			return; }
+		if(n_temp != -1 || (enable_debug && !quiet)) {
+			print_bin_instr(eip_temp, instr_len);
+			puts(assembly);
+		}
 		if(nemu_state == INT) {
 			printf("\n\nUser interrupt\n");
 			return;
