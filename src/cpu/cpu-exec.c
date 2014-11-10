@@ -49,8 +49,8 @@ void cpu_exec(volatile uint32_t n) {
 	int len;
 	for(; n > 0; n --) {
 		if(cpu.eip >= 0x800000 && !out_of_loader) {
-			load_bps();
 			out_of_loader = 1;
+			return ;
 		}
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
