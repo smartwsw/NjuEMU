@@ -46,8 +46,10 @@ void cpu_exec(volatile uint32_t n) {
 
 	setjmp(jbuf);
 	int len;
-	if(cpu.eip >= 0x800000)
+	if(cpu.eip >= 0x800000) {
+		printf("%d\n",cpu.eip);
 		load_bps();
+	}
 	for(; n > 0; n --) {
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
