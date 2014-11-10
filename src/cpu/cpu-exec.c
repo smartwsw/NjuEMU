@@ -10,6 +10,7 @@ int exec(swaddr_t);
 void load_prog();
 void init_dram();
 bool if_wp_changed();
+void load_bps();
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
 
@@ -45,6 +46,8 @@ void cpu_exec(volatile uint32_t n) {
 
 	setjmp(jbuf);
 	int len;
+	if(cpu.eip >= 0x800000)
+		load_bps();
 	for(; n > 0; n --) {
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
