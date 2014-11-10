@@ -64,14 +64,14 @@ void cpu_exec(volatile uint32_t n) {
 			swaddr_write(cpu.eip-len,1,0xcc);
 			stop_by_bp=0;
 		}
-		if(nemu_state == STOP) {
-			if (stop_by_bp==1)
-				stop_by_bp++;
-			return; }
 		if(n_temp != -1 || (enable_debug && !quiet)) {
 			print_bin_instr(eip_temp, instr_len);
 			puts(assembly);
 		}
+		if(nemu_state == STOP) {
+			if (stop_by_bp==1)
+				stop_by_bp++;
+			return; }
 		if(nemu_state == INT) {
 			printf("\n\nUser interrupt\n");
 			return;
