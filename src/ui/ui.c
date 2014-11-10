@@ -144,10 +144,6 @@ static void cmd_info_b() {
 	info_b();
 }
 static void cmd_b(int addr) {
-	if (nemu_state==END){
-		printf("No program running!\n");
-		return ;
-	}
 	int temp;
 	temp=swaddr_read(addr,1);
 	BP *new=new_bp();
