@@ -12,7 +12,6 @@ void init_dram();
 bool if_wp_changed();
 void load_bps();
 char assembly[40];
-bool out_of_loader = 0;
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
 
 extern uint8_t loader [];
@@ -48,10 +47,6 @@ void cpu_exec(volatile uint32_t n) {
 	setjmp(jbuf);
 	int len;
 	for(; n > 0; n --) {
-		if(cpu.eip >= 0x800000 && !out_of_loader) {
-			out_of_loader = 1;
-			return ;
-		}
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
 
@@ -77,7 +72,6 @@ void cpu_exec(volatile uint32_t n) {
 			return;
 		} 
 		else if(nemu_state == END) { 
-			out_of_loader = 0;
 			return; }
 	}
 }
