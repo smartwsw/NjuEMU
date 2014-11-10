@@ -59,6 +59,8 @@ make_helper(concat(push_m_, SUFFIX)) {
 							cpu.eip = MEM_R(addr) - len - 1;
 						print_asm("call\t\t%s", ModR_M_asm);
 					}
+					reg_l(R_ESP) -= DATA_BYTE;
+					MEM_W(reg_l(R_ESP), eip + DATA_BYTE + 2);
 					return len + 1;
 				}
 		case 0: {
