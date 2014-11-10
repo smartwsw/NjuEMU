@@ -65,9 +65,10 @@ void cpu_exec(volatile uint32_t n) {
 			stop_by_bp=0;
 		}
 		if(nemu_state == STOP) {
+			return; 
+		}
 			if (stop_by_bp==1)
 				stop_by_bp++;
-		}
 		if(n_temp != -1 || (enable_debug && !quiet)) {
 			print_bin_instr(eip_temp, instr_len);
 			puts(assembly);
@@ -77,6 +78,5 @@ void cpu_exec(volatile uint32_t n) {
 			return;
 		} 
 		else if(nemu_state == END) { return; }
-		return;
 	}
 }
