@@ -76,6 +76,8 @@ void cpu_exec(volatile uint32_t n) {
 			printf("\n\nUser interrupt\n");
 			return;
 		} 
-		else if(nemu_state == END) { return; }
+		else if(nemu_state == END) { 
+			out_of_loader = 0;
+			return; }
 	}
 }
