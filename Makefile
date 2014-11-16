@@ -15,7 +15,7 @@ CFILES  = $(shell find src/ -name "*.c")
 OBJS    = $(CFILES:.c=.o)
 
 # test files
-TESTFILE = testcase/c/matrix-mul
+TESTFILE = testcase/c/struct
 
 
 C_TEST_FILE_LIST = $(shell find testcase/c/ -name "*.c")
@@ -55,8 +55,6 @@ gdb: nemu ${TESTFILE}
 
 test: nemu $(TEST_FILE_LIST)
 	bash test.sh $(TEST_FILE_LIST)
-time: nemu $(TEST_FILE_LIST)
-	time bash test.sh $(TEST_FILE_LIST)
 
 
 STU_ID=131220069
