@@ -193,6 +193,7 @@ static void cmd_bt() {
 		addr = swaddr_read(ebp + 4, 4);
 		func_name = find_name(addr);
 		printf("#%d 0x%x %s\n", count, addr, func_name);
+		ebp = swaddr_read(ebp, 4);
 		count++;
 	}
 	return ;
