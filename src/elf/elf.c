@@ -122,6 +122,7 @@ char* find_name(swaddr_t addr) {
 				if (addr >= symtab[i].st_value && addr <= symtab[i].st_value + symtab[i].st_size) {
 					char *name = NULL;
 					strcpy(strtab + symtab[i].st_name, name);
+					printf("%s\n%s\n", name, strtab + symtab[i].st_name);
 					return name;
 				}
 	}
