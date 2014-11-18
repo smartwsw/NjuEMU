@@ -15,7 +15,7 @@ CFILES  = $(shell find src/ -name "*.c")
 OBJS    = $(CFILES:.c=.o)
 
 # test files
-TESTFILE = testcase/c/fib
+TESTFILE = testcase/c/add
 
 
 C_TEST_FILE_LIST = $(shell find testcase/c/ -name "*.c")
