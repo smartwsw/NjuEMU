@@ -190,11 +190,11 @@ static void cmd_bt() {
 	char *func_name;
 	int count = 0;
 	while (ebp != 0x120) {
-		addr = swaddr_read(ebp + 4, 4);
 		func_name = find_name(addr);
 		printf("%x %x\n", addr, ebp);
 		printf("#%d 0x%x %s\n", count, addr, func_name);
 		ebp = swaddr_read(ebp, 4);
+		addr = swaddr_read(ebp + 4, 4);
 		count++;
 	}
 	return ;
