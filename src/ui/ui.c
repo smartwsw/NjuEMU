@@ -189,7 +189,7 @@ static void cmd_bt() {
 	uint32_t ebp = cpu.ebp;
 	char *func_name;
 	int count = 0;
-	while (ebp != 0) {
+	while (ebp != 0xb8) {
 		addr = swaddr_read(ebp + 4, 4);
 		func_name = find_name(addr);
 		printf("#%d 0x%x %s\n", count, addr, func_name);
