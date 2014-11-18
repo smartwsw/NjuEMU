@@ -187,9 +187,9 @@ static void cmd_bt() {
 	printf("testing...\n");
 	swaddr_t addr = cpu.eip;
 	uint32_t ebp = cpu.ebp;
-	char *func_name;
+	char *func_name = find_name(addr);
 	int count = 0;
-	while (ebp != 0x120) {
+	while (func_name != NULL) {
 		func_name = find_name(addr);
 		//printf("%x %x\n", addr, ebp);
 		printf("#%d 0x%x %s\n", count, addr, func_name);
