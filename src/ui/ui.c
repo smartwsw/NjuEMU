@@ -184,7 +184,10 @@ static void cmd_w(char *p) {
 		return ;
 }
 static void cmd_bt() {
-	printf("testing...\n");
+	if (cpu.eip < 0x800000)  {
+		printf("No stack.\n");
+		return;
+	}
 	swaddr_t addr = cpu.eip;
 	uint32_t ebp = cpu.ebp;
 	char *func_name;
