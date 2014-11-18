@@ -250,7 +250,7 @@ void main_loop() {
 			}
 			else {
 				bool success = true;
-				addr = expr(p+1,&success);
+				addr = expr(p,&success);
 				if (success)
 					cmd_b(addr);
 				else 
