@@ -191,7 +191,7 @@ static void cmd_bt() {
 	int count = 0;
 	while (ebp != 0x120) {
 		func_name = find_name(addr);
-		printf("%x %x\n", addr, ebp);
+		//printf("%x %x\n", addr, ebp);
 		printf("#%d 0x%x %s\n", count, addr, func_name);
 		addr = swaddr_read(ebp + 4, 4);
 		ebp = swaddr_read(ebp, 4);
