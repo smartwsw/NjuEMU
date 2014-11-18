@@ -113,3 +113,14 @@ swaddr_t find_sym(char *sym) {
 	}
 	return 0;
 }
+char* find_name(swaddr_t addr) {
+	if (addr == 0)
+		return 0;
+	int i;
+	for (i = 0; i < nr_symtab_entry; i++) {
+		if(ELF32_ST_TYPE(symtab[i].st_info == STT_FUNC)) 
+				if (addr == symtab[i].st_value) 
+					return strtab + symtab[i].st_name;
+	}
+	return 0;
+}

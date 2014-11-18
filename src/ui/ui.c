@@ -15,6 +15,7 @@ void init_bp_pool();
 uint32_t expr(char *e, bool *success);
 int cpytok(Token save[]);
 void print_token();
+char* find_name(swaddr_t);
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -184,6 +185,15 @@ static void cmd_w(char *p) {
 }
 static void cmd_bt() {
 	printf("testing...\n");
+	swaddr_t addr = cpu.eip;
+	uint32_t ebp = cpu.ebp;
+	char *func_name;
+	int count = 0;
+	//while (1) {
+		addr = swaddr_read(ebp + 4, 4);
+		func_name = find_name(addr);
+		printf("#%d 0x%x %s", count, addr, func_name);
+		count++;
 	return ;
 }
 void main_loop() {
