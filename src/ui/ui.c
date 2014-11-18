@@ -237,7 +237,6 @@ void main_loop() {
 					addr=expr(p,&success);
 					if (success) 
 						cmd_x(para,addr);
-					else return ;
 				}
 			}
 		}
@@ -245,14 +244,18 @@ void main_loop() {
 			p = strtok(NULL,"");
 			if (p == NULL)
 				printf("Invalid parameter!\n");
-			else if (p[0]=='*') {
-				bool success=true;
-				addr=expr(p+1,&success);
+			else if (p[0] == '*') {
+				sscanf(p + 1, "%x", &addr);
+				cmd_b(addr);
+			}
+			else {
+				bool success = true;
+				addr = expr(p+1,&success);
 				if (success)
 					cmd_b(addr);
+				else 
+					printf("Breakpoint set failed!\n");
 			}
-			else 
-				printf("Breakpoint set failed!\n");
 		}
 		else if(strcmp(p, "d") == 0) {
 			p = strtok(NULL," ");
