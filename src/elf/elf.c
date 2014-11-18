@@ -105,7 +105,7 @@ void load_prog() {
 swaddr_t find_sym(char *sym) {
 	int i;
 	for (i = 0; i < nr_symtab_entry; i++) {
-		if (ELF32_ST_TYPE(symtab[i].st_info) == STT_OBJECT) {
+		if (ELF32_ST_TYPE(symtab[i].st_info) == STT_OBJECT || ELF32_ST_TYPE(symtab[i].st_info) == STT_FUNC) {
 			if (strcmp(sym, strtab + symtab[i].st_name) == 0) {
 				return symtab[i].st_value;
 			}
