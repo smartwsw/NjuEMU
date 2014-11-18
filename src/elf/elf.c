@@ -121,7 +121,7 @@ char* find_name(swaddr_t addr) {
 		if(ELF32_ST_TYPE(symtab[i].st_info == STT_FUNC)) 
 			printf("%d %d\n", symtab[i].st_value, symtab[i].st_size);
 				if (addr >= symtab[i].st_value && addr <= symtab[i].st_value + symtab[i].st_size) {
-					return strtab + symtab[i].st_value;
+					return strtab + symtab[i].st_name;
 				}
 	}
 	return 0;
