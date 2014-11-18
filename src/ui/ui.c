@@ -182,6 +182,10 @@ static void cmd_w(char *p) {
 	else 
 		return ;
 }
+static void cmd_bt() {
+	printf("testing...\n");
+	return ;
+}
 void main_loop() {
 	char *cmd;
 	while(1) {
@@ -283,6 +287,9 @@ void main_loop() {
 				printf("Invalid parameter!\n");
 			else 
 				cmd_w(p);
+		}
+		else if(strcmp(p, "bt") == 0) {
+			cmd_bt();
 		}
 		/* TODO: Add more commands */
 
