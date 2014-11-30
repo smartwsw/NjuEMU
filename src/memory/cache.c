@@ -19,5 +19,5 @@ typedef struct {
 	uint8_t data[64];
 } block;
 
-block l1_cache[128][8];
+block l1_cache[8][128];
 
