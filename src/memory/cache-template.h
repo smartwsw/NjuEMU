@@ -38,7 +38,7 @@ void concat(cache, _replace)(uint32_t index, int line, uint32_t tag) {
 	tmp.addr = 0;
 	tmp.index = index;
 #ifdef WRITE_BACK
-	if (cache[index][line].valid && ccache[index][line].dirty) {
+	if (cache[index][line].valid && cache[index][line].dirty) {
 		tmp.tag = cache[index][line].tag;
 		for (k = 0; k < BLOCK_SIZE; k++)
 			next_write(tmp.addr + k, 1, cache[index][line].block[k]);
@@ -94,7 +94,7 @@ void concat(cache, _hwwrite)(hwaddr_t addr, void* data, uint8_t *mask) {
 }
 
 uint32_t concat(cache, _read)(hwaddr_t addr, size_t len) {
-	Log("L1cache read at 0x%x\n", addr);
+	Log(str(cache)" read at 0x%x\n", addr);
 	assert ((len == 1) || (len == 2) || ( len == 4));
 	uint32_t offset = addr & DATA_MASK;
 	uint8_t tmp[8];
@@ -104,7 +104,7 @@ uint32_t concat(cache, _read)(hwaddr_t addr, size_t len) {
 	return *(uint32_t*)(tmp + offset) & (~0u >> ((4 - len) << 3));
 }
 void concat(cache, _write)(hwaddr_t addr, size_t len, uint32_t data) {
-	Log("L1cache write at 0x%x\n", addr);
+	Log(str(cache)" write at 0x%x\n", addr);
 	assert ((len == 1) || (len == 2) || ( len == 4));
 	uint32_t offset = addr & DATA_MASK;
 	uint8_t tmp[8];
@@ -123,3 +123,9 @@ void concat(cache, _write)(hwaddr_t addr, size_t len, uint32_t data) {
 #undef OFFSET_LEN
 #undef TAG_LEN
 #undef SET_NUM	
+#undef INDEX_LEN
+#undef LINE_NUM
+#undef Cache
+#undef cache
+#undef next_read
+#undef next_write
