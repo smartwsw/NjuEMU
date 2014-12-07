@@ -1,4 +1,4 @@
-#include "common.h"
+#include "nemu.h"
 #include "lib/misc.h"
 #include <stdlib.h>
 

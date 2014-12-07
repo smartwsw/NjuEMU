@@ -2,6 +2,7 @@
 #define __CACGE_H__
 
 #include "common.h"
+#include "debug.h"
 
 #define HW_MEM_SIZE (128 * 1024 * 1024)
 
