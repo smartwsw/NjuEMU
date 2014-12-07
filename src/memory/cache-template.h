@@ -90,7 +90,7 @@ void concat(cache, _hwwrite)(hwaddr_t addr, void* data, uint8_t *mask) {
 }
 
 uint32_t concat(cache, _read)(hwaddr_t addr, size_t len) {
-	printf("L1cache read at 0x%x", addr);
+	printf("L1cache read at 0x%x\n", addr);
 	assert ((len == 1) || (len == 2) || ( len == 4));
 	uint32_t offset = addr & DATA_MASK;
 	uint8_t tmp[8];
@@ -100,7 +100,7 @@ uint32_t concat(cache, _read)(hwaddr_t addr, size_t len) {
 	return *(uint32_t*)(tmp + offset) & (~0u >> ((4 - len) << 3));
 }
 void concat(cache, _write)(hwaddr_t addr, size_t len, uint32_t data) {
-	printf("L1cache write at 0x%x", addr);
+	printf("L1cache write at 0x%x\n", addr);
 	assert ((len == 1) || (len == 2) || ( len == 4));
 	uint32_t offset = addr & DATA_MASK;
 	uint8_t tmp[8];
