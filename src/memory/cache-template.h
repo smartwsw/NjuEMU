@@ -1,5 +1,7 @@
 #define TAG_LEN (27 - INDEX_LEN - OFFSET_LEN)
 
+#define HW_MEM_SIZE (128 * 1024 * 1024)
+
 typedef union {
 	struct {
 		uint32_t offset	: OFFSET_LEN;
@@ -51,6 +53,7 @@ void concat(cache, _replace)(uint32_t index, int line, uint32_t tag) {
 }
 
 void concat(cache, _hwread)(hwaddr_t addr,  void* data) {
+	test(addr < HW_MEM_SIZE, "addr = %x\n", addr);
 	concat(Cache, _addr) tmp;
 	tmp.addr = addr;
 	uint32_t offset = tmp.offset;
@@ -68,6 +71,7 @@ void concat(cache, _hwread)(hwaddr_t addr,  void* data) {
 }
 
 void concat(cache, _hwwrite)(hwaddr_t addr, void* data, uint8_t *mask) {
+	test(addr < HW_MEM_SIZE, "addr = %x\n", addr);
 	concat(Cache, _addr) tmp;
 	tmp.addr = addr & (~DATA_MASK);
 	uint32_t offset = tmp.offset;
