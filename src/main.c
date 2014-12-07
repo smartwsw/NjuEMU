@@ -8,6 +8,7 @@ void set_main_args(int, char * []);
 void init_bp_pool();
 void init_regex();
 void init_signal();
+void init_cache();
 void reg_test();
 void restart();
 int enable_debug = false;
@@ -40,6 +41,7 @@ int main(int argc, char *argv[]) {
 	/* Perform some global initialization */
 	init_regex();
 	init_signal();
+	init_cache();
 	init_bp_pool();
 	load_table();
 

@@ -14,3 +14,6 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 #define next_write dram_write
 #include "cache-template.h"
 
+void init_cache() {
+	init_L1cache();
+}
