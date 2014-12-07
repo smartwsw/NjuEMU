@@ -16,7 +16,7 @@ uint32_t get_ucr3();
 
 uint32_t loader() {
 	Elf32_Ehdr *elf;
-	Elf32_Phdr *ph = NULL;
+	//Elf32_Phdr *ph = NULL;
 
 #ifdef HAS_DEVICE
 	uint8_t buf[4096];
@@ -28,28 +28,31 @@ uint32_t loader() {
 #endif
 
 	/* Load each program segment */
-	nemu_assert(0);
-	for(; true; ) {
-		/* Scan the program header table, load each segment into memory */
-		if(ph->p_type == PT_LOAD) {
-
-			/* TODO: read the content of the segment from the ELF file 
-			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
-			 */
-			 
-			 
-			/* TODO: zero the memory region 
-			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
-			 */
-
-
-			/* Record the prgram break for future use. */
+	Elf32_Phdr *ph = (void *)elf->e_phoff;
+	int i = 0;
+	int count = 0;
+	for(; i < elf->e_phnum; i ++) {
+		if (ph[i].p_type == PT_LOAD) {
+			int j;
+			void* dst;
+			const void* src;
+			dst = (void*)ph[i].p_vaddr;
+			src = (void*)elf + ph[i].p_offset;
+			for (j = 0; j < ph[i].p_filesz; j++) {
+				*(char*)dst = *(char*)src;
+				dst = (char*)dst + 1;
+				src = (char*)src + 1;
+			}   
+			for (j=0; j < ph[i].p_memsz - ph[i].p_filesz; j++) {
+				*(char*)dst = 0;
+				dst = (char*)dst + 1;
+			}   
 			extern uint32_t brk;
 			uint32_t new_brk = ph->p_vaddr + ph->p_memsz - 1;
 			if(brk < new_brk) { brk = new_brk; }
+			count++;
 		}
 	}
-
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
