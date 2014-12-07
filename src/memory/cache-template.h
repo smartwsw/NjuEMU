@@ -55,7 +55,7 @@ void concat(cache, _replace)(uint32_t index, int line, uint32_t tag) {
 void concat(cache, _hwread)(hwaddr_t addr,  void* data) {
 	test(addr < HW_MEM_SIZE, "addr = %x\n", addr);
 	concat(Cache, _addr) tmp;
-	tmp.addr = addr;
+	tmp.addr = addr & (~DATA_MASK);
 	uint32_t offset = tmp.offset;
 	uint32_t index = tmp.index;
 	uint32_t tag = tmp.tag;
