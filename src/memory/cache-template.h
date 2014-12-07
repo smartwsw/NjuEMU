@@ -114,8 +114,9 @@ void concat(cache, _write)(hwaddr_t addr, size_t len, uint32_t data) {
 	memset(mask + offset, 1, len);
 	concat(cache, _hwwrite)(addr, tmp, mask);
 	if ((addr ^ (addr + len + 1)) & (~DATA_MASK)){
-		printf("%x\n",addr + 4);
-		concat(cache, _hwwrite)(addr + 4, tmp + 4, mask + 4);
+		//printf("%x\n",addr + 4);
+		if ((addr + 4) < 0x800000)
+			concat(cache, _hwwrite)(addr + 4, tmp + 4, mask + 4);
 	}
 #ifndef WRITE_BACK
 	next_write(addr, len, data);
