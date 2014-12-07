@@ -37,7 +37,7 @@ void concat(cache, _replace)(uint32_t index, int line, uint32_t tag) {
 	concat(Cache, _addr) tmp;
 	tmp.addr = 0;
 	tmp.index = index;
-#ifdef WRITE_BACK
+#ifdef WRITE_BACK0
 	if (cache[index][line].valid && cache[index][line].dirty) {
 		tmp.tag = cache[index][line].tag;
 		for (k = 0; k < BLOCK_SIZE; k++)
