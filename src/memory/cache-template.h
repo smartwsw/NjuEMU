@@ -113,8 +113,10 @@ void concat(cache, _write)(hwaddr_t addr, size_t len, uint32_t data) {
 	*(uint32_t*)(tmp + offset) = data;
 	memset(mask + offset, 1, len);
 	concat(cache, _hwwrite)(addr, tmp, mask);
-	if ((addr ^ (addr + len + 1)) & (~DATA_MASK))
+	if ((addr ^ (addr + len + 1)) & (~DATA_MASK)){
+		printf("%x\n",addr + 4);
 		concat(cache, _hwwrite)(addr + 4, tmp + 4, mask + 4);
+	}
 #ifndef WRITE_BACK
 	next_write(addr, len, data);
 #endif
