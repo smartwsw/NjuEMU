@@ -12,9 +12,9 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 #define cache L2cache
 #define next_read dram_read
 #define next_write dram_write
-#define WRITE_BACK
+//#define WRITE_BACK
 #include "cache-template.h"
-#undef WRTIE_BACK
+//#undef WRTIE_BACK
 
 #define OFFSET_LEN 6
 #define INDEX_LEN 7
