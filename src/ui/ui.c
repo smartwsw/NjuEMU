@@ -127,10 +127,10 @@ static void cmd_info_r() {
 	if (((eflags >> 11) & 0x1) == 1)
 		printf("OF ");
 	printf("]\n");
-	printf("CS		0x%x	%d\n", cpu.CS.SEL, cpu.CS.SEL);
-	printf("DS		0x%x	%d\n", cpu.DS.SEL, cpu.DS.SEL);
-	printf("ES		0x%x	%d\n", cpu.ES.SEL, cpu.ES.SEL);
-	printf("SS		0x%x	%d\n", cpu.SS.SEL, cpu.SS.SEL);
+	printf("CS		0x%x	%d\n", cpu.CS.val, cpu.CS.val);
+	printf("DS		0x%x	%d\n", cpu.DS.val, cpu.DS.val);
+	printf("ES		0x%x	%d\n", cpu.ES.val, cpu.ES.val);
+	printf("SS		0x%x	%d\n", cpu.SS.val, cpu.SS.val);
 	printf("CR0		0x%x\n", cpu.CR0);
 }
 static void cmd_x(uint32_t para,uint32_t addr)

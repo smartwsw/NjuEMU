@@ -10,6 +10,21 @@
  * Hint: Use 'union'.
  * For more details about the GPR encoding scheme, see i386 manual.
  */
+typedef struct SegmentDescriptor {
+	uint32_t limit_15_0          : 16; 
+	uint32_t base_15_0           : 16; 
+	uint32_t base_23_16          : 8;
+	uint32_t type                : 4;
+	uint32_t segment_type        : 1;
+	uint32_t privilege_level     : 2;
+	uint32_t present             : 1;
+	uint32_t limit_19_16         : 4;
+	uint32_t soft_use            : 1;
+	uint32_t operation_size      : 1;
+	uint32_t pad0                : 1;
+	uint32_t granularity         : 1;
+	uint32_t base_31_24          : 8;
+} SegDesc;
 
 typedef union {
 	union{
@@ -23,7 +38,8 @@ typedef union {
 	 * See i386 manual for more details.
 	 */
 
-	struct {uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+	struct {
+		uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 		swaddr_t eip;
 		union {
 			uint32_t EFLAGS;
@@ -40,11 +56,19 @@ typedef union {
 			};
 		};
 		struct {
-			struct {
-				uint16_t SEL;
-				uint32_t HIDDEN;
-			} CS, DS, ES ,SS;
-		};
+			union {
+				struct {
+					uint16_t RPL	:2;
+					uint16_t TI		:1;
+					uint16_t INDEX	:13;
+				};
+				uint16_t val;
+			};
+			union {
+				SegDesc hide;
+				int64_t hide_val;
+			};
+		} CS, SS, DS, ES;
 	};
 
 } CPU_state;
