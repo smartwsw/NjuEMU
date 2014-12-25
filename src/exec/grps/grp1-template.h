@@ -121,9 +121,22 @@ make_helper(concat(grp1_, SUFFIX)) {
 					}
 					break;
 				}
+		case 1 : { 
+					 cpu.CF = 0;
+					 result = value | imm;
+					 if (m.mod == 3) {
+						 REG(m.R_M) = result;
+						 print_asm("or"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(m.R_M));
+					 }
+					 else {
+						 swaddr_write(addr, DATA_BYTE, result);
+						 print_asm("or"str(SUFFIX)"\t\t$0x%x,%s",imm, ModR_M_asm);
+					 }
+					 break;
+				 }
 
 		default :
-				assert(0);
+				 assert(0);
 	}
 	cpu.ZF = !result;
 	cpu.SF = (result >> 31) & 0x1;

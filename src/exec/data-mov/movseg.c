@@ -7,7 +7,7 @@ make_helper(mov_cr_r) {
 	assert(m.mod == 3);
 	switch (m.reg) {
 		case 0 : reg_l(m.R_M) = cpu.CR0; 
-				 print_asm("mov\t\t$CR0,%%%s", regsl[m.R_M]);
+				 print_asm("mov\t\t%%CR0,%%%s", regsl[m.R_M]);
 				 break;
 		default : assert (0);
 	}
@@ -20,7 +20,7 @@ make_helper(mov_r_cr) {
 	assert(m.mod == 3);
 	switch (m.reg) {
 		case 0 : cpu.CR0 = reg_l(m.R_M);
-				 print_asm("mov\t\t%%%s,$CR0", regsl[m.R_M]);
+				 print_asm("mov\t\t%%%s,%%CR0", regsl[m.R_M]);
 				 break;
 	}
 	return 2;
