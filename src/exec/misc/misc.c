@@ -41,6 +41,8 @@ make_helper(esc_code) {
 	int len = 0;
 	switch(instr_fetch(eip + 1, 1)) {
 		case 0x01:	len = lgdt_v(eip + 1);		break;
+		case 0x20:	len = mov_cr_r(eip + 1);	break;
+		case 0x22:	len = mov_r_cr(eip + 1);	break;
 		case 0x80:	len = jo_v(eip + 1);		break;
 		case 0x81:	len = jno_v(eip + 1);		break;
 		case 0x82:	len = jb_v(eip + 1);		break;

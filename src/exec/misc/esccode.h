@@ -2,6 +2,8 @@
 #define __ESCAPED_INSTR_H__
 
 make_helper(lgdt_v);
+make_helper(mov_r_cr);
+make_helper(mov_cr_r);
 make_helper(je_v);
 make_helper(movx_v);
 make_helper(movx_w_l);
