@@ -29,15 +29,21 @@ typedef union {
 			uint32_t EFLAGS;
 			struct {uint32_t CF:1,NAN1:1,PF:1,NAN2:1,AF:1,NAN3:1,ZF:1,SF:1,TF:1,IF:1,DF:1,OF:1,IOPL:2,NT:1,NAN4:1,RF:1,VM:1,NAN5:15;};
 		};
-	};
-	struct {
-		uint32_t addr;
-		uint16_t limit;
-	} GDTR;
-	union {
-		uint32_t CR0;
 		struct {
-			uint32_t PE:1, MP:1, EM:1, TS:1, ET:1, RESERVED:26, PG:1;
+			uint32_t addr;
+			uint16_t limit;
+		} GDTR;
+		union {
+			uint32_t CR0;
+			struct {
+				uint32_t PE:1, MP:1, EM:1, TS:1, ET:1, RESERVED:26, PG:1;
+			};
+		};
+		struct {
+			struct {
+				uint16_t SEL;
+				uint32_t HIDDEN;
+			} CS, DS, ES ,SS;
 		};
 	};
 
