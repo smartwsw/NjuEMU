@@ -25,3 +25,31 @@ make_helper(mov_r_cr) {
 	}
 	return 2;
 }
+
+make_helper(mov_rm_seg) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	int len = 1;
+	if (m.mod == 3) {
+		int val = reg_w(m.R_M);
+		switch (m.reg) {
+			case 0 : cpu.ES.val = val;	
+					 print_asm("mov\t\t%s,%%ES", regsw[m.R_M]);
+					 break;
+			case 1 : cpu.CS.val = val;
+					 print_asm("mov\t\t%s,%%CS", regsw[m.R_M]);
+					 break;
+			case 2 : cpu.SS.val = val;
+					 print_asm("mov\t\t%s,%%SS", regsw[m.R_M]);
+					 break;
+			case 3 : cpu.DS.val = val;	
+					 print_asm("mov\t\t%s,%%DS", regsw[m.R_M]);
+					 break;
+			default : assert(0);
+		}
+		len = 2;
+	}
+	else assert(0);
+	return len;
+}
+
