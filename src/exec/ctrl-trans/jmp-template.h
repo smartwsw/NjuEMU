@@ -15,13 +15,13 @@ make_helper(concat(jmp_rel_, SUFFIX)) {
 
 make_helper(concat(jmp_ptr_, SUFFIX)) {
 	DATA_TYPE_S addr = instr_fetch(eip + 1, DATA_BYTE);
-	cpu.eip = addr;
+	cpu.eip = addr - DATA_BYTE - 3;
 #if DATA_BYTE == 2
 	cpu.eip &= 0xffff;
 #endif
 	uint16_t imm = instr_fetch(eip + 1 + DATA_BYTE, 2);
 	cpu.CS.val = imm;
 	print_asm("jmp\t\t$0x%x,%x", imm, addr);
-	return 0;
+	return DATA_BYTE + 3;
 }
 #include "exec/template-end.h"
