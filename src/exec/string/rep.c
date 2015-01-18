@@ -19,8 +19,10 @@ make_helper(rep) {
 			break;
 		case 0xaa:
 			print_asm("rep stosb");
+			break;
 		case 0xab:
 			print_asm("rep stos%c", suffix);
+			break;
 		default :
 			printf("Invalid instruction with opcode %x at eip = 0x%x", instr_fetch(eip + 1, 1), eip);
 			assert(0);
