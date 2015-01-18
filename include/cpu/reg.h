@@ -55,6 +55,12 @@ typedef union {
 				uint32_t PE:1, MP:1, EM:1, TS:1, ET:1, RESERVED:26, PG:1;
 			};
 		};
+		union {
+			uint32_t CR3;
+			struct {
+				uint32_t RESERVE:12 ,PDBR:20;
+			};
+		};
 		struct {
 			union {
 				struct {
