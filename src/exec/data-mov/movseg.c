@@ -21,7 +21,7 @@ make_helper(mov_r_cr) {
 	m.val = instr_fetch(eip + 1, 1);
 				 Log("\e[33mTest4!\e[0m\n");
 	assert(m.mod == 3);
-	Log("\e[33m%x %x %x\e[0m\n", m.mod, m.reg, m.R_M);
+	Log("\e[33m%x %x %x %x\e[0m\n", m.val, m.mod, m.reg, m.R_M);
 	switch (m.reg) {
 		case 0 : cpu.CR0 = reg_l(m.R_M);
 				 print_asm("mov\t\t%%%s,%%CR0", regsl[m.R_M]);
