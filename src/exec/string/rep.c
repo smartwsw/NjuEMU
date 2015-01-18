@@ -22,7 +22,7 @@ make_helper(rep) {
 		case 0xab:
 			print_asm("rep stos%c", suffix);
 		default :
-			printf("Invalid instruction with opcode %x at eip = 0x%x", instr_fetch(eip, 1), eip);
+			printf("Invalid instruction with opcode %x at eip = 0x%x", instr_fetch(eip + 1, 1), eip);
 			assert(0);
 	}
 	return len + 1;
