@@ -5,7 +5,7 @@ make_helper(mov_cr_r) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 4);
 	assert(m.mod == 3);
-	switch (m.mod) {
+	switch (m.reg) {
 		case 0 : reg_l(m.R_M) = cpu.CR0; 
 				 printf("\e[33mTest!\e[0m\n");
 				 print_asm("mov\t\t%%CR0,%%%s", regsl[m.R_M]);
@@ -21,9 +21,9 @@ make_helper(mov_r_cr) {
 	m.val = instr_fetch(eip + 1, 4);
 				 Log("\e[33mTest4!\e[0m\n");
 	assert(m.mod == 3);
-	switch (m.mod) {
-		case 0 : cpu.CR0 = reg_l(m.R_M);
-				 print_asm("mov\t\t%%%s,%%CR0", regsl[m.R_M]);
+	switch (m.R_M) {
+		case 0 : cpu.CR0 = reg_l(m.reg);
+				 print_asm("mov\t\t%%%s,%%CR0", regsl[m.reg]);
 				 Log("\e[33mTest2!\e[0m\n");
 				 break;
 		default : assert(0);
