@@ -22,7 +22,7 @@ make_helper(mov_r_cr) {
 	Log("\e[33m%x %x %x %x\e[0m\n", m.val, m.mod, m.reg, m.R_M);
 	switch (m.reg) {
 		case 0 : cpu.CR0 = reg_l(m.R_M);
-				// print_asm("mov\t\t%%%s,%%CR0", regsl[m.R_M]);
+				 print_asm("mov\t\t%%%s,%%CR0", regsl[m.R_M]);
 				 Log("\e[33mTest2!\e[0m\n");
 				 break;
 		case 3 : cpu.CR3 = reg_l(m.R_M);
@@ -32,6 +32,7 @@ make_helper(mov_r_cr) {
 		default : assert(0);
 	}
 				 Log("\e[33mTest5!\e[0m\n");
+				 assert(0);
 	return 2;
 }
 
