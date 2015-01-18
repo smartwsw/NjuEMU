@@ -20,6 +20,21 @@ lnaddr_t segment_translate(swaddr_t addr, int sreg_i) {
 	return addr + offset;
 }
 
+uint32_t page_translate(lnaddr_t addr) {
+	if (cpu.PE && cpu.PG) {
+		uint32_t dir = (addr >> 22) & 0x3FF;
+		uint32_t page = (addr >> 12) & 0x3FF;
+		uint32_t offset = addr & 0xFFF;
+		int* pos = (void*)(cpu.PDBR + dir);
+		assert((*pos) & 0x1);
+		int* pageaddr = (void*)((((*pos) >> 12) & 0xFFFFF) + page);
+		assert((*pageaddr) &0x1);
+		int* lnaddr = (void*)((((*pageaddr) >> 12) & 0xFFFFF) + offset);
+		return *lnaddr;
+	}
+	else 
+		return addr;
+}
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
 	return L1cache_read(addr, len);
@@ -32,12 +47,14 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
-	return hwaddr_read(addr, len);
+	hwaddr_t hwaddr = page_translate(addr);
+	return hwaddr_read(hwaddr, len);
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
-	return hwaddr_write(addr, len, data);
+	hwaddr_t hwaddr = page_translate(addr);
+	return hwaddr_write(hwaddr, len, data);
 }
 uint32_t swaddr_read(swaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
