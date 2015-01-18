@@ -3,7 +3,7 @@
 #include "cpu/reg.h"
 make_helper(mov_cr_r) {
 	ModR_M m;
-	m.val = instr_fetch(eip + 1, 4);
+	m.val = instr_fetch(eip + 1, 1);
 	assert(m.mod == 3);
 	switch (m.reg) {
 		case 0 : reg_l(m.R_M) = cpu.CR0; 
@@ -18,7 +18,7 @@ make_helper(mov_cr_r) {
 make_helper(mov_r_cr) {
 	ModR_M m;
 				 Log("\e[33mTest3!\e[0m\n");
-	m.val = instr_fetch(eip + 1, 4);
+	m.val = instr_fetch(eip + 1, 1);
 				 Log("\e[33mTest4!\e[0m\n");
 	assert(m.mod == 3);
 	switch (m.reg) {
