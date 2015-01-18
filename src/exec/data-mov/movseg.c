@@ -7,7 +7,7 @@ make_helper(mov_cr_r) {
 	assert(m.mod == 3);
 	switch (m.reg) {
 		case 0 : reg_l(m.R_M) = cpu.CR0; 
-				 printf("\e[33mTest!\n");
+				 printf("\e[33mTest!\e[0m\n");
 				 print_asm("mov\t\t%%CR0,%%%s", regsl[m.R_M]);
 				 break;
 		default : assert (0);
