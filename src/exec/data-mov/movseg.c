@@ -26,6 +26,7 @@ make_helper(mov_r_cr) {
 				 print_asm("mov\t\t%%%s,%%CR0", regsl[m.R_M]);
 				 Log("\e[33mTest2!\e[0m\n");
 				 break;
+		default : assert(0);
 	}
 	return 2;
 }
