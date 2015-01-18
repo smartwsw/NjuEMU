@@ -22,6 +22,7 @@ make_helper(mov_r_cr) {
 	switch (m.reg) {
 		case 0 : cpu.CR0 = reg_l(m.R_M);
 				 print_asm("mov\t\t%%%s,%%CR0", regsl[m.R_M]);
+				 printf("\e[33mTest2!\e[0m\n");
 				 break;
 	}
 	return 2;
