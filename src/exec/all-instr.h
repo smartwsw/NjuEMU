@@ -28,3 +28,4 @@
 #include "flag-ctrl/cld.h"
 #include "string/movs.h"
 #include "string/rep.h"
+#include "string/stos.h"
