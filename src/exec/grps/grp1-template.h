@@ -97,6 +97,7 @@ make_helper(concat(grp1_, SUFFIX)) {
 				}
 		case 0: {
 					result = value + imm;
+					Log("\e[33mTest6!\e[0m\n");
 					cpu.CF = ((value >> 31) & 0x1) && ((imm >> 31) & 0x1); 
 					if (m.mod == 3) {
 						REG(m.R_M) = result;
