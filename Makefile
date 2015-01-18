@@ -58,7 +58,7 @@ test: nemu $(TEST_FILE_LIST)
 
 
 STU_ID=131220069
-SHARED_FOLDER=/mnt/hgfs/debian/
+SHARED_FOLDER=/media/psf/debian
 
 submit: clean
 	cd testcase && make clean
