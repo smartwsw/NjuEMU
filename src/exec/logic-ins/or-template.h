@@ -4,6 +4,7 @@
 make_helper(concat(or_i_a_,SUFFIX)) {
 	int imm = instr_fetch(eip + 1, DATA_BYTE);
 	int result = REG(0) | imm;
+	printf("\e[33mTest0!\e[0m\n");
 	print_asm("or"str(SUFFIX)"\t\t$0x%x,%%%s",imm,REG_NAME(0));
 	REG(0) = result;
 	cpu.ZF = !result;
@@ -15,6 +16,7 @@ make_helper(concat(or_i_a_,SUFFIX)) {
 		if (((result >> i) & 0x1) == 1)
 			parity = ~parity;
 	cpu.PF = parity;	
+	printf("\e[33mTest1!\e[0m\n");
 	return DATA_BYTE + 1;
 }
 make_helper(concat(or_rm_r_, SUFFIX)) {
