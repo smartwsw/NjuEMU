@@ -31,6 +31,7 @@ make_helper(mov_r_cr) {
 				 break;
 		default : assert(0);
 	}
+				 Log("\e[33mTest5!\e[0m\n");
 	return 2;
 }
 
