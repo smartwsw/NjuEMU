@@ -17,7 +17,9 @@ make_helper(mov_cr_r) {
 
 make_helper(mov_r_cr) {
 	ModR_M m;
+				 printf("\e[33mTest3!\e[0m\n");
 	m.val = instr_fetch(eip + 1, 4);
+				 printf("\e[33mTest4!\e[0m\n");
 	assert(m.mod == 3);
 	switch (m.reg) {
 		case 0 : cpu.CR0 = reg_l(m.R_M);
