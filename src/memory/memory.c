@@ -24,7 +24,7 @@ void break_test() {
 	return ;
 }
 uint32_t page_translate(lnaddr_t addr) {
-	if (cpu.PG && cpu.PE) {
+	if (cpu.PG && cpu.PE & 0) {
 		break_test();
 		uint32_t dir = (addr >> 22) & 0x3FF;
 		uint32_t page = (addr >> 12) & 0x3FF;
