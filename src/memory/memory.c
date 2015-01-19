@@ -20,8 +20,12 @@ lnaddr_t segment_translate(swaddr_t addr, int sreg_i) {
 	return addr + offset;
 }
 
+void break_test() {
+	return ;
+}
 uint32_t page_translate(lnaddr_t addr) {
 	if (cpu.PG) {
+		break_test();
 		uint32_t dir = (addr >> 22) & 0x3FF;
 		uint32_t page = (addr >> 12) & 0x3FF;
 		uint32_t offset = addr & 0xFFF;
