@@ -6,6 +6,7 @@ uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 uint32_t L1cache_read(hwaddr_t, size_t);
 void L1cache_write(hwaddr_t, size_t, uint32_t);
+uint32_t instr_fetch(swaddr_t addr, size_t len);
 
 /* Memory accessing interfaces */
 
@@ -24,20 +25,17 @@ void break_test() {
 	return ;
 }
 uint32_t page_translate(lnaddr_t addr) {
-	if (cpu.PG && cpu.PE & 0) {
-		break_test();
+	if (cpu.PG && cpu.PE) {
 		uint32_t dir = (addr >> 22) & 0x3FF;
 		uint32_t page = (addr >> 12) & 0x3FF;
 		uint32_t offset = addr & 0xFFF;
-		int* pos = (void*)(cpu.PDBR + dir);
-	//	assert((*pos) & 0x1);
-		int* pageaddr = (void*)((((*pos) >> 12) & 0xFFFFF) + page);
-	//	assert((*pageaddr) &0x1);
-		int* lnaddr = (void*)((((*pageaddr) >> 12) & 0xFFFFF) + offset);
-		return *lnaddr;
+		uint32_t dir_addr = (cpu.CR3 & 0xFFFFF000) + dir;
+		uint32_t page_addr = (instr_fetch(dir_addr, 4) & 0xFFFFF000) + page;
+		uint32_t ln_addr = (instr_fetch(page_addr, 4) & 0xFFFFF000) + offset;
+		return ln_addr;
 	}
 	else 
-		return addr & 0xffffff;
+		return addr;
 }
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
