@@ -37,7 +37,7 @@ uint32_t page_translate(lnaddr_t addr) {
 		return *lnaddr;
 	}
 	else 
-		return addr;
+		return addr & 0xffffff;
 }
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
