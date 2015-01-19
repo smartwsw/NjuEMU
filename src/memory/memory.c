@@ -26,9 +26,9 @@ uint32_t page_translate(lnaddr_t addr) {
 		uint32_t page = (addr >> 12) & 0x3FF;
 		uint32_t offset = addr & 0xFFF;
 		int* pos = (void*)(cpu.PDBR + dir);
-		assert((*pos) & 0x1);
+	//	assert((*pos) & 0x1);
 		int* pageaddr = (void*)((((*pos) >> 12) & 0xFFFFF) + page);
-		assert((*pageaddr) &0x1);
+	//	assert((*pageaddr) &0x1);
 		int* lnaddr = (void*)((((*pageaddr) >> 12) & 0xFFFFF) + offset);
 		return *lnaddr;
 	}
