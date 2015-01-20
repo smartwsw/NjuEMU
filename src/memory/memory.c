@@ -24,7 +24,7 @@ void break_test() {
 	return ;
 }
 uint32_t page_translate(lnaddr_t addr) {
-	return addr & 0xFFFFF000;
+	return addr & 0xFFFFFF;
 }
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
